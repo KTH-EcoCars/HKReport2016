@@ -1,0 +1,79 @@
+Eco Cars Setting up report
+--------------------
+About report:
+--------------------
+
+Targeted towards both industry reps and teaching team.
+Detailed enough to be repeated by another part.
+
+All code and blueprints should be included.
+
+Important to describe design decisions.
+
+Include all decisions about the old system.
+
+--------------------
+Our thoughts on content:
+--------------------
+
+Work on test rig and optimization big, "separate" parts in report. These can be
+internally refered to. This also makes it easier to divide work when writing 
+report.
+
+Can show V-model internally within each mini project.
+
+Included mini projects:
+- Test rig
+- Optimization
+- Car improvement
+    - Software
+    - Hardware 
+
+Design decisions:
+- Which parts of car to improve?
+- Clutch redesign (Use clutch guys report?)
+- Simulink redesign
+- ICE ECU redesign
+- New ICE (possible to refer to ICE guys report? Yes.)
+- Race Capture (Position, logging and intrumentation)
+- Redesign of electronics
+    - Whipers
+    - Lights
+    - Deadman switch
+- Project management
+- Research methology (?)
+
+--------------------
+Layout:
+--------------------
+
+- Main introduction to project
+- Motivation to why there are many projects
+- Projects
+    All of these contain {Introduction, Method, Result, Discussion/Conclusion}
+    - Car improvements
+    - Optimization
+    - Test rig
+- Total results
+- Total discussion/Conclusion
+- Future work (Include Leifs work?)
+- Appendices
+ 
+--------------------
+Practical:
+--------------------
+
+- Use Git via KTH-EcoCars, organization
+Email address: eco-cars@kth.se
+Password: Elba2016
+- Trello board for report
+- Slack channel
+- Using Latex
+- Folder/import structure
+
+--------------------
+Notes:
+--------------------
+- Find template for title page.
+- Mind map available on separate papaer.
+- Important to show that Elba is the project, give a holistic view.

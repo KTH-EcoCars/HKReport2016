@@ -1,0 +1,10 @@
+# Gitignore file for EcoCars hk report
+# Ignore Vim swap files
+*.swp
+
+# Latex files
+*.aux
+*.log
+*.out
+*.fls
+
