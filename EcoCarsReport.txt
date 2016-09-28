@@ -65,7 +65,7 @@ Practical:
 
 - Use Git via KTH-EcoCars, organization
 Email address: eco-cars@kth.se
-Password: Elba2016
+Password: {Changed see Whiteboard}
 - Trello board for report
 - Slack channel
 - Using Latex
