@@ -8,3 +8,6 @@
 *.out
 *.fls
 
+# Latexmk files
+*.gz
+*.fbd_latexmk
