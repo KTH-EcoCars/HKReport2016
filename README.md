@@ -99,7 +99,10 @@ above, one would get:
     
 ## Sections
 Latex uses a tiered section system where `\section{}` is above 
-`\subsection{}` and that in turn is above `\subsubsection{}`. In this report,
-`\section{}` is reserved for the chapters. This means that within each seperate
-chapter, one can use `\subsection{}` and `\subsubsection{}`.
+`\subsection{}` and that in turn is above `\subsubsection{}`. The `\chapter{}` section is above all of these. 
+In this report,`\chapter{}` is reserved for the chapters, the main parts of the report. 
+This means that within each seperate chapter, one can use `\section{}, \subsection{}` and `\subsubsection{}`.
+This does not apply to appendices, (for now) all appendices sould be in a separate \chapter{}
+
+If you need to include an additional package this should be done in the main.tex file.
 
