@@ -7,6 +7,11 @@
 *.log
 *.out
 *.fls
+*.dvi
+*.toc
+*.idx
+*.bbl
+*.blg
 
 # Latexmk files
 *.gz
