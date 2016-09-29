@@ -10,6 +10,33 @@ __Latex/__: The folder containg all Latex code for the project.
 
 __.gitignore__: File telling Git which files to not add to the repo.
 
+# Git quick guide
+
+This is a quick reference to the simplest commands in Git. Pleas see [this](https://www.atlassian.com/git/tutorials/comparing-workflows/centralized-workflow/) guide for further details.
+
+To download this repo, _clone_ the repository.
+
+    $ git clone https://github.com/KTH-EcoCars/HKReport2016.git
+
+This will add the folder to your computer. Before you start coding, always pull the latest changes from the repo.
+
+    $ git pull
+
+After you have done changes, add them to the coming commit.
+
+    $ git add --all
+
+Create the actual commit and add a useful comment.
+
+    $ git commit -m "Write a good message here."
+
+All the changes are still on your computer. Push them to the central repo by writing
+
+    $ git push origin master
+
+Quick tip: You can do several commits on your computer before pushing them to the central repo. The push command will push them all at once.
+
+
 # Latex instructions
 This section contains info about how to write and compile the report.
 ## Software needed
