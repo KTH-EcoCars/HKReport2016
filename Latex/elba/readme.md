@@ -10,3 +10,10 @@
 * Lights
 * *Software*
 * Race Capture? -maybe more relevat to optim chapter
+
+#### Some references that probably should be added
+CAN
+Shell Eco
+Shell eco rules
+Arduino?
+Vector

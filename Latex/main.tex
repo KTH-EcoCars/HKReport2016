@@ -1,5 +1,6 @@
 \documentclass[a4paper, 12pt]{report}
 
+% Encoding så att ö, | och engelsa fungerar som det ska
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -20,6 +21,7 @@
 \titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
 
 \begin{document}
+\pagenumbering{roman}
 
 \begin{titlepage}
 	\centering
@@ -38,23 +40,26 @@
 	{\large \today\par}
 \end{titlepage}
 
-\pagenumbering{roman}
+
 \begin{abstract}
 Abs
 \end{abstract}
 \clearpage
-
+% Hardcoded page number start
+\setcounter{page}{3}
 \chapter*{Preamble}
 \addcontentsline{toc}{chapter}{Preable}
 Danke very much, to Lei Feng \cite{sota16}
 
-\begin{flushright}Mecatronics team \\ Bunkern, nådens år \end{flushright}
+\begin{flushright}Mecatronics team \\ The bunker \\This year: fore sure \end{flushright}
 
 \clearpage
+\setcounter{tocdepth}{1}
 \tableofcontents
+\clearpage
 \pagenumbering{arabic}
 
-%% The first line in the included files should be \vhapert{chaptername}
+%% The first line in the included files should be \chaper{chaptername}
 \include{./introduction/introduction}
 \include{./motivation/motivation}
 \include{./elba/elba}
@@ -67,6 +72,11 @@ Danke very much, to Lei Feng \cite{sota16}
 % Bibliography
 \bibliographystyle{plain}
 \bibliography{mainbib}
+
+\chapter*{Acknowlegments}
+\addcontentsline{toc}{chapter}{Acknowlegments}
+Thanks to sponsors maybe Shell etc.
+
 
 \appendix
 \addtocontents{toc}{\protect\contentsline {part}{Appendices}{}{}}
