@@ -1,9 +1,10 @@
-## Note and thoughts
+### Note and thoughts
 
 1. System architecture
 2. Rules and Requirements
 3. Design desitions aka
-* Clutch desiotions
+
+* Clutch desitions
 * Engine
 * Wipers
 * Lights
