@@ -16,3 +16,6 @@
 # Latexmk files
 *.gz
 *.fbd_latexmk
+
+# To avoid merge crashes
+*.pdf
