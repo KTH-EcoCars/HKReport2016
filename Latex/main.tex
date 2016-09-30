@@ -1,6 +1,6 @@
 \documentclass[a4paper, 12pt]{report}
 
-% Encoding så att ö, | och engelsa fungerar som det ska
+% Encoding so åäö as input, | and ascii as output, and english works as intended
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -56,6 +56,17 @@ Danke very much, to Lei Feng \cite{sota16}
 \clearpage
 \setcounter{tocdepth}{1}
 \tableofcontents
+
+\chapter*{Abbreviations}
+\addcontentsline{toc}{chapter}{Abbreviations}
+\noindent{}\begin{tabular}{@{}p{2.5cm}l}
+\textbf{Abbreviation} 	& \textbf{Description} \vspace{.5em} \\
+BLDC	&Brushless Direct Current\\
+SEM		&Shell Eco-marathon\\
+CAN	 	&Controller Area Network\\
+ICE 	&Internal Combustion Engine\\
+\end{tabular}
+
 \clearpage
 \pagenumbering{arabic}
 
