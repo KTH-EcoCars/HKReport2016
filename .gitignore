@@ -12,7 +12,6 @@
 *.idx
 *.bbl
 *.blg
-*.eps
 
 # Latexmk files
 *.gz
