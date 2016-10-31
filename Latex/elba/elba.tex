@@ -24,18 +24,18 @@ The car has four electronic control units (ECUs) that are responsible for differ
 \item Clutch-ECU
 \end{itemize}
 
-The Fornt-ECU is responsible for the human interface, the buttons where the driver is able to decide mode and speed if the car is in manual mode. It sends speed and dive mode on the can bus.
+The Front-ECU is responsible for the human interface, the buttons where the driver is able to decide mode and speed if the car is in manual mode. It sends speed and dive mode on the can bus.
 
-The Back-ECU controls the motors via the separate motor controllers. It has veto over the ICE and Cluch.
+The Back-ECU controls the motors via the separate motor controllers. It has veto over the ICE and Clutch.
 
 The internal combustion engine is controlled by the ICE-ECU and this is its only task. It senses the lambda value and motor? temperatures to control the injection of fuel.
 
-The Cluch-ECU controls the clutch. It interfaces to two H-bridges which in turn steers the linear actuators.  
+The Clutch-ECU controls the clutch. It interfaces to two H-bridges which in turn steers the linear actuators.  
 
 \subsection{Communication}
 The car uses a CAN network to communicate between the distributed micro-controllers. The micro-controllers have specific values that are needed elsewhere; these are sent on the CAN-bus. 
 
-Another CAN network is used between the Back-ECU and the inMotion driver that controls the brushless motor. This newtwork ustes the protocol CANopen that lies on top of the CAN bus.
+Another CAN network is used between the Back-ECU and the inMotion driver that controls the brushless motor. This network ustes the protocol CANopen that lies on top of the CAN bus.
 The instrumentation panel communicates via Bluetooth with the data-logger/GPS-unit.
 
 \subsection{Energy supply}
