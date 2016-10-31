@@ -97,6 +97,31 @@ above, one would get:
         \caption{This is a dork trying to play ice hockey.}
     \end{figure}
     
+### Bibliography
+The bibliography is the reference list. It uses the Latex library _natbib_. Add
+new references to _mainbib.bib_. For more info, check out [this](https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management#BibTeX)
+link.
+
+#### Reference format
+A reference looks like this
+
+    @type { referenceName,
+            author = "Author name",
+            title = "Title name",
+            year = "2016",
+            ...
+    }
+
+The available types are given in the table in the previous link. Depending on
+the type of citation, some fields must be given. These are available in the table
+displayed in the previous link.
+
+#### Making a reference
+To make a reference, use the `\cite` command. Example based on the citation
+above:
+
+    This is a Latex text. It has been proven that Latex is widely superior to any other word processing program \cite{referenceName}.
+
 ## Sections
 Latex uses a tiered section system where `\section{}` is above 
 `\subsection{}` and that in turn is above `\subsubsection{}`. The `\chapter{}` section is above all of these. 
