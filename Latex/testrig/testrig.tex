@@ -1,6 +1,6 @@
 \chapter{Testrig}
 \section{Introduction}
-When designing a complex system sych as a hybrid vehicle, being continuously be
+When designing a complex system such as a hybrid vehicle, being continuously be
 able to test the system is important to validate that the requirements are met
 and to verify the models. To be able to do a full system test, the car has to be
 physically run on a track. This can be cumbersome, or in the case of the London
@@ -16,19 +16,34 @@ The requirements on the test rig are designed to capture the essential demands
 on the system. Firstly, the high level User requirements are set. These are set
 to capture the problem and to describe the goal of designing the system
 ~\cite{ibm_req}. The User requirements are then developed into the System
-requirements that describe the limtations and demands on the system and its
-subsystems. 
-\section{Temp notes}
-Modeled negative forces acting on vehicle (gravity, air resistance, friction): 
-Torque required on wheel of ELBA:$$T_r = F_r\*r_w$$
-Torque required for vals on test rig: $$T_t = \frac{T_r\*r_t}{r_w}$$
-Required torque for motor, $T_m$:
-$$T_m = T_t + J\ddot{\phi} + d\dot{\phi} + k\phi$$
+requirements that describe the limitations and demands on the system and its
+subsystems.
 
+\section{Temp notes}
+Modelled negative forces acting on vehicle (gravity, air resistance, friction): 
 
 \begin{figure}[H]
     \centering
-    \label{fig:testrig_power_required_motor}
-    \includegraphics[width=0.5\textwidth]{./testrig/power_required_testrig.eps}
+    \label{fig:testrig_negative_forces}
+    \includegraphics[width=0.5\textwidth]{./img/testrig_negative_forces.eps}
+    \caption{Negative forces acting upon Elba in one lap.}
+\end{figure}
+
+Torque required on wheel of ELBA: $$T_w = F_n\*r_w$$
+
+Torque required for roller on test rig: $$T_r = \frac{T_w\*r_r}{r_w}$$
+
+Required torque for motor, $T_m$: $$T_m = T_t + J_r\*\ddot{\phi} + d\*\dot{\phi}_m + k\*\phi_m$$
+
+Power required for motor: $$P_m = T_m\*\dot{\phi}_m$$
+
+The inertia $J_r$ for the rollers on the testrig was calculated to be $0.0039$ $kgm^2$
+
+This results in $P_m = 1000$ W
+
+\begin{figure}[H]
+    \centering
+    \label{fig:testrig_power_required}
+    \includegraphics[width=0.5\textwidth]{./img/testrig_power_required.eps}
     \caption{Power required for the motor on the testrig.}
 \end{figure}
