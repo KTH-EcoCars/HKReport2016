@@ -13,6 +13,11 @@ The aim of Elba is to provide a platform to perform various levels of projects f
 \subsection{Urban Concept Vehicle}
 The group that Elba competes in is called Urban Concept Vehicle. The vehicles in this group has be closer in appearance to today's production type passenger cars and has to comply with the specific rules of Shell Eco-marathon for this group. These vehicles has to have common features as wind shield wiper, turn signals and a horn. Vehicles competing in this group will require "stop and go"-driving, which means that once every lap the vehicle needs to do a full stop. This is to further increase the resemblance with city driving.
 
+\subsection{State at start of project}
+The car where in working condition when the project started, but had several problems. To mention a few major ones: The clutch where slow and unreliable, the overall power-output might not have been enough to be efficient on the new track, none of the potential driver would fit in the driver compartment, the horn disturbed the entire electrical system.
+
+These issues where, together with the competition rules, the primary base for the decisions that where taken and related to the car. Some of the work done to "fix" these problems where a matter of reshape some metal piece and bolting it back in the car, suddenly the driver could reach the brakes. While other required an entire team of people to get a new, working, ethanol engine in the car.
+
 \section{System Overview}
 \subsection{Electronic Control Units}
 The car has four electronic control units (ECUs) that are responsible for different parts of the car.
@@ -47,7 +52,7 @@ At Shell Eco Marathon all vehicles must pass two inspections before the vehicle 
 
 \section{Design decisions}
 \subsection{Clutch decisions}
-One of the major problems with the car has been the clutch. To solve the mechanical problems it was decided to appoint one team from the machine design department to work solely on the mechanical parts of the clutch. The mechatronics team decided to completely remake the clutch ECU to make it more robust. Despite the new ECU and the work performed by the machine design team, which can be read about in REPORT.XX there was problems with the clutch when it was time to race. The problems was of mechanical nature, where the clutch plate on the ICE side stuck very hard to the center plate of the clutch. When this happened, the ICE  could not be disengaged from the drivetrain. 
+One of the major problems with the car has been the clutch. To solve the mechanical problems it was decided to appoint one team from the machine design department to work solely on the mechanical parts of the clutch. The mechatronics team decided to completely remake the clutch ECU to make it more robust. Despite the new ECU and the work performed by the machine design team, which can be read about in (TODO REPORT.XX) there was problems with the clutch when it was time to race. The problems was of mechanical nature, where the clutch plate on the ICE side stuck very hard to the center plate of the clutch. When this happened, the ICE  could not be disengaged from the drivetrain. 
 
 To solve this problem, several solutions have been investigated. The clutch mechanism has been controlled by time rather than position. One approach was to use the built in hall sensor in the actuator to control the position. One other idea was to use an external current sensor on the clutch ECU to control the position. A third idea was to continue using time as reference, but increase it so that an end position is always reached, which can be used as a reference position.
 
