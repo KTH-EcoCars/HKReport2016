@@ -57,9 +57,39 @@ One of the major problems with the car has been the clutch. To solve the mechani
 To solve this problem, several solutions have been investigated. The clutch mechanism has been controlled by time rather than position. One approach was to use the built in hall sensor in the actuator to control the position. One other idea was to use an external current sensor on the clutch ECU to control the position. A third idea was to continue using time as reference, but increase it so that an end position is always reached, which can be used as a reference position.
 
 
-\subsection{Internal Combustion Engine}
+\subsection{Internal Combustion Engine and ICE ECU}
+It was decided that this years car should compete in the alternative fuels
+class. This means that the car should be powered by an engine that runs on
+ethanol. An engine running ethanol need to have a higher compression ratio than
+a petrol engine.
+%% TODO: Source on the above. Also, link to ICE report.
+The requirements engineering and modifications on the new ICE was set by the ICE
+team. To control the new engine, a new ICE ECU was needed. It was also decided
+that the new ICE ECU would contain more sensor inputs as well as the possibility
+to control the ICE ignition. All functionality of the old ICE ECU would still be
+present, namely:
+\begin{itemize}
+    \item Simulink TLC software.
+    \item Feedback control loop of injection time.
+    \item Lambda value sensing.
+    \item Encoder reading with index pulse from ICE.
+\end{itemize}
+More sensor data together with ignition control would give possibilities
+for more exact control of the ICE. The extra features of the new ECU were:
+\begin{itemize}
+    \item Motor oil temperature sensing.
+    \item Ambient air temperature sensing.
+    \item Ignition control.
+\end{itemize}
+The features were implemented on the ECU PCB and the system was designed so that
+the sensors and features could be implemented incrementally according to the
+time and need of the project. Given that the amount of time that would be needed
+to get the car in working condition before the race was not easily planned
+beforehand, it was beneficial to have a base functionality with flexibility to
+add features.
 
 \section{Results}
+We beat Chalmers. We are no byskola.
 \subsection{Competition}
 
 \subsection{End of project}
