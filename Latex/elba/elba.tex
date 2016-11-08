@@ -1,26 +1,66 @@
 \chapter{Elba The Car}
-The hybrid vehicle that was build upon was named Elba several years ago when it was still a pure electric vehicle. The platform has been continuously improved and altered to the complex hybrid that exist today. Each year Elba participates in Shell Eco Marathon as an "Urban Concept Vehicle". /Sanel
+The hybrid vehicle that was build upon was named Elba several years ago when it
+was still a pure electric vehicle. The platform has been continuously improved
+and altered to the complex hybrid that exist today. Each year Elba participates
+in Shell Eco Marathon (SEM) as an ´´Urban Concept Vehicle''.
 
-\section{Introduction (?)}
-\subsection{How it moves}
-Elba combines one DC motor, one Brushless DC motor (BLDC) and a one-cylinder internal combustion engine; to provide torque to the rear right wheel, propelling the car forwards.
-A single person can ride the car, that person is coincidentally, also the driver. 
-The driver steers the car and decide upon a reference speed that the car should follow and has the option to decide what mode (what combination of motor and engine) that should be used at a specific time.
+\section{Introduction}
+\subsection{Propulsion}
+Elba is an electric-ethanol hybrid vehicle which combines two 48V electrical
+motors and one internal combustion engine (ICE). The electrical motors is one
+0.2 kW direct current (DC) motor connected directly to the drive shaft and one
+1.1 kW brushless DC motor (BLDC) connected via the clutch to the drive shaft.
+The one-cylinder four-stroke ethanol powered ICE is connected to the drive
+shaft via the clutch. These three provide a driving torque to the rear drive
+shaft. The drive shaft is then connected to the right rear wheel via an 1:10
+ratio planetary gear. The car fits a single human, he or she is also the
+driver. The driver steers the car manually and decides upon a reference speed
+that the car should follow and has the option to decides what motor/engine
+combination that should be used at a specific time.
 
 \subsection{Aim}
-The aim of Elba is to provide a platform to perform various levels of projects for engineering students, while at the same time be allowed to compete in Shell Eco Marathon.
+The aim of Elba is to provide a research platform to perform various levels of
+projects for students from different science fields, while at the same time be
+accepted to compete in SEM\@. The projects can vary in time and
+extent and can be independent or made as an long term implementation. 
 
-\subsection{Urban Concept Vehicle}
-The group that Elba competes in is called Urban Concept Vehicle. The vehicles in this group has be closer in appearance to today's production type passenger cars and has to comply with the specific rules of Shell Eco-marathon for this group. These vehicles has to have common features as wind shield wiper, turn signals and a horn. Vehicles competing in this group will require "stop and go"-driving, which means that once every lap the vehicle needs to do a full stop. This is to further increase the resemblance with city driving.
+\subsection{Shell Eco-Marathon}
+SEM is a vehicle competition focused on fuel efficiency where engineering
+students from around the world designs, builds and drives their own vehicles.
+The competition is split into two classes. The Prototype class is solely
+focused on fuel-efficiency and have less restrictions concerning comfort and
+usability compared to the second class which is the UrbanConcept class,
+see~\ref{UCV}.
+
+\subsection{Urban Concept Vehicle}\label{UCV}
+ELBA competes in the UrbanConcept class and is what is called a UrbanConcept
+Vehicle (UCV). The vehicles in this class have an appearance closer to today's
+production type passenger cars. The cars in the class have to be built in
+accordance with the class specific rules that dictates everything from steering
+and controls to propulsion and safety. UCVs must have some common production
+car features as wind shield wiper, turn signals, horn headlights etc. Vehicles
+competing in this group is also required ´´stop and go'' each lap, which means
+that once every lap the vehicle needs to do a full stop. This is to further
+increase the resemblance to city driving.
 
 \subsection{State at start of project}
-The car where in working condition when the project started, but had several problems. To mention a few major ones: The clutch where slow and unreliable, the overall power-output might not have been enough to be efficient on the new track, none of the potential driver would fit in the driver compartment, the horn disturbed the entire electrical system.
+The car where in working condition when the project started, but had several
+problems. To mention a few major ones: The clutch where slow and unreliable,
+the overall power-output might not have been enough to be efficient on the new
+track, none of the potential driver would fit in the driver compartment, the
+horn disturbed the entire electrical system.
 
-These issues where, together with the competition rules, the primary base for the decisions that where taken and related to the car. Some of the work done to "fix" these problems where a matter of reshape some metal piece and bolting it back in the car, suddenly the driver could reach the brakes. While other required an entire team of people to get a new, working, ethanol engine in the car.
+These issues where, together with the competition rules, the primary base for
+the decisions that where taken and related to the car. Some of the work done to
+´´fix'' these problems where a matter of reshape some metal piece and bolting it
+back in the car, suddenly the driver could reach the brakes. While other
+required an entire team of people to get a new, working, ethanol engine in the
+car.
 
 \section{System Overview}
 \subsection{Electronic Control Units}
-The car has four electronic control units (ECUs) that are responsible for different parts of the car.
+The car has four electronic control units (ECUs) that are responsible for
+controlling different parts of the car.
 
 \begin{itemize}
 \item Front-ECU
@@ -29,22 +69,36 @@ The car has four electronic control units (ECUs) that are responsible for differ
 \item Clutch-ECU
 \end{itemize}
 
-The Fornt-ECU is responsible for the human interface, the buttons where the driver is able to decide mode and speed if the car is in manual mode. It sends speed and dive mode on the can bus.
+The Front-ECU is responsible for the human interface, the buttons where the
+driver is able to decide mode and speed if the car is in manual mode. It sends
+speed and dive mode on the can bus.
 
-The Back-ECU controls the motors via the separate motor controllers. It has veto over the ICE and Cluch.
+The Back-ECU controls the motors via the separate motor controllers. It has
+veto over the ICE and Cluch.
 
-The internal combustion engine is controlled by the ICE-ECU and this is its only task. It senses the lambda value and motor? temperatures to control the injection of fuel.
+The internal combustion engine is controlled by the ICE-ECU and this is its
+only task. It senses the lambda value and motor? temperatures to control the
+injection of fuel.
 
-The Cluch-ECU controls the clutch. It interfaces to two H-bridges which in turn steers the linear actuators.  
+The Cluch-ECU controls the clutch. It interfaces to two H-bridges which in turn
+steers the linear actuators.  
 
 \subsection{Communication}
-The car uses a CAN network to communicate between the distributed micro-controllers. The micro-controllers have specific values that are needed elsewhere; these are sent on the CAN-bus. 
+The car uses a CAN network to communicate between the distributed
+micro-controllers. The micro-controllers have specific values that are needed
+elsewhere; these are sent on the CAN-bus. 
 
-Another CAN network is used between the Back-ECU and the inMotion driver that controls the brushless motor. This newtwork ustes the protocol CANopen that lies on top of the CAN bus.
+Another CAN network is used between the Back-ECU and the inMotion driver that
+controls the brushless motor. This newtwork ustes the protocol CANopen that
+lies on top of the CAN bus.
 The instrumentation panel communicates via Bluetooth with the data-logger/GPS-unit.
 
 \subsection{Energy supply}
-All energy used to propel the car forwards (during the competition) comes from the ethanol fuel, but electrical energy can be stored in the super-capacitor. When the electrical motors generate energy it can be stored in this super-capacitor for later use. The car can only start from standstill using one of the electrical motors with energy from the super-capacitor.  
+All energy used to propel the car forwards (during the competition) comes from
+the ethanol fuel, but electrical energy can be stored in the super-capacitor.
+When the electrical motors generate energy it can be stored in this
+super-capacitor for later use. The car can only start from standstill using one
+of the electrical motors with energy from the super-capacitor.  
 
 \section{Requirements}
 \subsection{Rules}
@@ -72,10 +126,10 @@ present, namely:
     \item Simulink TLC software.
     \item Feedback control loop of injection time.
     \item Lambda value sensing.
-    \item Encoder reading with index pulse from ICE.
+    \item Encoder reading with index pulse from ICE\@.
 \end{itemize}
 More sensor data together with ignition control would give possibilities
-for more exact control of the ICE. The extra features of the new ECU were:
+for more exact control of the ICE\@. The extra features of the new ECU were:
 \begin{itemize}
     \item Motor oil temperature sensing.
     \item Ambient air temperature sensing.
