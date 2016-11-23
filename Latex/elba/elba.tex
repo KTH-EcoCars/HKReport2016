@@ -102,6 +102,15 @@ When the electrical motors generate energy it can be stored in this
 super-capacitor for later use. The car can only start from standstill using one
 of the electrical motors with energy from the super-capacitor.  
 
+
+\section{Software and Simulation Models}
+Using a model based approach relies on verified systems models on various levels. Elba benefits form a full system model to simulate fuel efficency and each ECU has a corresponding simulink model from which all code is compiled. 
+\subsection{Plant Model}
+The plant model is supposed to be a full system model capable of estimating fuel consumption over an entire SEM attempt. When any component, which has an affect on propulsion, is changed on the car the plant model must also be updated. Naturally the goal with MBD. is that any change can be simulated with the plant model, approved and then the car is updated. But not all simulations can be done beforehand, which was the case for the new ICE.
+
+\subsection{ECU software}
+All ECUs use an Arduino (Due or Mega) as micro-controller which simulink has compiler support for. This means that simulink models can be compiled and uploaded to the arduino directly from simulink. Simulink->Arduino also gives the option for running "external mode" a Hardware in the loop type compile mode. This makes it possible to look at values and signals, running on the ECU, in real-time.
+ 
 %Requirements
 \section{Requirements}
 \subsection{Rules}
