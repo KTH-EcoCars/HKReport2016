@@ -19,6 +19,52 @@ to capture the problem and to describe the goal of designing the system
 requirements that describe the limitations and demands on the system and its
 subsystems.
 
+\section{Car dynamics}
+The calculations in this section are in many ways the same as the calculations
+given in the previous teams report in Appendix~\ref{app:elba2015}. Though some
+of the equations are repetition of what was done last year, they are
+done here again with some improvements and more references to make the
+derivations of the equations clearer. 
+
+When simulating a track, one needs to know the force exerted by the environment
+on the car. A graphical representation of the forces that act on the car is
+given in Figure~\ref{fig:testrig_elbadynamics}.
+\begin{figure}[H]
+    % TODO: Make a better picture!
+    \label{fig:testrig_elbadynamics}
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/testrig_elbadynamics.png}
+    \caption{Dynamic model of ELBA.}
+\end{figure}
+The motion equations on the system are 
+\begin{equation} \label{eq:testrig_cardynamics}
+    m\ddot{x} = F_d + mg\sin{\alpha} - F_c - F_{\mu},
+\end{equation}
+where $F_d$ is the effective driving force of the car, $m$ is the mass of the
+car and $alpha$ is the slope from the horizontal plane. The resistance terms
+$F_c$ and $F_{\mu}$ are air and road resistance, respectively. The air drag $D$
+around an object can be calculated as \cite{nakayama2002}
+\begin{equation} \label{eq:testrig_airdrag}
+    D = C_D A \frac{\rho v^2} {2}
+\end{equation}
+with object velocity $v$, surface area vertical to the movement direction $A$
+and air density $\rho$. Most terms in Equation~(\ref{eq:testrig_cardynamics})
+are constant throughout a driving instance. Rewriting to
+\begin{equation} \label{eq:testrig_csimple}
+    C_{tot} = \frac{C_D A \rho} {2}
+\end{equation}
+yields a simplified equation that only depends on the velocity,
+\begin{equation} \label{eq:drag}
+    F_D = C_{tot}v^2.
+\end{equation}
+The total drag coefficient $C_{tot}$ will depend on the vertical area, the density of
+air and the drag coefficient $C_D$. The air density is considered to be constant
+and is known. The area of Elba can be estimated using simple methods. Finally,
+the air drag coefficient $C_D$ is unique to each and every object and is
+determined experimentally. For this project, the estimations given for a
+passenger car is used. Detailed calculations and values are given in
+Appendix~\ref{app:rigdata}.
+
 \section{Temp notes}
 Modelled negative forces acting on vehicle (gravity, air resistance, friction): 
 
