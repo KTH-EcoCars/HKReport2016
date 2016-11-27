@@ -63,7 +63,22 @@ and is known. The area of Elba can be estimated using simple methods. Finally,
 the air drag coefficient $C_D$ is unique to each and every object and is
 determined experimentally. For this project, the estimations given for a
 passenger car is used. Detailed calculations and values are given in
-Appendix~\ref{app:rigdata}.
+Appendix~\ref{app:rigdata}. 
+
+% This section is under construction. Need some reference/experiment on how to 
+% model rolling friction.
+The rolling friction of a car is modeled as a stepfunction, being non-zero at
+all velocities that are not zero.
+
+With the air drag, rolling friction and gravity terms known, only two terms of
+Equation (\ref{eq:testrig_cardynamics}) are unknown. To fully model the cars
+dynamics, the inerta term needs to be modeled. Since the weight of the vehicle
+is known, $\ddot{x}$ need to be known to the system for an accurate model.
+Knowing the radius of the rollers and the cars wheels, the linear acceleration
+can be calculated by measuring the rotational acceleration on the roller. This
+is done by an incremental encoder on the roller shaft.
+
+
 
 \section{Temp notes}
 Modelled negative forces acting on vehicle (gravity, air resistance, friction): 
