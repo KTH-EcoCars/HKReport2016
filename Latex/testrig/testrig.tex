@@ -19,7 +19,7 @@ to capture the problem and to describe the goal of designing the system
 requirements that describe the limitations and demands on the system and its
 subsystems.
 
-\section{Car dynamics}
+\section{Car dynamics} \label{sec:cardynamics}
 The calculations in this section are in many ways the same as the calculations
 given in the previous teams report in Appendix~\ref{app:elba2015}. Though some
 of the equations are repetition of what was done last year, they are
@@ -73,10 +73,73 @@ all velocities that are not zero.
 With the air drag, rolling friction and gravity terms known, only two terms of
 Equation (\ref{eq:testrig_cardynamics}) are unknown. To fully model the cars
 dynamics, the inerta term needs to be modeled. Since the weight of the vehicle
-is known, $\ddot{x}$ need to be known to the system for an accurate model.
+is known, $\ddot{x}$ needs to be derived for an accurate system model.
 Knowing the radius of the rollers and the cars wheels, the linear acceleration
 can be calculated by measuring the rotational acceleration on the roller. This
-is done by an incremental encoder on the roller shaft.
+is done by an incremental encoder on the roller shaft. Rotational speed is
+calculated in the microcontroller and rotational acceleration is derivated from
+rotational speed. Using the roller radius, $r_{roller}$, the linear acceleration
+is calculated.
+
+Rewriting Equation (\ref{eq:}), (\ref{eq:drag}) and the friction force gives the
+desired linear testrig simulation force on the right hand side,
+\begin{equation} \label{eq:simulationforce}
+    F_d = m\ddot{x} - mg\sin{\alpha} + C_{tot}\dot{x}^2 + F_{\mu}.
+\end{equation}
+
+\section{Testrig dynamics}
+In order to let the testrig output the correct linear force to the car, the
+controller for the testrig need to know the dynamics of te testrig itself. This
+is to compensate for internal frictions and inertias. The driveline of the
+testrig has two separate steps, the motor and the roller, connected by a chain
+gear with gear ratio $n_{chain}$. A prinicple schematic of the testrig from
+motor to roller is displayed in Figure~\ref{fig:testrig_testrigdynamics}.
+\begin{figure}[H]
+    %TODO: Need a better picture!
+    \label{fig:testrig_testrigdynamics}
+    \centering
+    \includegraphics[width=0.9\textwidth]{./img/testrig_testrigdynamics.png}
+    \caption{Principle schematic of the testrig from motor to roller.}
+\end{figure}
+The dynamic equations for the rollers are
+\begin{equation} \label{eq:testrig_rollerdynamics}
+    J_r \dot{\omega}_r = F_{tr}r_r - d_r \omega_r - \mu_r,
+\end{equation}
+where $J_r$ is the inertia of the rollers and $\omega_r$ is the rotational velocity
+of the roller. The frictional terms are the viscous friction $d_r$ and the
+constant friction $\mu_r$ which is modelled by the Karnop model (??). 
+
+Connecting the rollers and the motor is a chain gear. It is modelled as a
+generic gear box. A principle drawing of it is given in
+Figure~\ref{fig:testrig_chaingear}. 
+\begin{figure}[H]
+    \label{fig:testrig_chaingear}
+    \centering
+    \includegraphics[width=0.9\textwidth]{./img/testrig_chaingear.png}
+    \caption{Chaingear modelled as a generic gearbox with no internal friction.}
+\end{figure}
+This gearbox model has no internal friction.  There is always friction in a
+chain gear but it is expected that this friction will be incorporated in the
+total system model and the friction free representation is deemed adequate.
+Using Equation (\ref{eq:testrig_rollerdynamics}) and (motor model) along with
+the gearbox model, the total testrig dynamic model becomes
+\begin{equation} \label{eq:testrig_totaldynamics}
+    J_{tot} \dot{\omega_m} = T_m + F_tr r_r - d_{tot} \omega_m - \mu_{tot},
+\end{equation}
+with motor torque $T_m$, simulation force $F_{tr}$ and motor rotational velocity
+$\omega_m$. The inertia term is the combined inertia of the motor and
+roller,
+\begin{equation} \label{eq:totalinertia}
+    J_{tot} = J_m + J_r \frac{1} {n^2}.
+\end{equation}
+The friction terms are combined terms as well, namely
+\begin{equation} \label{eq:testrig_totalvfric}
+    d_{tot} = d_m + d_r \frac {1} {n}
+\end{equation}
+and
+\begin{equation} \label{eq:testrig_totalfric}
+    \mu_{tot} = \mu_m + \mu_r.
+\end{equation}
 
 
 
