@@ -19,12 +19,15 @@ to capture the problem and to describe the goal of designing the system
 requirements that describe the limitations and demands on the system and its
 subsystems.
 
+\section{Hardware}
+The test rig was built by two rollers mounted on a metal frame. A DC motor was mounted on the frame, as well as an encoder to keep track of how many revolutions the motor has turned. The motor is connected to the rollers by sprockets and chain with a gearing ratio of two. To control the DC motor we used an Epson driver with inputs from an Arduino mega that control which torque we apply to the motor. 
+
 \section{Car dynamics} \label{sec:cardynamics}
 The calculations in this section are in many ways the same as the calculations
 given in the previous teams report in Appendix~\ref{app:elba2015}. Though some
 of the equations are repetition of what was done last year, they are
 done here again with some improvements and more references to make the
-derivations of the equations clearer. 
+derivations of the equations clearer.
 
 When simulating a track, one needs to know the force exerted by the environment
 on the car. A graphical representation of the forces that act on the car is
@@ -87,9 +90,18 @@ desired linear testrig simulation force on the right hand side,
     F_d = m\ddot{x} - mg\sin{\alpha} + C_{tot}\dot{x}^2 + F_{\mu}.
 \end{equation}
 
+Using the height profile of the London track and the plant model of Elba, $F_d$ during an entire lap could be simulated, as shown in Figure (\ref{fig:testrig_negative_forces}).
+
+\begin{figure}[H]
+    \label{fig:testrig_negative_forces}
+    \centering
+    \includegraphics[width=\textwidth]{./img/testrig_negative_forces.eps}
+    \caption{Negative forces acting upon Elba in one lap.}
+\end{figure}
+
 \section{Testrig dynamics}
 In order to let the testrig output the correct linear force to the car, the
-controller for the testrig need to know the dynamics of te testrig itself. This
+controller for the testrig need to know the dynamics of the testrig itself. This
 is to compensate for internal frictions and inertias. The driveline of the
 testrig has two separate steps, the motor and the roller, connected by a chain
 gear with gear ratio $n_{chain}$. A prinicple schematic of the testrig from
@@ -107,12 +119,13 @@ The dynamic equations for the rollers are
 \end{equation}
 where $J_r$ is the inertia of the rollers and $\omega_r$ is the rotational velocity
 of the roller. The frictional terms are the viscous friction $d_r$ and the
-constant friction $\mu_r$ which is modelled by the Karnop model (??). 
+constant friction $\mu_r$ which is modelled by the Karnop model (??).
 
 Connecting the rollers and the motor is a chain gear. It is modelled as a
 generic gear box. A principle drawing of it is given in
 Figure~\ref{fig:testrig_chaingear}. 
 \begin{figure}[H]
+	%TODO: Need a better picture!
     \label{fig:testrig_chaingear}
     \centering
     \includegraphics[width=0.9\textwidth]{./img/testrig_chaingear.png}
@@ -124,7 +137,7 @@ total system model and the friction free representation is deemed adequate.
 Using Equation (\ref{eq:testrig_rollerdynamics}) and (motor model) along with
 the gearbox model, the total testrig dynamic model becomes
 \begin{equation} \label{eq:testrig_totaldynamics}
-    J_{tot} \dot{\omega_m} = T_m + F_tr r_r - d_{tot} \omega_m - \mu_{tot},
+    J_{tot} \dot{\omega}_m = T_m + F_{tr} r_r - d_{tot} \omega_m - \mu_{tot},
 \end{equation}
 with motor torque $T_m$, simulation force $F_{tr}$ and motor rotational velocity
 $\omega_m$. The inertia term is the combined inertia of the motor and
@@ -140,6 +153,13 @@ and
 \begin{equation} \label{eq:testrig_totalfric}
     \mu_{tot} = \mu_m + \mu_r.
 \end{equation}
+
+The power $P_m$ required for the motor on the testrig is calculated as
+\begin{equation} \label{eq:testrig_motorpower}
+	P_m = T_m \omega_m
+\end{equation}
+
+Using the London track and the plant model of Elba, $P_m$ during one lap could be simulated, as shown in (\ref{fig:testrig_power_required}).
 
 \section{Identification}
 Having obtained the dynamic equations of the system in Equation
@@ -204,6 +224,8 @@ This results in $P_m = 1000$ W
 \begin{figure}[H]
     \label{fig:testrig_power_required}
     \centering
-    \includegraphics[width=0.5\textwidth]{./img/testrig_power_required.eps}
+    \includegraphics[width=\textwidth]{./img/testrig_power_required.eps}
     \caption{Power required for the motor on the testrig.}
 \end{figure}
+
+Figure (\ref{fig:testrig_power_required}) shows that the maximum required power from the testrig motor is $1000$ W.
