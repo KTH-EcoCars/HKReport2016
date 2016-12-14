@@ -7,7 +7,7 @@ physically run on a track. This can be cumbersome, or in the case of the London
 track, impossible at times. Therefore, a test rig is designed and built. The
 design process uses the V-model approach with a set of live requirements and
 continuous unit and integration testing. The overall goal is to not only be able
-to do a faithful simulation of the EcoCar track in London, but to be able to
+to do a faithful simulation of the SEM track in London, but to be able to
 supply any track (with certain limitations on power and speed demands) to the
 test rig and simulations on the car.
 
@@ -18,6 +18,9 @@ to capture the problem and to describe the goal of designing the system
 ~\cite{ibm_req}. The User requirements are then developed into the System
 requirements that describe the limitations and demands on the system and its
 subsystems.
+
+\section{Hardware}
+The test rig was built by two rollers mounted on a metal frame. A DC motor was mounted on the frame, as well as an encoder to keep track of how many revolutions the motor has turned. The motor is connected to the rollers by sprockets and chain with a gearing ratio of two. To control the DC motor we used an Epson driver with inputs from an Arduino mega that control which torque we apply to the motor. 
 
 \section{Car dynamics} \label{sec:cardynamics}
 The calculations in this section are in many ways the same as the calculations
