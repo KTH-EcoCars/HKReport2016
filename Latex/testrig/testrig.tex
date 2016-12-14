@@ -39,8 +39,8 @@ given in Figure~\ref{fig:testrig_elbadynamics}.
     % TODO: Make a better picture!
     \label{fig:testrig_elbadynamics}
     \centering
-    \includegraphics[width=0.5\textwidth]{./img/testrig_elbadynamics.png}
-    \caption{Dynamic model of ELBA.}
+    \includegraphics[width=0.5\textwidth]{./img/testrig_elbaforces.png}
+    \caption{Dynamic model of Elba.}
 \end{figure}
 The motion equations on the system are 
 \begin{equation} \label{eq:testrig_cardynamics}
@@ -110,10 +110,9 @@ testrig has two separate steps, the motor and the roller, connected by a chain
 gear with gear ratio $n_{chain}$. A prinicple schematic of the testrig from
 motor to roller is displayed in Figure~\ref{fig:testrig_testrigdynamics}.
 \begin{figure}[H]
-    %TODO: Need a better picture!
     \label{fig:testrig_testrigdynamics}
     \centering
-    \includegraphics[width=0.9\textwidth]{./img/testrig_testrigdynamics.png}
+    \includegraphics[width=0.9\textwidth]{./img/testrig_rollerschematic.png}
     \caption{Principle schematic of the testrig from motor to roller.}
 \end{figure}
 The dynamic equations for the rollers are
@@ -157,12 +156,21 @@ and
     \mu_{tot} = \mu_m + \mu_r.
 \end{equation}
 
-The power $P_m$ required for the motor on the testrig is calculated as
+The power $P_m$ required for the motor on the testrig was calculated as
 \begin{equation} \label{eq:testrig_motorpower}
 	P_m = T_m \omega_m
 \end{equation}
 
 Using the London track and the plant model of Elba, $P_m$ during one lap could be simulated, as shown in (\ref{fig:testrig_power_required}).
+
+\begin{figure}[H]
+    \label{fig:testrig_power_required}
+    \centering
+    \includegraphics[width=\textwidth]{./img/testrig_power_required.eps}
+    \caption{Power required for the motor on the testrig.}
+\end{figure}
+
+Figure (\ref{fig:testrig_power_required}) shows that the maximum required power from the testrig motor is $1000$ W.
 
 \section{Identification}
 Having obtained the dynamic equations of the system in Equation
@@ -199,36 +207,3 @@ mode and encoder data was saved.
 Because of software limitations, the oscilloscope and the testrig ECU can not be
 run in the same Simulink instance. This means that two separate models are run
 simultaneously, one recording the input and one recording the output.
-
-
-
-\section{Temp notes}
-Modelled negative forces acting on vehicle (gravity, air resistance, friction): 
-
-\begin{figure}[H]
-    \label{fig:testrig_negative_forces}
-    \centering
-    \includegraphics[width=0.5\textwidth]{./img/testrig_negative_forces.eps}
-    \caption{Negative forces acting upon Elba in one lap.}
-\end{figure}
-
-Torque required on wheel of ELBA:$$T_w = F_n\*r_w$$
-
-Torque required for roller on test rig: $$T_r = \frac{T_w\*r_r}{r_w}$$
-
-Required torque for motor, $T_m$: $$T_m = T_t + J_r\*\ddot{\phi} + d\*\dot{\phi}_m + k\*\phi_m$$
-
-Power required for motor: $$P_m = T_m\*\dot{\phi}_m$$
-
-The inertia $J_r$ for the rollers on the testrig was calculated to be $0.0039$ $kgm^2$
-
-This results in $P_m = 1000$ W
-
-\begin{figure}[H]
-    \label{fig:testrig_power_required}
-    \centering
-    \includegraphics[width=\textwidth]{./img/testrig_power_required.eps}
-    \caption{Power required for the motor on the testrig.}
-\end{figure}
-
-Figure (\ref{fig:testrig_power_required}) shows that the maximum required power from the testrig motor is $1000$ W.
