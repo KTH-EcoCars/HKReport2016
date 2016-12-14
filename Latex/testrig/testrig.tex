@@ -1,13 +1,11 @@
 \chapter{Testrig}
 \section{Introduction}
-When designing a complex system such as a hybrid vehicle, being continuously be
-able to test the system is important to validate that the requirements are met
-and to verify the models. To be able to do a full system test, the car has to be
+When designing a complex system such as a hybrid vehicle, being able to continuously test the system is important to validate that the requirements are met and to verify the models. To be able to do a full system test, the car has to
 physically run on a track. This can be cumbersome, or in the case of the London
 track, impossible at times. Therefore, a test rig is designed and built. The
 design process uses the V-model approach with a set of live requirements and
 continuous unit and integration testing. The overall goal is to not only be able
-to do a faithful simulation of the SEM track in London, but to be able to
+to do a faithful simulation of the Shell Eco Marathon track in London, but to be able to
 supply any track (with certain limitations on power and speed demands) to the
 test rig and simulations on the car.
 
@@ -27,7 +25,7 @@ The calculations in this section are in many ways the same as the calculations
 given in the previous teams report in Appendix~\ref{app:elba2015}. Though some
 of the equations are repetition of what was done last year, they are
 done here again with some improvements and more references to make the
-derivations of the equations clearer. 
+derivations of the equations clearer.
 
 When simulating a track, one needs to know the force exerted by the environment
 on the car. A graphical representation of the forces that act on the car is
@@ -90,9 +88,18 @@ desired linear testrig simulation force on the right hand side,
     F_d = m\ddot{x} - mg\sin{\alpha} + C_{tot}\dot{x}^2 + F_{\mu}.
 \end{equation}
 
+Using the height profile of the London track and the plant model of Elba, $F_d$ during an entire lap could be simulated, as shown in Figure (\ref{fig:testrig_negative_forces}).
+
+\begin{figure}[H]
+    \label{fig:testrig_negative_forces}
+    \centering
+    \includegraphics[width=\textwidth]{./img/testrig_negative_forces.eps}
+    \caption{Negative forces acting upon Elba in one lap.}
+\end{figure}
+
 \section{Testrig dynamics}
 In order to let the testrig output the correct linear force to the car, the
-controller for the testrig need to know the dynamics of te testrig itself. This
+controller for the testrig need to know the dynamics of the testrig itself. This
 is to compensate for internal frictions and inertias. The driveline of the
 testrig has two separate steps, the motor and the roller, connected by a chain
 gear with gear ratio $n_{chain}$. A prinicple schematic of the testrig from
@@ -110,12 +117,13 @@ The dynamic equations for the rollers are
 \end{equation}
 where $J_r$ is the inertia of the rollers and $\omega_r$ is the rotational velocity
 of the roller. The frictional terms are the viscous friction $d_r$ and the
-constant friction $\mu_r$ which is modelled by the Karnop model (??). 
+constant friction $\mu_r$ which is modelled by the Karnop model (??).
 
 Connecting the rollers and the motor is a chain gear. It is modelled as a
 generic gear box. A principle drawing of it is given in
 Figure~\ref{fig:testrig_chaingear}. 
 \begin{figure}[H]
+	%TODO: Need a better picture!
     \label{fig:testrig_chaingear}
     \centering
     \includegraphics[width=0.9\textwidth]{./img/testrig_chaingear.png}
@@ -127,7 +135,7 @@ total system model and the friction free representation is deemed adequate.
 Using Equation (\ref{eq:testrig_rollerdynamics}) and (motor model) along with
 the gearbox model, the total testrig dynamic model becomes
 \begin{equation} \label{eq:testrig_totaldynamics}
-    J_{tot} \dot{\omega_m} = T_m + F_tr r_r - d_{tot} \omega_m - \mu_{tot},
+    J_{tot} \dot{\omega}_m = T_m + F_{tr} r_r - d_{tot} \omega_m - \mu_{tot},
 \end{equation}
 with motor torque $T_m$, simulation force $F_{tr}$ and motor rotational velocity
 $\omega_m$. The inertia term is the combined inertia of the motor and
@@ -144,33 +152,18 @@ and
     \mu_{tot} = \mu_m + \mu_r.
 \end{equation}
 
+The power $P_m$ required for the motor on the testrig is calculated as
+\begin{equation} \label{eq:testrig_motorpower}
+	P_m = T_m \omega_m
+\end{equation}
 
-
-\section{Temp notes}
-Modelled negative forces acting on vehicle (gravity, air resistance, friction): 
-
-\begin{figure}[H]
-    \label{fig:testrig_negative_forces}
-    \centering
-    \includegraphics[width=0.5\textwidth]{./img/testrig_negative_forces.eps}
-    \caption{Negative forces acting upon Elba in one lap.}
-\end{figure}
-
-Torque required on wheel of ELBA:$$T_w = F_n\*r_w$$
-
-Torque required for roller on test rig: $$T_r = \frac{T_w\*r_r}{r_w}$$
-
-Required torque for motor, $T_m$: $$T_m = T_t + J_r\*\ddot{\phi} + d\*\dot{\phi}_m + k\*\phi_m$$
-
-Power required for motor: $$P_m = T_m\*\dot{\phi}_m$$
-
-The inertia $J_r$ for the rollers on the testrig was calculated to be $0.0039$ $kgm^2$
-
-This results in $P_m = 1000$ W
+Using the London track and the plant model of Elba, $P_m$ during one lap could be simulated, as shown in (\ref{fig:testrig_power_required}).
 
 \begin{figure}[H]
     \label{fig:testrig_power_required}
     \centering
-    \includegraphics[width=0.5\textwidth]{./img/testrig_power_required.eps}
+    \includegraphics[width=\textwidth]{./img/testrig_power_required.eps}
     \caption{Power required for the motor on the testrig.}
 \end{figure}
+
+Figure (\ref{fig:testrig_power_required}) shows that the maximum required power from the testrig motor is $1000$ W.
