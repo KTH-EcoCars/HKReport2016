@@ -1,11 +1,13 @@
 \chapter{Testrig}
 \section{Introduction}
-When designing a complex system such as a hybrid vehicle, being able to continuously test the system is important to validate that the requirements are met and to verify the models. To be able to do a full system test, the car has to
+When designing a complex system such as a hybrid vehicle, being continuously be
+able to test the system is important to validate that the requirements are met
+and to verify the models. To be able to do a full system test, the car has to be
 physically run on a track. This can be cumbersome, or in the case of the London
 track, impossible at times. Therefore, a test rig is designed and built. The
 design process uses the V-model approach with a set of live requirements and
 continuous unit and integration testing. The overall goal is to not only be able
-to do a faithful simulation of the Shell Eco Marathon track in London, but to be able to
+to do a faithful simulation of the EcoCar track in London, but to be able to
 supply any track (with certain limitations on power and speed demands) to the
 test rig and simulations on the car.
 
@@ -161,6 +163,66 @@ The power $P_m$ required for the motor on the testrig is calculated as
 \end{equation}
 
 Using the London track and the plant model of Elba, $P_m$ during one lap could be simulated, as shown in (\ref{fig:testrig_power_required}).
+
+\section{Identification}
+Having obtained the dynamic equations of the system in Equation
+(\ref{eq:testrig_totaldynamics}), a system identification is done to determine
+the parameters of the system. The parameters are then used in the open loop
+current/torque controller. The controller is run in open loop for the
+torque, i.e. there is no direct torque feedback. To get the desired torque
+output, the current is controlled via a closed loop feedback controller and
+torque is calculated from the actual current. With a knowledge about motor
+parameters and the dynamics of the system, the actual torque can be estimated. 
+
+\subsection{Hardware setup}
+The testing is processed in Matlab and Simulink. Input data is gathered from the
+real system and is then fed into the model afterwards for model comparison. This
+has the advantage of doing a physical test once, recording the data and the be
+able to test it on the model without setting up the test system again. Output
+data from the testrig, rotational velocity of the motor, is also collected and
+used as a reference for the model.
+
+To measure motor voltage, a computer oscilloscope was used (Digilent Analog
+Discovery 2). The oscilloscope has an open C API, allowing its interface to be
+customized. An S-Function block was made that allowed the oscilloscopes
+measurements to be directly recorded in Simulink. To make sure that the model
+ran in real-time in Simulinks normal mode, a Real-time constraint block was
+added to the simulink model. The probes of the oscilloscope were attached to
+the positive and negative pole of the motor. All data was recorded into a
+Simulink Datastruct that could then be used as input for the model. 
+
+For recording the output data, rotational velocity, an incremental quadrature
+encoder was used. The encoder pulse data was recorded and converted into
+velocity by the test rig ECU. The Simulink model for the ECU was run on external
+mode and encoder data was saved. 
+
+Because of software limitations, the oscilloscope and the testrig ECU can not be
+run in the same Simulink instance. This means that two separate models are run
+simultaneously, one recording the input and one recording the output.
+
+
+
+\section{Temp notes}
+Modelled negative forces acting on vehicle (gravity, air resistance, friction): 
+
+\begin{figure}[H]
+    \label{fig:testrig_negative_forces}
+    \centering
+    \includegraphics[width=0.5\textwidth]{./img/testrig_negative_forces.eps}
+    \caption{Negative forces acting upon Elba in one lap.}
+\end{figure}
+
+Torque required on wheel of ELBA:$$T_w = F_n\*r_w$$
+
+Torque required for roller on test rig: $$T_r = \frac{T_w\*r_r}{r_w}$$
+
+Required torque for motor, $T_m$: $$T_m = T_t + J_r\*\ddot{\phi} + d\*\dot{\phi}_m + k\*\phi_m$$
+
+Power required for motor: $$P_m = T_m\*\dot{\phi}_m$$
+
+The inertia $J_r$ for the rollers on the testrig was calculated to be $0.0039$ $kgm^2$
+
+This results in $P_m = 1000$ W
 
 \begin{figure}[H]
     \label{fig:testrig_power_required}

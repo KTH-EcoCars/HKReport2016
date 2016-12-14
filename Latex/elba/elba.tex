@@ -132,7 +132,14 @@ At Shell Eco Marathon all vehicles must pass two inspections before the vehicle 
 %5. Finding the problem
 %6 Fixing the arms
 
-One of the major problems with the car has been the clutch. Figure X illustrates the mechanical components of the drivetrain of elba.
+One of the major problems with the car has been the clutch. Figure~\ref{fig:Drivetrain} illustrates the mechanical components of the drivetrain of elba.
+
+\begin{figure}[H]
+    \centering
+    \label{fig:Drivetrain}
+    \includegraphics[width=0.5\textwidth]{./img/Drivetrain}
+    \caption{This is a dork trying to play ice hockey.}
+\end{figure}
 
 The Problem stated when starting the project was that the clutch actuators were oversized and thus giving more force than necessary for the clutch to engage properly. When the clutch was engaged with too much force, the clutch plate on the ICE side stuck very hard to the center plate and could not be disengaged using the actuator.
 
@@ -140,7 +147,15 @@ To solve the mechanical problems it was decided to appoint one team from the mac
 
 To solve this problem, several solutions have been investigated. The clutch mechanism has been controlled by time rather than position. One approach was to use the built in hall sensor in the actuator to control the position. One other idea was to use an external current sensor on the clutch ECU to control the position. A third idea was to continue using time as reference, but increase it so that an end position is always reached, which can be used as a reference position.
 
-When investigating alternative three above using longer time to engage and disengage the clutch a new problem was discovered. 
+When investigating alternative three above using longer time to engage and disengage the clutch a new problem was discovered. It appeared that even though the clutch was not stuck to the center plate it still could not be properly disengaded. This was due to the geometry of the lever arm which pushes the clutch plate.  After this important insight the drivetrain was disassembled and new lever arms were constructed and manufactured. When the drivetrain was assembled again the clucth worked like a charm. Figure~\ref{fig:Drivetrain} is a rendered image of the new lever arms.
+
+%%TODO
+\begin{figure}[H]
+    \centering
+    \label{fig:Drivetrain}
+    \includegraphics[width=0.5\textwidth]{./img/Drivetrain}
+    \caption{This is a dork trying to play ice hockey.}
+\end{figure}
 
 
 \subsection{Internal Combustion Engine and ICE ECU}
@@ -183,6 +198,13 @@ The new door where constructed in a carbon fibre sandwich style and was open in 
 \section{Results}
 We beat Chalmers. We are no byskola.
 \subsection{Competition}
+At the time the team arrived in London the ICE had never been started with only ethanol as fuel, the door had to be mounted and an number of small changes to be able to pass both inspections. Most time where spent to get the engine running, but it was never able to run for more than a couple of strokes. 
+
+Both the technical inspection and safety inspection were passed. There where a few complaints: The doors closing mechanism where insufficient, the indicator lights where to weak, and the fire-extinguishers expirations data had passed. All these had to be reinspected before ElBa where given a pass.
+
+It was decided that one attempt should be made even if the engine never had been started properly. Since the car must be rolling to start the ICE the inertia of the car will keep the ICE turning even if it misfires (the wheel inertia is no enough for this). This meant that the ICE started once the car finally was running during the attempt. But it was soon discovered that the engine could not be shut off, if the clutch was disengaged the engine kept running and revving at dangerous levels. Since the car is required to stop once each lap ElBa had to stall the engine with clutch engaged. While trying to get going again the clutch could not be disengaged and the attempt had to be aborted.
+
+Therefore ElBa never got an competition result. But many lessons where learned.
 
 \subsection{End of project}
 
