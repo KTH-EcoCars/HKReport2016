@@ -20,9 +20,11 @@ requirements that describe the limitations and demands on the system and its
 subsystems.
 
 \section{Hardware}
-The test rig was built with two rollers mounted on a metal frame. A DC motor was mounted on the frame, as well as an encoder to keep track of the speed of the motor. The motor is connected to the rollers by sprockets and chain with a gearing ratio of two. To control the DC motor we used an Epson driver with inputs from an Arduino mega that control which torque we want to apply to the motor. 
+The test rig is composed of two rollers mounted on a metal frame. A DC motor is mounted on the frame, as well as an encoder to keep track of the speed of the motor. The motor is connected to the rollers by sprockets and chain with a gearing ratio of two. To control the DC motor we used an Epson driver with inputs from an Arduino mega that control which torque we want to apply to the motor. 
 
-To create a braking torque on the test rig we will need to generate a current from the DC motor that has to be handles somehow. This was done by 
+To create a braking torque on the test rig it is needed to generate a current from the DC motor that has to be handled somehow, since the motor will work as a generator while braking. This was done by the manufacturing of a system that stores the energy created, and if more energy is created than the system can handle, it is sent to six parallel power resistors that will burn of the excess energy. 
+
+The energy han
 
 
 \section{Car dynamics} \label{sec:cardynamics}
