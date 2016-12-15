@@ -1,16 +1,32 @@
 \chapter{Optimization}
 \section{Introduction}
 The main goal of the project is to have the car consume the least amount of fuel
-possible. In the ideal world should the engines and motors therefor always
-operate within a certain the range of their optimal point of operation. The
-torque request from each of the engine/motors should be with this goal in mind
-in order to reduce fuel comsumption. In addition to this goal, there is a number
-of constraints that needs to be considered on top of this generic optimization.
-Things like track topography, super-capacitor voltage, competitors on the track
-etc will all weigh in on the output request. In this chapter we will cover the
-cascaded (?) optimization algorithm that will calculate the speed trajectory.
+possible. In the ideal world should the engines and motors therefor always operate
+within a certain the range of their optimal point of operation. The torque request
+from each of the engine/motors should be with this goal in mind in order to reduce
+fuel comsumption. In addition to this goal, there is a number of constraints that
+needs to be considered on top of this generic optimization.  Things like track
+topography, super-capacitor voltage, competitors on the track etc will all weigh in
+on the output request. The optimization algorithm used ELBA was developed as a part
+of a Master Thesis~\cite{lui2016}. The control architecture for ELBA consists of a
+two or three layers and the thesis have completed the top layer speed reference
+control. This chapter will cover the decentralized hierarchical predictive control
+that is used to calculate the speed trajectory.
 
 \section{Constraints}
+The optimization is limited by the constraints of the physical system, meaning that
+the controller is not able to operate outside the limits of the system. These limits
+are,
+\begin{align}
+    &U_{cap} \in [39,48]~\textup{V} \\
+    &\nu \in [0,15]~\textup{m/s}\\
+    &a_{max} \in [-1,1]~\textup{m/s$^2$}
+\end{align}
+where $U_{cap}$ is the voltage level of the super-capacitor, $\nu$ is the speed and
+$a$ is the acceleration in every time step. Due to the fact that there is a lower
+limit to the voltage level of the super-capacitor, it is necessary to change
+drive mode to the ICE in order to regenerate and store energy until the upper limit is
+reached. 
 
 \section{Algorithm}
 
