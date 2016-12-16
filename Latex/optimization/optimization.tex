@@ -1,17 +1,19 @@
 \chapter{Optimization}
 \section{Introduction}
 The main goal of the project is to have the car consume the least amount of fuel
-possible. In the ideal world should the engines and motors therefore always operate
-within a certain the range of their optimal point of operation. The torque request
-from each of the engine/motors should be with this goal in mind in order to reduce
-fuel consumption. In addition to this goal, there is a number of constraints that
-needs to be considered on top of this generic optimization.  Things like track
-topography, super-capacitor voltage, competitors on the track etc will all weigh in
-on the output request. The optimization algorithm used ELBA was developed as a part
-of a Master Thesis~\cite{liu2016}. The control architecture for ELBA consists of a
-two or three layers and the thesis have completed the top layer speed reference
-control. This chapter will cover the decentralized hierarchical predictive control
-that is used to calculate the speed trajectory.
+possible.  In the ideal world shall the engines and motors therefore always
+operate within a certain range of their optimal point of operation. The torque
+request from each of the engine/motors should consider this in order to reduce
+fuel consumption. In addition to this goal, there is a number of constraints
+that needs to be considered in addition to the generic fuel consumption
+optimization.  Things like track topography, super-capacitor voltage,
+competitors on the track etc. will all weight in on the output request. The
+optimization algorithm used in Elbas automatic drive mode was developed as a
+part of a Master Thesis~\cite{liu2016}. The control architecture for this
+optimization consists of two or three layers and the thesis have completed the
+top layer speed reference control. This chapter will cover the decentralized
+hierarchical predictive control that is used to calculate the speed trajectory
+and it's implementation.
 
 \section{Constraints}
 The optimization is limited by the constraints of the physical system, meaning that
@@ -22,12 +24,27 @@ are,
     &\nu \in [0,15]~\textup{m/s}\\
     &a_{\max} \in [-1,1]~\textup{m/s$^2$}
 \end{align}
-where $U_{cap}$ is the voltage level of the super-capacitor, $\nu$ is the speed and
-$a$ is the acceleration in every time step. Due to the fact that there is a lower
-limit to the voltage level of the super-capacitor, it is necessary to change drive
-mode to the ICE in order to regenerate and store energy until the upper limit is
-reached. Since the optimization is currently only done in the top layer, there
-is a need for the voltage limit to be considered manually in the model.
+where $U_{cap}$ is the voltage level of the super-capacitor, $\nu$ is the speed
+and $a$ is the acceleration in every time step. Due to the fact that there is a
+lower limit to the voltage level of the super-capacitor, it is necessary to
+change drive mode to engage the ICE in order to regenerate and store energy
+until the upper limit is reached. Since the optimization is currently only done
+in the top layer, there is a need for the voltage limit to be considered
+manually in the model.
+
+\section{Position recognition}
+The optimization bases the output reference speed on the current position on the
+track. This yields the need for a position recognition with an accuracy precise
+enough to be able filter it with sufficient results. The track itself, rather
+then time is discretized in order to get a more accurate position in relation to
+the tracks topography. \\
+There is two ways of finding Elba's position on the track. The first way is a dead
+reckoning system based on the shaft encoder~\cite[p.~49]{elba2015},
+which calculates the position based on the rotational speed of the shaft. The
+second way is based on the GPS system implemented in the race capture pro 2,
+where the GPS signal is taken from it's raw form and reshaped with a
+Lua-script\footnote{Lua is a dynamically typed scripting language, www.lua.org}
+into a CAN-message that is sent on the CAN-bus.
 
 \section{Simulink implementation}
 The complete description of the algorithm is found in~\cite{liu2016} and the
@@ -38,26 +55,23 @@ implementation is based on this thesis.
     \caption{Simulink implementation for the Hierarchal Optimization Algorithm}
 \end{figure}
 In Figure~\ref{fig:optimization_cont} the function
-\textit{reset\_track\_distance} takes an absolute dead reckoning position
+\textit{reset\_track\_distance} takes the absolute dead reckoning position
 calculated from the shaft encoder and an indicator for a new
 lap,~\textit{new\_lap} as input. When the indicator for a new lap is pressed,
 the dead reckoning position is zeroed in the function block and the position is
-calculated and delivered as output. The position is sent to a Particle Filter
-block where both the dead reckoning and the GPS position is supposed to be used
-to get the estimation of which point of the discretized track the car is closest
-to. However, the Particle Filter itself is not implemented at the moment and is
-considered to be something future groups need to work on. 
+calculated and delivered as the output. The position is sent to a Particle
+Filter block where both the dead reckoning and the GPS position is inputed.
+These two positioning systems should to be used to get the estimation of
+the traveled distance the car have traveled on the track. The reason for using
+th particle filter is because the encoder will likely have a drift and it is
+a known that there is an inaccuracy in the GPS. However, the
+Particle Filter itself is not implemented at the moment and is considered to be
+something future groups need to work on.\\
+There is three inputs into the three dimentional optimization lookup-table, the first one is a
+time. This input is used to synchronize the different time scales in the table and
+Simulink. The speed input is read from the CAN-bus and is the current speed of
+Elba. The track position is the calculated distance traveled on the track from
+the filter. The output of the block is an acceleration reference which needs to
+be converted to an reference speed since Elba is currently controlled with speed
+request. 
 
-\section{Position recognition}
-The optimization bases the output reference speed on the current position on the
-track. This yields the need for a position recognition with an accuracy precise
-enough to be able filter it with sufficient results. The track itself, rather
-then time is discretized in order to get a more accurate position in relation to
-the tracks topography. \\
-There is two ways of finding ELBAs positon on the track. The first way is a dead
-reckoning system based on the shaft encoder~\cite[p.~49]{elba2015},
-which calculates the position based on the rotational speed of the shaft. The
-second way is based on the GPS system implemented in the race capture pro 2,
-where the GPS signal is taken from it's raw form and reshaped with a
-Lua-script\footnote{Lua is a dynamically typed scripting language, www.lua.org}
-into a CAN-message that is sent on the CAN-bus.
