@@ -219,3 +219,32 @@ mode and encoder data was saved.
 Because of software limitations, the oscilloscope and the testrig ECU can not be
 run in the same Simulink instance. This means that two separate models are run
 simultaneously, one recording the input and one recording the output.
+
+\subsection{Identification process}
+To be able to identify the parameters of the testrig, the dynamic model from
+Equation (\ref{eq:testrig_totaldynamics}) is combined with that of a DC motor. A
+principle schematic of a DC motor is given in
+Figure~\ref{fig:testrig_dcmotor_model}. $V_A$ is the voltage input, $R_A$ and
+$L_A$ are the internal resistance and inductance respectively, $i_a$ is the
+motor current and $V_C$ is the back-emf. $J$ is the inertia of the motor and
+$\omega_a$ is the rotational velocity.
+\begin{figure}[H]
+	%TODO: Need a better picture!
+    \label{fig:testrig_dcmotor_model}
+    \centering
+    \includegraphics[width=\textwidth]{./img/testrig_dcmotor_model.png}
+    \caption{DC motor schematic diagram.}
+\end{figure}
+Using Kirchoffs loop rule along with 
+\begin{equation} \label{eq:testrig_kphi_v}
+    V_C = k_{\phi} \omega
+\end{equation}
+and 
+\begin{equation} \label{eq:testrig_kphi_i}
+    T = k_{\phi} \omega
+\end{equation}
+gives the electric dynamics of the motor,
+\begin{align} \label{eq:testrig_dcmotor}
+    V_A = R_A i_a + L_A \frac{di_a}{dt} + k_{\phi}\omega \\
+    J \frac{d\omega} {dt} = k_{\phi} i_a - d\omega - \mu.
+\end{align}
