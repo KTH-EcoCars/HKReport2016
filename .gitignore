@@ -18,4 +18,4 @@
 *.fbd_latexmk
 
 # To avoid merge crashes
-*.pdf
+main.pdf
