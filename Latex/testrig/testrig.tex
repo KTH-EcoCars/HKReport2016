@@ -131,6 +131,8 @@ The dynamic equations for the rollers are
 \begin{equation} \label{eq:testrig_rollerdynamics}
     J_r \dot{\omega}_r = F_{tr}r_r - d_r \omega_r - \mu_r,
 \end{equation}
+TODO: FEL, ska nog vara $F_r$ istället för $F_{tr}$
+
 where $J_r$ is the inertia of the rollers and $\omega_r$ is the rotational velocity
 of the roller. The frictional terms are the viscous friction $d_r$ and the
 constant friction $\mu_r$ which is modelled by the Karnop model (??).
@@ -150,8 +152,14 @@ chain gear but it is expected that this friction will be incorporated in the
 total system model and the friction free representation is deemed adequate.
 Using Equation (\ref{eq:testrig_rollerdynamics}) and (motor model) along with
 the gearbox model, the total testrig dynamic model becomes
-\begin{equation} \label{eq:testrig_totaldynamics}
+%TODO: Fixa 
+\begin{equation} \label{eq:testrig_totaldynamics} 
     T_m = F_{tr} r_r + J_{tot} \dot{\omega}_m + d_{tot} \omega_m + \mu_{tot},
+\end{equation}
+
+TODO: FEL i ekvationen, möjligt korrekt:
+\begin{equation} \label{eq:testrig_totaldynamics2} 
+    T_m = \frac{F_{tr} r_w + J_{tot} \dot{\omega}_m + d_{tot} \omega_m + \mu_{tot}}{n_1 n_2},
 \end{equation}
 with motor torque $T_m$, simulation force $F_{tr}$ and motor rotational velocity
 $\omega_m$. The inertia term is the combined inertia of the motor and
