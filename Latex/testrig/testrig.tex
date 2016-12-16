@@ -33,7 +33,7 @@ The voltage level on the supercapacitor was controlled by the arduino that contr
 \begin{figure}[H]
     \centering
     \label{fig:bildeen}
-    \includegraphics[width=1\textwidth]{./img/bildeen}
+    \includegraphics[width=\textwidth]{./img/bildeen}
     \caption{schematics}
 \end{figure}
 
@@ -56,7 +56,7 @@ given in Figure~\ref{fig:testrig_elbadynamics}.
 \end{figure}
 The motion equations on the system are 
 \begin{equation} \label{eq:testrig_cardynamics}
-    m\ddot{x} = F_d + mg\sin{\alpha} - F_c - F_{\mu},
+    m\ddot{x} = F_d - mg\sin{\alpha} - F_c - F_{\mu},
 \end{equation}
 where $F_d$ is the effective driving force of the car, $m$ is the mass of the
 car and $alpha$ is the slope from the horizontal plane. The resistance terms
@@ -96,16 +96,16 @@ Knowing the radius of the rollers and the cars wheels, the linear acceleration
 can be calculated by measuring the rotational acceleration on the roller. This
 is done by an incremental encoder on the roller shaft. Rotational speed is
 calculated in the microcontroller and rotational acceleration is derivated from
-rotational speed. Using the roller radius, $r_{roller}$, the linear acceleration
+rotational speed. Using the roller radius, $r_{r}$, the linear acceleration
 is calculated.
 
 Rewriting Equation (\ref{eq:}), (\ref{eq:drag}) and the friction force gives the
 desired linear testrig simulation force on the right hand side,
 \begin{equation} \label{eq:simulationforce}
-    F_d = m\ddot{x} - mg\sin{\alpha} + C_{tot}\dot{x}^2 + F_{\mu}.
+    F_{tr} = m\ddot{x} + mg\sin{\alpha} + C_{tot}\dot{x}^2 + F_{\mu}.
 \end{equation}
 
-Using the height profile of the London track and the plant model of Elba, $F_d$ during an entire lap could be simulated, as shown in Figure (\ref{fig:testrig_negative_forces}).
+Using the height profile of the London track and the plant model of Elba, $F_{tr}$ during an entire lap could be simulated, as shown in Figure (\ref{fig:testrig_negative_forces}).
 
 \begin{figure}[H]
     \label{fig:testrig_negative_forces}
