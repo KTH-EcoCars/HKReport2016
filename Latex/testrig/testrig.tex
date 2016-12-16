@@ -219,3 +219,54 @@ mode and encoder data was saved.
 Because of software limitations, the oscilloscope and the testrig ECU can not be
 run in the same Simulink instance. This means that two separate models are run
 simultaneously, one recording the input and one recording the output.
+
+\subsection{Identification process}
+To be able to identify the parameters of the testrig, the dynamic model from
+Equation (\ref{eq:testrig_totaldynamics}) is combined with that of a DC motor. A
+principle schematic of a DC motor is given in
+Figure~\ref{fig:testrig_dcmotor_model}. $V_A$ is the voltage input, $R_A$ and
+$L_A$ are the internal resistance and inductance respectively, $i_a$ is the
+motor current and $V_C$ is the back-emf. $J$ is the inertia of the motor and
+$\omega_a$ is the rotational velocity.
+\begin{figure}[H]
+	%TODO: Need a better picture!
+    \label{fig:testrig_dcmotor_model}
+    \centering
+    \includegraphics[width=\textwidth]{./img/testrig_dcmotor_model.png}
+    \caption{DC motor schematic diagram.}
+\end{figure}
+Using Kirchoffs loop rule along with 
+\begin{equation} \label{eq:testrig_kphi_v}
+    V_C = k_{\phi} \omega
+\end{equation}
+and 
+\begin{equation} \label{eq:testrig_kphi_i}
+    T = k_{\phi} \omega
+\end{equation}
+gives the electric dynamics of the motor,
+\begin{align} 
+    V_A = R_A i_a + L_A \frac{di_a}{dt} + k_{\phi}\omega \label{eq:testrig_dcmotor_v}\\
+    J \frac{d\omega} {dt} = k_{\phi} i_a - d\omega - \mu. \label{eq:testrig_dcmotor_j}
+\end{align}
+Performing a Lablace transform and rewriting Equation (\ref{eq:testrig_dcmotor_v}) and (\ref{eq:testrig_dcmotor_j})
+one gets a second order model for the motor as a transfer function between
+voltage and rotational velocity,
+\begin{equation} \label{eq:testrig_motor_2ndorder}
+    \omega = \frac {k_{\phi}} {(sJ + d)(R_A + sL_A) + k_{\phi}^2} U_A.
+\end{equation}
+In order to reduce the model complexity, $L_A$ is assumed to be small enough to
+have any significant effect on the systems dynamics. With this assumtion,
+Equation (\ref{eq:testrig_motor_2ndorder}) becomes a first order system,
+\begin{equation} \label{eq:testrig_motor_1storder}
+    \omega = \frac {k_{\phi}} {sJ + d R_A + k_{\phi}^2}} U_A.
+\end{equation}
+Equation (\ref{eq:testrig_motor_1storder}) can be rearranged to a standard first
+order transfer function form yielding
+\begin{equation} \label{eq:testrig_motor_1storder_rewrite}
+    \omega = C_1 \frac {1} {s C_2 + 1}
+\end{equation}
+where $C_1 = k(1 + \frac{1} {R d}})$ and $C_2 = \frac {J} {\frac{k^2} {R} + d}$.
+Using the final value theorem, setting $s = 0$, $C_1$ can be seen to be the steady
+state gain of the system and $C_2$ is the time constant. 
+
+
