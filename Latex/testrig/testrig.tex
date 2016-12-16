@@ -151,7 +151,7 @@ total system model and the friction free representation is deemed adequate.
 Using Equation (\ref{eq:testrig_rollerdynamics}) and (motor model) along with
 the gearbox model, the total testrig dynamic model becomes
 \begin{equation} \label{eq:testrig_totaldynamics}
-    J_{tot} \dot{\omega}_m = T_m + F_{tr} r_r - d_{tot} \omega_m - \mu_{tot},
+    T_m = F_{tr} r_r + J_{tot} \dot{\omega}_m + d_{tot} \omega_m + \mu_{tot},
 \end{equation}
 with motor torque $T_m$, simulation force $F_{tr}$ and motor rotational velocity
 $\omega_m$. The inertia term is the combined inertia of the motor and
