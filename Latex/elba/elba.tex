@@ -66,29 +66,43 @@ The car has four electronic control units (ECUs) that are responsible for
 controlling different parts of the car.
 
 \begin{itemize}
-\item Front-ECU
-\item Back-ECU
-\item ICE-ECU
-\item Clutch-ECU
+\item Front ECU
+\item Back ECU
+\item ICE ECU
+\item Clutch ECU
 \end{itemize}
 
-The Front-ECU is responsible for the human interface, the buttons where the
+%TODO: Picture of communication between components
+
+The Front ECU is responsible for the human interface, the buttons where the
 driver is able to decide mode and speed if the car is in manual mode. It sends
 speed and drive mode on the CAN bus.
 
-The Back-ECU controls the motors via the separate motor controllers. It has
-veto over the ICE and Cluch.
+The Back ECU controls the motors via the separate motor controllers. It has
+veto over the ICE and Clutch.
 
-The internal combustion engine is controlled by the ICE-ECU and this is its
+The internal combustion engine is controlled by the ICE ECU and this is its
 only task. It senses the lambda value and motor? temperatures to control the
 injection of fuel.
 
-The Cluch-ECU controls the clutch. It interfaces to two H-bridges which in turn
+The Clutch ECU controls the clutch. It interfaces to two H-bridges which in turn
 steers the linear actuators.  
 
 \subsection{Communication}
 The car uses a CAN network to communicate between the distributed
-micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus. 
+micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus. Each CAN message consists of CAN id, a 32 bit upper data integer and a 32 bit lower data integer. Messages sent from Front ECU are sent with id 170, from Back ECU 169, and from ICE ECU 114. Data position in the messages on the CAN-bus can be seen in table REF, counting the lowest bit as bit 1.
+
+\noindent{}\begin{tabular}{|r|c|l|}
+%TODO: complete and fix layout
+\textbf{data} & \textbf{id} & \textbf{bits}\\
+Reference Speed & 170 & 1-16 \\
+Brake & 170 & 17 \\
+Reference Mode & 170 & 20-23 \\
+Auto & 170 & 24 \\
+Current Mode & id & bits \\
+\end{tabular}
+
+
 
 Another CAN network is used between the Back-ECU and the inMotion driver that
 controls the BLDC motor. This network uses the protocol CANopen that
