@@ -121,7 +121,7 @@ Current Mode & 169 & 33--36 \\
 BLDC motor current & 169 & 37--48 \\
 Distance & 169 & 49--64 \\
 ICE RPM & 114 & 1--16 \\
-ICE on/off & 113 & 1-2 \\
+ICE on/off & 113 & 1--2 \\
 Fuel injection time & 114 & 17--32 \\
 GPS longitude & 180 & 1--32 \\ 
 GPS latitude & 180 & 33--64 \\
@@ -150,7 +150,7 @@ levels. Elba benefits form a full system model to simulate fuel efficiency and
 each ECU has a corresponding Simulink model from which all code is compiled.
 
 \subsection{Plant Model}
-The plant model is supposed to be a full system model capable of estimating fuel consumption over an entire SEM attempt. When any component, which has an affect on propulsion, is changed on the car the plant model must also be updated. Naturally the goal with MBD is that any change can be simulated with the plant model, approved and then the car is updated. But not all simulations can be done beforehand, which was the case for the new ICE. 
+The Simulink plant model is supposed to be a full system model capable of estimating fuel consumption over an entire SEM attempt. When any component, which has an effect on propulsion, is changed on the car the plant model must also be updated. Naturally the goal with MBD is that any change can be simulated with the plant model, approved and then the car is updated. But not all simulations can be done beforehand, which was the case for the new ICE. 
 
 Functionally, the plant model is very similar to the old one described in \cite{elba2015}. The structure of the model was improved to give a clearer view, a way of including the track profile was added and errors in some models were corrected. Also, the work of \citep{liu2016} was included in the form of a reference speed lookup table. The plant model also includes a model of the testrig to simulate forces and torques it is required to output.
 
