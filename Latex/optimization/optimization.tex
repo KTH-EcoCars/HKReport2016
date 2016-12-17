@@ -62,16 +62,53 @@ the dead reckoning position is zeroed in the function block and the position is
 calculated and delivered as the output. The position is sent to a Particle
 Filter block where both the dead reckoning and the GPS position is inputed.
 These two positioning systems should to be used to get the estimation of
-the traveled distance the car have traveled on the track. The reason for using
-th particle filter is because the encoder will likely have a drift and it is
+the travelled distance the car have travelled on the track. The reason for using
+the particle filter is because the encoder will likely have a drift and it is
 a known that there is an inaccuracy in the GPS. However, the
 Particle Filter itself is not implemented at the moment and is considered to be
-something future groups need to work on.\\
-There is three inputs into the three dimentional optimization lookup-table, the first one is a
-time. This input is used to synchronize the different time scales in the table and
-Simulink. The speed input is read from the CAN-bus and is the current speed of
-Elba. The track position is the calculated distance traveled on the track from
+something future groups need to work on.
+
+There are three inputs into the three dimensional optimization lookup-table, the first one is time. This input is used to synchronize the different time scales in the table and Simulink. The speed input is read from the CAN-bus and is the current speed of
+Elba. The track position is the calculated distance travelled on the track from
 the filter. The output of the block is an acceleration reference which needs to
 be converted to an reference speed since Elba is currently controlled with speed
 request. 
 
+\section{Simulations}
+
+\subsection{Static reference speed}
+One lap around the track was simulated using the plant model with a constant reference speed of 7 m/s (the slowest allowed speed to be able to complete the race in time). %The resulting speed and vehicle height position can be seen in Figure \ref{fig:optimization_static_speed} 
+
+%TODO: Frågan är om denna ska med alls...
+%\begin{figure}[H]
+%    \centering\label{fig:optimization_static_speed}
+%    \includegraphics[width=\textwidth]{./img/optimization_static_speed.eps}
+%    \caption{Plots of vehicle height and speed as a function of time.}
+%\end{figure}
+
+The amount of kilometres travelled per litre fuel $f_c$ was calculated according to
+
+\begin{equation} \label{eq:optimization_fuelconsumption}
+	f_{tot} = \frac{d_l}{f_i+f_c},
+\end{equation}
+
+where $d_l$ is the distance of one lap, $f_i$ the fuel consumed by the ICE and $f_c$ the equivalent amount of fuel that the super capacitor has been discharged by since the start of the race, calculated as
+
+\begin{equation} \label{eq:optimization_ethanolenergy}
+	f_c = \frac{({{u_{c_0}}^2-{u_{c_{end}}}^2})c_c}{2k},
+\end{equation}
+
+where $u_{c_0}$ is the initial capacitor voltage, $u_{c_{end}}$ is the capacitor voltage at the end of the race, $c_c$ is the capacitance in the capacitor and $k$ is the conversion ratio from litre ethanol to energy in joule, retrieved from \cite{fuelconversion}.
+
+This resulted in $f_{tot} = 172.8$ $km/l$. %TODO: göra snyggare
+
+\subsection{Optimized reference speed}
+Using the optimized speed controller as a lookup table (produced by \citep{liu2016}) dependant on vehicle speed, distance and elapsed time, a new simulation could be produced. The resulting speed and vehicle height position can be seen in Figure \ref{fig:optimization_optimal_speed}
+
+\begin{figure}[H]
+    \centering\label{fig:optimization_optimal_speed}
+    \includegraphics[width=\textwidth]{./img/optimization_optimal_speed.eps}
+    \caption{Plots of vehicle height and speed as a function of time.}
+\end{figure}
+
+The amount of kilometres travelled per litre fuel $f_{tot}$ was calculated according to equation \ref{eq:optimization_fuelconsumption}. This resulted in $f_{tot} = 194.1$ $km/l$. %TODO: göra snyggare

@@ -97,8 +97,10 @@ steers the linear actuators.
 
 \subsection{Communication}
 The car uses a CAN network to communicate between the distributed
-micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus. Each CAN message consists of a CAN id, a 32 bit upper data integer and a 32 bit lower data integer. Messages sent from Front ECU are sent with id 170, from Back ECU with id 169, and from ICE ECU with id 114. GPS data from the data-logger/GPS-unit Race Capture Pro are sent with id 180. Data position in the messages on the CAN-bus can be seen in table REF, counting the lowest bit as bit 1. The lower data counts for bit position 1-32 and upper data 33-64.
+micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus. Each CAN message consists of a CAN id, a 32 bit upper data integer and a 32 bit lower data integer. Messages sent from Front ECU are sent with id 170, from Back ECU with id 169 and 113, and from ICE ECU with id 114. GPS data from the data-logger/GPS-unit Race Capture Pro are sent with id 180. Data position in the messages on the CAN-bus can be seen in table \ref{table:CAN}, counting the lowest (least significant) bit as bit 1. The lower data accounts for bit position 1-32 and upper data 33-64.
 
+\begin{table}[h]
+\label{table:CAN}
 \begin{center}
 \begin{tabular}{|l|c|l|}
 \hline
@@ -113,11 +115,14 @@ Current Mode & 169 & 33-36 \\ \hline
 BLDC motor current & 169 & 37-48 \\ \hline
 Distance & 169 & 49-64 \\ \hline
 ICE RPM & 114 & 1-16 \\ \hline
+ICE on/off & 113 & 1-2 \\ \hline
 Fuel injection time & 114 & 17-32 \\ \hline
 GPS longitude & 180 & 1-32 \\ \hline
 GPS latitude & 180 & 33-64 \\ \hline
 \end{tabular}
 \end{center}
+\caption{Data position in different CAN messages on the CAN bus.}
+\end{table}
 
 Another CAN network is used between the Back-ECU and the inMotion driver that
 controls the BLDC motor. This network uses the protocol CANopen that
@@ -136,7 +141,11 @@ of the electrical motors with energy from the super-capacitor.
 Using a model based approach relies on verified systems models on various levels. Elba benefits form a full system model to simulate fuel efficency and each ECU has a corresponding simulink model from which all code is compiled.
 
 \subsection{Plant Model}
-The plant model is supposed to be a full system model capable of estimating fuel consumption over an entire SEM attempt. When any component, which has an affect on propulsion, is changed on the car the plant model must also be updated. Naturally the goal with MBD is that any change can be simulated with the plant model, approved and then the car is updated. But not all simulations can be done beforehand, which was the case for the new ICE.\@
+The plant model is supposed to be a full system model capable of estimating fuel consumption over an entire SEM attempt. When any component, which has an affect on propulsion, is changed on the car the plant model must also be updated. Naturally the goal with MBD is that any change can be simulated with the plant model, approved and then the car is updated. But not all simulations can be done beforehand, which was the case for the new ICE. 
+
+Functionally, the plant model is very similar to the old one described in \cite{elba2015}. The structure of the model was improved to give a clearer view, a way of including the track profile was added and errors in some models were corrected. Also, the work of \citep{liu2016} was included in the form of a reference speed lookup table. The plant model also includes a model of the testrig to simulate forces and torques it is required to output.
+
+Since the new ICE couldn't be properly mapped, the plant model uses parameters for the old ICE. This needs to be considered when interpreting results from simulations on the plant model.
 
 \subsection{ECU software}
 All ECUs use an Arduino (Due or Mega) as micro-controller which simulink has
@@ -225,8 +234,9 @@ The new door where constructed in a carbon fibre sandwich style and was open in 
 %Results
 \section{Results}
 We beat Chalmers. We are no byskola.
+
 \subsection{Competition}
-At the time the team arrived in London the ICE had never been started with only ethanol as fuel, the door had to be mounted and an number of small changes to be able to pass both inspections. Most time where spent to get the engine running, but it was never able to run for more than a couple of strokes. 
+At the time the team arrived in London the ICE had never been started with only ethanol as fuel, the door had to be mounted and the team needed to do a number of small changes to be able to pass both inspections. Most time was spent to get the engine running, but it was never able to run for more than a couple of strokes. 
 
 Both the technical inspection and safety inspection were passed. There where a few complaints: The doors closing mechanism where insufficient, the indicator lights where to weak, and the fire-extinguishers expirations data had passed. All these had to be reinspected before Elba was given a pass.
 
