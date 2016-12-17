@@ -26,7 +26,14 @@ To create a braking torque on the test rig it is needed to generate a current fr
 
 The current from the DC motor is sent to a supercapacitor that is connected directly to the motor driver, where the created energy is stored. Since the driver needs to have a relatively stable input voltage, we want the threshold of the voltage on the supercapacitor to be stable. Therefore it was decided to start burning energy if the voltage exceeds 47 volt. The voltage cannot drop to much either, therefore a power supply unit was added as a backup if we need to simulate a steep downhill where the motor will act as a motor instead of a generator, and therefore draw current instead of generating. 
 
-The voltage level on the supercapacitor was controlled by the arduino that controls what track to input to the driver. The voltage levels where controlled by a state machine where a voltage level of 47 volt will open a relay between the supercap and the power resistors, and it will remain open until the supercap reaches 45 volt where the arduino will close the relay and make the supercap to be able to recharge again. 
+The voltage level on the supercapacitor was controlled by the arduino that controls what track to input to the driver. The voltage levels where controlled by a state machine where a voltage level of 47 volt will open a relay between the supercap and the power resistors, and it will remain open until the supercap reaches 45 volt where the arduino will close the relay and make the supercap to be able to recharge again. A basic schematic of the setup can be seen in Figure \ref{fig:testrig_schematic}.
+
+\begin{figure}[H]
+    \label{fig:testrig_schematic}
+    \centering
+    \includegraphics[width=\textwidth]{./img/testrig_schematic.png}
+    \caption{Schematic of testrig wiring.}
+\end{figure}
 
 %%TODO, lägga in wiring diagram för förbränning.
 
