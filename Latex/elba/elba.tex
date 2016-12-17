@@ -2,7 +2,7 @@
 The hybrid vehicle that was built upon was named Elba several years ago when it
 was still a pure electric vehicle. The platform has been continuously improved
 and altered to the complex hybrid that exist today. Each year Elba participates
-in Shell Eco Marathon (SEM) as an ``Urban Concept Vehicle''.
+in Shell Eco-marathon (SEM) as an ``Urban Concept Vehicle''.
 
 %Introduction
 \section{Introduction}
@@ -66,29 +66,58 @@ The car has four electronic control units (ECUs) that are responsible for
 controlling different parts of the car.
 
 \begin{itemize}
-\item Front-ECU
-\item Back-ECU
-\item ICE-ECU
-\item Clutch-ECU
+\item Front ECU
+\item Back ECU
+\item ICE ECU
+\item Clutch ECU
 \end{itemize}
 
-The Front-ECU is responsible for the human interface, the buttons where the
+An overview of the communication between the ECUs can be seen in Figure \ref{fig:communication_overview}
+
+\begin{figure}[H]
+    \centering
+    \label{fig:communication_overview}
+    \includegraphics[width=1\textwidth]{./img/elba_communication_overview}
+    \caption{Overview of the communication system and drivetrain in Elba.}
+\end{figure}
+
+The Front ECU is responsible for the human interface, the buttons where the
 driver is able to decide mode and speed if the car is in manual mode. It sends
 speed and drive mode on the CAN bus.
 
-The Back-ECU controls the motors via the separate motor controllers. It has
-veto over the ICE and Cluch.
+The Back ECU controls the motors via the separate motor controllers. It has
+veto over the ICE and Clutch.
 
-The internal combustion engine is controlled by the ICE-ECU and this is its
+The internal combustion engine is controlled by the ICE ECU and this is its
 only task. It senses the lambda value and motor? temperatures to control the
 injection of fuel.
 
-The Cluch-ECU controls the clutch. It interfaces to two H-bridges which in turn
+The Clutch ECU controls the clutch. It interfaces to two H-bridges which in turn
 steers the linear actuators.  
 
 \subsection{Communication}
 The car uses a CAN network to communicate between the distributed
-micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus. 
+micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus. Each CAN message consists of a CAN id, a 32 bit upper data integer and a 32 bit lower data integer. Messages sent from Front ECU are sent with id 170, from Back ECU with id 169, and from ICE ECU with id 114. GPS data from the data-logger/GPS-unit Race Capture Pro are sent with id 180. Data position in the messages on the CAN-bus can be seen in table REF, counting the lowest bit as bit 1. The lower data counts for bit position 1-32 and upper data 33-64.
+
+\begin{center}
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Data} & \textbf{Id} & \textbf{Bits}\\ \hline
+Reference Speed & 170 & 1-16 \\ \hline
+Brake & 170 & 17 \\ \hline
+Reference Mode & 170 & 20-23 \\ \hline
+Auto & 170 & 24 \\ \hline
+Current Speed & 169 & 1-16 \\ \hline
+Supercapacitor Voltage & 169 & 17-32 \\ \hline
+Current Mode & 169 & 33-36 \\ \hline
+BLDC motor current & 169 & 37-48 \\ \hline
+Distance & 169 & 49-64 \\ \hline
+ICE RPM & 114 & 1-16 \\ \hline
+Fuel injection time & 114 & 17-32 \\ \hline
+GPS longitude & 180 & 1-32 \\ \hline
+GPS latitude & 180 & 33-64 \\ \hline
+\end{tabular}
+\end{center}
 
 Another CAN network is used between the Back-ECU and the inMotion driver that
 controls the BLDC motor. This network uses the protocol CANopen that
@@ -147,7 +176,7 @@ To solve the mechanical problems it was decided to appoint one team from the mac
 
 To solve this problem, several solutions have been investigated. The clutch mechanism has been controlled by time rather than position. One approach was to use the built in hall sensor in the actuator to control the position. One other idea was to use an external current sensor on the clutch ECU to control the position. A third idea was to continue using time as reference, but increase it so that an end position is always reached, which can be used as a reference position.
 
-When investigating alternative three above using longer time to engage and disengage the clutch a new problem was discovered. It appeared that even though the clutch was not stuck to the center plate it still could not be properly disengaded. This was due to the geometry of the lever arm which pushes the clutch plate.  After this important insight the drivetrain was disassembled and new lever arms were constructed and manufactured. When the drivetrain was assembled again the clutch worked like a charm. Figure(\ref{fig:clutch}) is a rendered image of one of the new lever arms.
+When investigating alternative three above using longer time to engage and disengage the clutch a new problem was discovered. It appeared that even though the clutch was not stuck to the center plate it still could not be properly disengaged. This was due to the geometry of the lever arm which pushes the clutch plate.  After this important insight the drivetrain was disassembled and new lever arms were constructed and manufactured. When the drivetrain was assembled again the clutch worked like a charm. Figure(\ref{fig:clutch}) is a rendered image of one of the new lever arms.
 
 %%TODO
 \begin{figure}[H]
@@ -199,11 +228,12 @@ We beat Chalmers. We are no byskola.
 \subsection{Competition}
 At the time the team arrived in London the ICE had never been started with only ethanol as fuel, the door had to be mounted and an number of small changes to be able to pass both inspections. Most time where spent to get the engine running, but it was never able to run for more than a couple of strokes. 
 
-Both the technical inspection and safety inspection were passed. There where a few complaints: The doors closing mechanism where insufficient, the indicator lights where to weak, and the fire-extinguishers expirations data had passed. All these had to be reinspected before Elba where given a pass.
+Both the technical inspection and safety inspection were passed. There where a few complaints: The doors closing mechanism where insufficient, the indicator lights where to weak, and the fire-extinguishers expirations data had passed. All these had to be reinspected before Elba was given a pass.
 
-It was decided that one attempt should be made even if the engine never had been started properly. Since the car must be rolling to start the ICE the inertia of the car will keep the ICE turning even if it misfires (the wheel inertia is not enough for this). This meant that the ICE started once the car finally was running during the attempt. But it was soon discovered that the engine could not be shut off, if the clutch was disengaged the engine kept running and revving at dangerous levels. Since the car is required to stop once each lap Elba had to stall the engine with clutch engaged. While trying to get going again the clutch could not be disengaged and the attempt had to be aborted.
+It was decided that one attempt should be made even if the engine never had been started properly. Since the car must be rolling to start the ICE the inertia of the car will keep the ICE turning even if it misfires (the wheel inertia is not enough for this). This meant that the ICE started once the car finally was running during the attempt. %But it was soon discovered that the engine could not be shut off, if the clutch was disengaged the engine kept running and revving at dangerous levels. %KOMMENTAR: Känns som att vi kan utelämna denna bit... :D /Emil
+At the compulsory stop after one lap the clutch to the ICE did not properly disengage, causing Elba to stall the engine with clutch engaged. While trying to get going again the clutch could not be disengaged and the attempt had to be aborted.
 
-Therefore Elba never got an competition result. But many lessons where learned.
+Therefore Elba never got a competition result. But many lessons where learned.
 
 \subsection{End of project}
 

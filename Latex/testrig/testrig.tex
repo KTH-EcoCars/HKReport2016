@@ -20,7 +20,7 @@ requirements that describe the limitations and demands on the system and its
 subsystems.
 
 \section{Hardware}
-The testrig is composed of two rollers mounted on a metal frame together with a DC motor as well as an encoder to keep track of the speed of the motor. The motor is connected to the rollers by sprockets and chain with a gearing ratio of two. To control the DC motor we used an Epson driver with inputs from an Arduino mega that control which torque we want to apply to the motor. 
+The testrig is composed of two rollers mounted on a metal frame together with a DC motor as well as an incremental quadratic encoder to keep track of the speed of the motor. The motor is connected to the rollers by sprockets and chain with a gearing ratio of two. To control the DC motor we used an Epson driver with inputs from an Arduino Mega that control which torque we want to apply to the motor. 
 
 To create a braking torque on the test rig it is needed to generate a current from the DC motor that has to be handled somehow, since the motor will work as a generator while braking. This was done by the manufacturing of a system that stores the energy created, and if more energy is created than the system can handle, energy is sent to six parallel power resistors that will burn off the excess energy. 
 
@@ -28,14 +28,8 @@ The current from the DC motor is sent to a supercapacitor that is connected dire
 
 The voltage level on the supercapacitor was controlled by the arduino that controls what track to input to the driver. The voltage levels where controlled by a state machine where a voltage level of 47 volt will open a relay between the supercap and the power resistors, and it will remain open until the supercap reaches 45 volt where the arduino will close the relay and make the supercap to be able to recharge again. 
 
-%%TODO, lägga in blockschema över logiken till bräningsstyrning+?? Ska lägga in wiring diagram för förbränning iaf.
+%%TODO, lägga in wiring diagram för förbränning.
 
-\begin{figure}[H]
-    \centering
-    \label{fig:bildeen}
-    \includegraphics[width=\textwidth]{./img/bildeen}
-    \caption{schematics}
-\end{figure}
 
 \section{Car dynamics} \label{sec:cardynamics}
 The calculations in this section are in many ways the same as the calculations
@@ -48,7 +42,6 @@ When simulating a track, one needs to know the force exerted by the environment
 on the car. A graphical representation of the forces that act on the car is
 given in Figure~\ref{fig:testrig_elbadynamics}.
 \begin{figure}[H]
-    % TODO: Make a better picture!
     \label{fig:testrig_elbadynamics}
     \centering
     \includegraphics[width=0.5\textwidth]{./img/testrig_elbaforces.png}
@@ -99,7 +92,7 @@ calculated in the microcontroller and rotational acceleration is derivated from
 rotational speed. Using the roller radius, $r_{r}$, the linear acceleration
 is calculated.
 
-Rewriting Equation (\ref{eq:}), (\ref{eq:drag}) and the friction force gives the
+Rewriting Equation (\ref{eq:testrig_cardynamics}), (\ref{eq:drag}) and the friction force gives the
 desired linear testrig simulation force on the right hand side,
 \begin{equation} \label{eq:simulationforce}
     F_{tr} = m\ddot{x} + mg\sin{\alpha} + C_{tot}\dot{x}^2 + F_{\mu}.
@@ -131,36 +124,28 @@ The dynamic equations for the rollers are
 \begin{equation} \label{eq:testrig_rollerdynamics}
     J_r \dot{\omega}_r = F_{tr}r_r - d_r \omega_r - \mu_r,
 \end{equation}
-TODO: FEL, ska nog vara $F_r$ istället för $F_{tr}$
+%Inte 100% säker på att Ftr blir rätt här /Emil
 
 where $J_r$ is the inertia of the rollers and $\omega_r$ is the rotational velocity
 of the roller. The frictional terms are the viscous friction $d_r$ and the
 constant friction $\mu_r$ which is modelled by the Karnop model (??).
 
 Connecting the rollers and the motor is a chain gear. It is modelled as a
-generic gear box. A principle drawing of it is given in
-Figure~\ref{fig:testrig_chaingear}. 
-\begin{figure}[H]
-	%TODO: Need a better picture!
-    \label{fig:testrig_chaingear}
-    \centering
-    \includegraphics[width=0.9\textwidth]{./img/testrig_chaingear.png}
-    \caption{Chaingear modelled as a generic gearbox with no internal friction.}
-\end{figure}
-This gearbox model has no internal friction.  There is always friction in a
+generic gear box. The gearbox model has no internal friction. There is always friction in a
 chain gear but it is expected that this friction will be incorporated in the
 total system model and the friction free representation is deemed adequate.
 Using Equation (\ref{eq:testrig_rollerdynamics}) and (motor model) along with
 the gearbox model, the total testrig dynamic model becomes
 %TODO: Fixa 
 \begin{equation} \label{eq:testrig_totaldynamics} 
-    T_m = F_{tr} r_r + J_{tot} \dot{\omega}_m + d_{tot} \omega_m + \mu_{tot},
+    T_m = \frac{F_{tr} r_r + J_{tot} \dot{\omega}_m + d_{tot} \omega_m + \mu_{tot}}{n},
 \end{equation}
 
-TODO: FEL i ekvationen, möjligt korrekt:
-\begin{equation} \label{eq:testrig_totaldynamics2} 
-    T_m = \frac{F_{tr} r_w + J_{tot} \dot{\omega}_m + d_{tot} \omega_m + \mu_{tot}}{n_1 n_2},
-\end{equation}
+%TODO: Kanske fel i ekvationen, möjligt korrekt:
+%\begin{equation} \label{eq:testrig_totaldynamics2} 
+%    T_m = \frac{F_{tr} r_w + J_{tot} \dot{\omega}_m + d_{tot} \omega_m + \mu_{tot}}{n_1 n_2},
+%\end{equation}
+
 with motor torque $T_m$, simulation force $F_{tr}$ and motor rotational velocity
 $\omega_m$. The inertia term is the combined inertia of the motor and
 roller,
