@@ -72,11 +72,10 @@ controlling different parts of the car.
 \item Clutch ECU
 \end{itemize}
 
-An overview of the communication between the ECUs can be seen in Figure \ref{fig:communication_overview}
+An overview of the communication between the ECUs can be seen in Figure~\ref{fig:communication_overview}
 
 \begin{figure}[H]
-    \centering
-    \label{fig:communication_overview}
+    \centering\label{fig:communication_overview}
     \includegraphics[width=1\textwidth]{./img/elba_communication_overview}
     \caption{Overview of the communication system and drivetrain in Elba.}
 \end{figure}
@@ -97,27 +96,40 @@ steers the linear actuators.
 
 \subsection{Communication}
 The car uses a CAN network to communicate between the distributed
-micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus. Each CAN message consists of a CAN id, a 32 bit upper data integer and a 32 bit lower data integer. Messages sent from Front ECU are sent with id 170, from Back ECU with id 169, and from ICE ECU with id 114. GPS data from the data-logger/GPS-unit Race Capture Pro are sent with id 180. Data position in the messages on the CAN-bus can be seen in table REF, counting the lowest bit as bit 1. The lower data counts for bit position 1-32 and upper data 33-64.
+micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus.
+Each CAN message consists of a CAN id, a 32 bit upper data integer and a 32 bit
+lower data integer. Messages sent from Front ECU are sent with id 170, from
+Back ECU with id 169, and from ICE ECU with id 114. GPS data from the
+data-logger/GPS-unit Race Capture Pro are sent with id 180. Data position in
+the messages on the CAN-bus can be seen in table REF, counting the lowest bit
+as bit 1. The lower data counts for bit position 1--32 and upper data 33--64.
+micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus. Each CAN message consists of a CAN id, a 32 bit upper data integer and a 32 bit lower data integer. Messages sent from Front ECU are sent with id 170, from Back ECU with id 169 and 113, and from ICE ECU with id 114. GPS data from the data-logger/GPS-unit Race Capture Pro are sent with id 180. Data position in the messages on the CAN-bus can be seen in table \ref{table:CAN}, counting the lowest (least significant) bit as bit 1. The lower data accounts for bit position 1-32 and upper data 33-64.
 
+\begin{table}[H]
+\label{table:CAN}
 \begin{center}
-\begin{tabular}{|l|c|l|}
-\hline
-\textbf{Data} & \textbf{Id} & \textbf{Bits}\\ \hline
-Reference Speed & 170 & 1-16 \\ \hline
-Brake & 170 & 17 \\ \hline
-Reference Mode & 170 & 20-23 \\ \hline
-Auto & 170 & 24 \\ \hline
-Current Speed & 169 & 1-16 \\ \hline
-Supercapacitor Voltage & 169 & 17-32 \\ \hline
-Current Mode & 169 & 33-36 \\ \hline
-BLDC motor current & 169 & 37-48 \\ \hline
-Distance & 169 & 49-64 \\ \hline
-ICE RPM & 114 & 1-16 \\ \hline
-Fuel injection time & 114 & 17-32 \\ \hline
-GPS longitude & 180 & 1-32 \\ \hline
-GPS latitude & 180 & 33-64 \\ \hline
+\begin{tabular}{lcl}
+\textbf{Data} & \textbf{Id} & \textbf{Bits}\\
+\toprule
+Reference Speed & 170 & 1--16 \\
+Brake & 170 & 17 \\
+Reference Mode & 170 & 20--23 \\
+Auto & 170 & 24 \\
+Current Speed & 169 & 1--16 \\
+Supercapacitor Voltage & 169 & 17--32 \\ 
+Current Mode & 169 & 33--36 \\ 
+BLDC motor current & 169 & 37--48 \\
+Distance & 169 & 49--64 \\
+ICE RPM & 114 & 1--16 \\
+ICE on/off & 113 & 1--2 \\
+Fuel injection time & 114 & 17--32 \\
+GPS longitude & 180 & 1--32 \\ 
+GPS latitude & 180 & 33--64 \\
+\bottomrule
 \end{tabular}
 \end{center}
+\caption{Data position in different CAN messages on the CAN bus.}
+\end{table}
 
 Another CAN network is used between the Back-ECU and the inMotion driver that
 controls the BLDC motor. This network uses the protocol CANopen that
@@ -133,19 +145,44 @@ super-capacitor for later use. The car can only start from standstill using one
 of the electrical motors with energy from the super-capacitor.  
 
 \section{Software and Simulation Models}
-Using a model based approach relies on verified systems models on various levels. Elba benefits form a full system model to simulate fuel efficency and each ECU has a corresponding simulink model from which all code is compiled.
+Using a model based approach relies on verified systems models on various
+levels. Elba benefits form a full system model to simulate fuel efficiency and
+each ECU has a corresponding Simulink model from which all code is compiled.
 
 \subsection{Plant Model}
-The plant model is supposed to be a full system model capable of estimating fuel consumption over an entire SEM attempt. When any component, which has an affect on propulsion, is changed on the car the plant model must also be updated. Naturally the goal with MBD is that any change can be simulated with the plant model, approved and then the car is updated. But not all simulations can be done beforehand, which was the case for the new ICE.\@
+The Simulink plant model is supposed to be a full system model capable of estimating fuel consumption over an entire SEM attempt. When any component, which has an effect on propulsion, is changed on the car the plant model must also be updated. Naturally the goal with MBD is that any change can be simulated with the plant model, approved and then the car is updated. But not all simulations can be done beforehand, which was the case for the new ICE. 
+
+Functionally, the plant model is very similar to the old one described in \cite{elba2015}. The structure of the model was improved to give a clearer view, a way of including the track profile was added and errors in some models were corrected. Also, the work of \citep{liu2016} was included in the form of a reference speed lookup table. The plant model also includes a model of the testrig to simulate forces and torques it is required to output.
+
+Since the new ICE couldn't be properly mapped, the plant model uses parameters for the old ICE. This needs to be considered when interpreting results from simulations on the plant model.
 
 \subsection{ECU software}
-All ECUs use an Arduino (Due or Mega) as micro-controller which simulink has
-compiler support for. This means that simulink models can be compiled and
-uploaded to the arduino directly from simulink. The Simulink to Arduino coupling also
+All ECUs use an Arduino (Due or Mega) as micro-controller which Simulink has
+compiler support for. This means that Simulink models can be compiled and
+uploaded to the Arduino directly from Simulink. The Simulink to Arduino coupling also
 gives the option for running ``external mode'' a Hardware in the loop type compile mode.
 This makes it possible to look at values and signals, running on the ECU, in
 real-time.
- 
+
+\section{Data logging}
+The need for collecting data a very important aspect of developing and
+iterating design choices for the car in order to determine if the changes have
+made the car performance and handling after the changes have been made there
+is a real need for comparing data. In Elbas case there was a need for logging
+data from multiple ECU's. This meant that the either the data needs to be logged
+by the different ECUs themselves meaning that there might be an issue with
+storage space and the data retrieving might be hazardous. The second option is
+if there was the possibility to log the CAN-bus and perhaps analog and digital
+channels. There was always the possibility of having the laptop in the car while
+driving but this didn't seem to be the best way. After trying different things,
+including making our own, the Race Capture Pro 2 (RCP2) was found to meet the
+requirements, see~\ref{app:RCP}. With it's eight analogue input channels and
+three digital I/O channels it is very suitable for logging both analogue and
+digital signals. It also have the possibility to communicate with two
+CAN-channels and logging different custom identifiers as virtual channels. This
+last feature is particularly useful for the Elba project since this was one of
+the requirements.
+
 %Requirements
 \section{Requirements}
 \subsection{Rules}
@@ -161,11 +198,10 @@ At Shell Eco Marathon all vehicles must pass two inspections before the vehicle 
 %5. Finding the problem
 %6. Fixing the arms
 
-One of the major problems with the car has been the clutch. Figure(\ref{fig:Drivetrain}) illustrates the mechanical components of the drivetrain of elba.
+One of the major problems with the car has been the clutch. Figure (\ref{fig:Drivetrain}) illustrates the mechanical components of the drivetrain of elba.
 
 \begin{figure}[H]
-    \centering
-    \label{fig:Drivetrain}
+    \centering\label{fig:Drivetrain}
     \includegraphics[width=1\textwidth]{./img/Drivetrain}
     \caption{Illustration of the mechanical components of the drive train, where the red plates can move towards the center plate to engage and disengage the motors to the drive shaft.}
 \end{figure}
@@ -176,12 +212,11 @@ To solve the mechanical problems it was decided to appoint one team from the mac
 
 To solve this problem, several solutions have been investigated. The clutch mechanism has been controlled by time rather than position. One approach was to use the built in hall sensor in the actuator to control the position. One other idea was to use an external current sensor on the clutch ECU to control the position. A third idea was to continue using time as reference, but increase it so that an end position is always reached, which can be used as a reference position.
 
-When investigating alternative three above using longer time to engage and disengage the clutch a new problem was discovered. It appeared that even though the clutch was not stuck to the center plate it still could not be properly disengaged. This was due to the geometry of the lever arm which pushes the clutch plate.  After this important insight the drivetrain was disassembled and new lever arms were constructed and manufactured. When the drivetrain was assembled again the clutch worked like a charm. Figure(\ref{fig:clutch}) is a rendered image of one of the new lever arms.
+When investigating alternative three above using longer time to engage and disengage the clutch a new problem was discovered. It appeared that even though the clutch was not stuck to the center plate it still could not be properly disengaged. This was due to the geometry of the lever arm which pushes the clutch plate.  After this important insight the drivetrain was disassembled and new lever arms were constructed and manufactured. When the drivetrain was assembled again the clutch worked like a charm. Figure (\ref{fig:clutch}) is a rendered image of one of the new lever arms.
 
 %%TODO
 \begin{figure}[H]
-    \centering
-    \label{fig:clutch}
+    \centering\label{fig:clutch}
     \includegraphics[width=1\textwidth]{./img/clutch}
     \caption{The new clutch lever arms}
 \end{figure}
@@ -218,15 +253,22 @@ beforehand, it was beneficial to have a base functionality with flexibility to
 add features.
 
 \subsection{Door}
-The car is required to have a door, with a large enough entrance and working locking mechanism \cite{semrules16c1}. Since the old, layered carbonfibre door was too flimsy and also back hinged (there is a reason its call "suicide door"), it was decided a new, sturdier, door would be made. Two lightweight-construction student took this upon them self as a bachelors project. 
+The car is required to have a door, with a large enough entrance and working
+locking mechanism \cite{semrules16c1}. Since the old, layered carbon fibre door
+was too flimsy and also back hinged (there is a reason its called ``suicide door''),
+it was decided a new, sturdier, door would be made. Two lightweight-construction
+student took this upon them self as a bachelors project. 
 
-The new door where constructed in a carbon fibre sandwich style and was open in a scissor manner. The door became sturdier but the hinges where less than ideal and the closing mechanism did not work.
+The new door where constructed in a carbon fibre sandwich style and was open in
+a scissor manner. The door became sturdier but the hinges where less than ideal
+and the closing mechanism did not work.
 
 %Results
 \section{Results}
 We beat Chalmers. We are no byskola.
+
 \subsection{Competition}
-At the time the team arrived in London the ICE had never been started with only ethanol as fuel, the door had to be mounted and an number of small changes to be able to pass both inspections. Most time where spent to get the engine running, but it was never able to run for more than a couple of strokes. 
+At the time the team arrived in London the ICE had never been started with only ethanol as fuel, the door had to be mounted and the team needed to do a number of small changes to be able to pass both inspections. Most time was spent to get the engine running, but it was never able to run for more than a couple of strokes. 
 
 Both the technical inspection and safety inspection were passed. There where a few complaints: The doors closing mechanism where insufficient, the indicator lights where to weak, and the fire-extinguishers expirations data had passed. All these had to be reinspected before Elba was given a pass.
 
