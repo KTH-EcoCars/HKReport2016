@@ -20,15 +20,17 @@ requirements that describe the limitations and demands on the system and its
 subsystems.
 
 \section{Hardware}
+
+%%Add picture of cadmodel testrig?!
 The testrig is composed of two rollers mounted on a metal frame together with a
-DC motor as well as an incremental quadratic encoder to keep track of the speed
+DC motor and an encoder to keep track of the speed
 of the motor. The motor is connected to the rollers by sprockets and chain with
 a gearing ratio of two. To control the DC motor an Arduino Mega microcontroller
 calculates what current should be applied to the motor, this reference signal
 is used by a ESCON driver to control the current in a local feedback loop.
 
-To create a braking torque on the test rig it is needed to generate a current
-from the DC motor that has to be handled somehow, since the motor will work as
+To create a braking torque on the rollers that is to be connected to the car wheel, the DC motor is needed to generate a current
+that has to be handled somehow, since the motor will work as
 a generator while braking. This was done by the manufacturing of a system that
 stores the energy created, and if more energy is created than the system can
 handle, energy is sent to six parallel power resistors that will burn off the
@@ -39,13 +41,13 @@ directly to the motor driver, where the created energy is stored. Since the
 driver needs to have a relatively stable input voltage, we want the threshold
 of the voltage on the supercapacitor to be stable. Therefore it was decided to
 start burning energy if the voltage exceeds 47 volt. The voltage cannot drop
-too much either, therefore a power supply unit was added as a backup if we need
+too much either since we want to have a semi-stable input to the driver, therefore a power supply unit was added as a backup if we need
 to simulate a steep downhill where the motor will act as a motor instead of a
 generator, and therefore draw current instead of generating. 
 
 The voltage level on the supercapacitor is monitored by the microcontroller
-that controls what track to input to the driver. If the voltage exceeds 47 volt
-the microcontroller will close a relay between the power resistors and ground,
+that controls what track to input to the motor driver. If the voltage exceeds 47 volt
+the microcontroller will activate a relay between the power resistors and ground,
 and it will remain closed until the supercap has discharged to 45 volt where
 the microcontroller will open the relay and make the supercapacitor able to
 recharge again. A basic schematic of the setup can be seen in
