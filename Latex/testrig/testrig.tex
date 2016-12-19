@@ -14,28 +14,50 @@ test rig and simulations on the car.
 \section{Requirements}
 The requirements on the test rig are designed to capture the essential demands
 on the system. Firstly, the high level User requirements are set. These are set
-to capture the problem and to describe the goal of designing the system
-~\cite{ibm_req}. The User requirements are then developed into the System
+to capture the problem and to describe the goal of designing the
+system~\cite{ibm_req}. The User requirements are then developed into the System
 requirements that describe the limitations and demands on the system and its
 subsystems.
 
 \section{Hardware}
-The testrig is composed of two rollers mounted on a metal frame together with a DC motor as well as an incremental quadratic encoder to keep track of the speed of the motor. The motor is connected to the rollers by sprockets and chain with a gearing ratio of two. To control the DC motor an Arduino Mega microcontroller calculates what current should be applied to the motor, this reference signal is used by a ESCON driver to control the current in a local feedback loop.
+The testrig is composed of two rollers mounted on a metal frame together with a
+DC motor as well as an incremental quadratic encoder to keep track of the speed
+of the motor. The motor is connected to the rollers by sprockets and chain with
+a gearing ratio of two. To control the DC motor an Arduino Mega microcontroller
+calculates what current should be applied to the motor, this reference signal
+is used by a ESCON driver to control the current in a local feedback loop.
 
-To create a braking torque on the test rig it is needed to generate a current from the DC motor that has to be handled somehow, since the motor will work as a generator while braking. This was done by the manufacturing of a system that stores the energy created, and if more energy is created than the system can handle, energy is sent to six parallel power resistors that will burn off the excess energy. 
+To create a braking torque on the test rig it is needed to generate a current
+from the DC motor that has to be handled somehow, since the motor will work as
+a generator while braking. This was done by the manufacturing of a system that
+stores the energy created, and if more energy is created than the system can
+handle, energy is sent to six parallel power resistors that will burn off the
+excess energy. 
 
-The current from the DC motor is sent to a supercapacitor that is connected directly to the motor driver, where the created energy is stored. Since the driver needs to have a relatively stable input voltage, we want the threshold of the voltage on the supercapacitor to be stable. Therefore it was decided to start burning energy if the voltage exceeds 47 volt. The voltage cannot drop too much either, therefore a power supply unit was added as a backup if we need to simulate a steep downhill where the motor will act as a motor instead of a generator, and therefore draw current instead of generating. 
+The current from the DC motor is sent to a supercapacitor that is connected
+directly to the motor driver, where the created energy is stored. Since the
+driver needs to have a relatively stable input voltage, we want the threshold
+of the voltage on the supercapacitor to be stable. Therefore it was decided to
+start burning energy if the voltage exceeds 47 volt. The voltage cannot drop
+too much either, therefore a power supply unit was added as a backup if we need
+to simulate a steep downhill where the motor will act as a motor instead of a
+generator, and therefore draw current instead of generating. 
 
-The voltage level on the supercapacitor is monitored by the microcontroller that controls what track to input to the driver. If the voltage exceeds 47 volt the microcontroller will close a relay between the power resistors and ground, and it will remain closed until the supercap has discharged to 45 volt where the microcontroller will open the relay and make the supercapacitor able to recharge again. A basic schematic of the setup can be seen in Figure \ref{fig:testrig_schematic}.
+The voltage level on the supercapacitor is monitored by the microcontroller
+that controls what track to input to the driver. If the voltage exceeds 47 volt
+the microcontroller will close a relay between the power resistors and ground,
+and it will remain closed until the supercap has discharged to 45 volt where
+the microcontroller will open the relay and make the supercapacitor able to
+recharge again. A basic schematic of the setup can be seen in
+Figure~\ref{fig:testrig_schematic}.
 
 \begin{figure}[H]
-    \label{fig:testrig_schematic}
-    \centering
+    \centering\label{fig:testrig_schematic}
     \includegraphics[width=\textwidth]{./img/testrig_schematic.png}
     \caption{Schematic of testrig wiring.}
 \end{figure}
 
-\section{Car dynamics} \label{sec:cardynamics}
+\section{Car dynamics}\label{sec:cardynamics}
 The calculations in this section are in many ways the same as the calculations
 given in the previous teams report in Appendix~\ref{app:elba2015}. Though some
 of the equations are repetition of what was done last year, they are
@@ -46,8 +68,7 @@ When simulating a track, one needs to know the force exerted by the environment
 on the car. A graphical representation of the forces that act on the car is
 given in Figure~\ref{fig:testrig_elbadynamics}.
 \begin{figure}[H]
-    \label{fig:testrig_elbadynamics}
-    \centering
+    \centering\label{fig:testrig_elbadynamics}
     \includegraphics[width=0.5\textwidth]{./img/testrig_elbaforces.png}
     \caption{Dynamic model of Elba.}
 \end{figure}
@@ -58,7 +79,7 @@ The motion equations on the system are
 where $F_d$ is the effective driving force of the car, $m$ is the mass of the
 car and $alpha$ is the slope from the horizontal plane. The resistance terms
 $F_c$ and $F_{\mu}$ are air and road resistance, respectively. The air drag $D$
-around an object can be calculated as \cite{nakayama2002}
+around an object can be calculated as~\cite{nakayama2002}
 \begin{equation} \label{eq:testrig_airdrag}
     D = C_D A \frac{\rho v^2} {2}
 \end{equation}
@@ -105,8 +126,7 @@ desired linear testrig simulation force on the right hand side,
 Using the height profile of the London track and the plant model of Elba, $F_{tr}$ during an entire lap could be simulated, as shown in Figure (\ref{fig:testrig_negative_forces}).
 
 \begin{figure}[H]
-    \label{fig:testrig_negative_forces}
-    \centering
+    \centering\label{fig:testrig_negative_forces}
     \includegraphics[width=\textwidth]{./img/testrig_negative_forces.eps}
     \caption{Negative forces acting upon Elba in one lap.}
 \end{figure}
@@ -119,8 +139,7 @@ testrig has two separate steps, the motor and the roller, connected by a chain
 gear with gear ratio $n_{chain}$. A prinicple schematic of the testrig from
 motor to roller is displayed in Figure~\ref{fig:testrig_testrigdynamics}.
 \begin{figure}[H]
-    \label{fig:testrig_testrigdynamics}
-    \centering
+    \centering\label{fig:testrig_testrigdynamics}
     \includegraphics[width=0.9\textwidth]{./img/testrig_rollerschematic.png}
     \caption{Principle schematic of the testrig from motor to roller.}
 \end{figure}
@@ -173,8 +192,7 @@ The power $P_m$ required for the motor on the testrig was calculated as
 Using the London track and the plant model of Elba, $P_m$ during one lap could be simulated, as shown in (\ref{fig:testrig_power_required}).
 
 \begin{figure}[H]
-    \label{fig:testrig_power_required}
-    \centering
+    \centering\label{fig:testrig_power_required}
     \includegraphics[width=\textwidth]{./img/testrig_power_required.eps}
     \caption{Power required for the motor on the testrig.}
 \end{figure}
@@ -186,7 +204,7 @@ Having obtained the dynamic equations of the system in Equation
 (\ref{eq:testrig_totaldynamics}), a system identification is done to determine
 the parameters of the system. The parameters are then used in the open loop
 current/torque controller. The controller is run in open loop for the
-torque, i.e. there is no direct torque feedback. To get the desired torque
+torque, i.e.\ there is no direct torque feedback. To get the desired torque
 output, the current is controlled via a closed loop feedback controller and
 torque is calculated from the actual current. With a knowledge about motor
 parameters and the dynamics of the system, the actual torque can be estimated. 
@@ -210,7 +228,7 @@ Simulink Datastruct that could then be used as input for the model.
 
 For recording the output data, rotational velocity, an incremental quadrature
 encoder was used. The encoder pulse data was recorded and converted into
-velocity by the test rig ECU. The Simulink model for the ECU was run on external
+velocity by the test rig ECU\@. The Simulink model for the ECU was run on external
 mode and encoder data was saved. 
 
 Because of software limitations, the oscilloscope and the testrig ECU can not be
@@ -218,14 +236,15 @@ run in the same Simulink instance. This means that two separate models are run
 simultaneously, one recording the input and one recording the output.
 
 \subsection{Identification process}
-The testrig is a rather simple system in prinicple. It consists of an electric 
-motor attached to a load with inertia and friction, see Figure~\ref{fig:testrig_dcmotor_model}. 
-This is consistent with most standard models of an electric motor (see for
-example \cite{beloiu2014}, \cite{reglerteknik2006} and \cite{modeling1994}) and the
-systems dynamics are therefore assumed to be well known mathematically. When the
-mathematical model of a dynamic system is known, a parameterisized model based
-on the real physical parameters of the system can be used in the identification
-process. This is known as a Gray-box model \cite{modeling1994}. This approach is
+The testrig is a rather simple system in prinicple. It consists of an electric
+motor attached to a load with inertia and friction, see
+Figure~\ref{fig:testrig_dcmotor_model}.  This is consistent with most standard
+models of an electric motor (see for example~\cite{beloiu2014},
+\cite{reglerteknik2006} and~\cite{modeling1994}) and the systems dynamics are
+therefore assumed to be well known mathematically. When the mathematical model
+of a dynamic system is known, a parameterisized model based on the real
+physical parameters of the system can be used in the identification process.
+This is known as a Gray-box model~\cite{modeling1994}. This approach is
 beneficial because the unknown parameters are based upon real physical
 parameters and are thus easier to estimate and relate to the model. 
 
@@ -237,7 +256,7 @@ important but must be weighed against needed processing power in the microproces
 used to control the rig. A higher-order model will require more processing power
 to be solved online and might negatively affect the real-time performance of the
 system. To find a balance between accuracy and processing power, an iterative
-identification process is used, described in Figure 14.1 in \cite{modeling1994}. 
+identification process is used, described in Figure 14.1 in~\cite{modeling1994}. 
 Firstly, accuracy and performance requirements are set to create an evaluation
 frame for the identification. These are used for the evaluation of the model. 
 The last loop in the diagram is repeated with progressively more complex models
@@ -247,7 +266,7 @@ model is accepted.
 The requirements are set to match accuracy demands for the testrig. Model fitting
 is done against step responses of different amplitudes. The size of the amplitudes
 are set to capture as much of the dyanmics of the system as possible but are limited
-by the hardware. At higher voltages (i.e. rotational speeds), disturbances from the
+by the hardware. At higher voltages (i.e.\ rotational speeds), disturbances from the
 motor causes interruption in the communication between the PC and the testrig
 ECU and data can then not be captured. The upper step amplitude is set to the 
 maximum value that gives reliable data capture. 
@@ -277,8 +296,7 @@ motor current and $V_C$ is the back-emf. $J$ is the inertia of the motor and
 $\omega_a$ is the rotational velocity.
 \begin{figure}[H]
 	%TODO: Need a better picture!
-    \label{fig:testrig_dcmotor_model}
-    \centering
+    \centering\label{fig:testrig_dcmotor_model}
     \includegraphics[width=\textwidth]{./img/testrig_dcmotor_model.png}
     \caption{DC motor schematic diagram.}
 \end{figure}
