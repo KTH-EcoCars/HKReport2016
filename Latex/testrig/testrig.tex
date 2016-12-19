@@ -245,13 +245,13 @@ gives the electric dynamics of the motor,
     V_A = R_A i_a + L_A \frac{di_a}{dt} + k_{\phi}\omega \label{eq:testrig_dcmotor_v}\\
     J \frac{d\omega} {dt} = k_{\phi} i_a - d\omega - \mu. \label{eq:testrig_dcmotor_j}
 \end{align}
-Performing a Lablace transform and rewriting Equation (\ref{eq:testrig_dcmotor_v}) and (\ref{eq:testrig_dcmotor_j})
+Performing a Laplace transform and rewriting Equation (\ref{eq:testrig_dcmotor_v}) and (\ref{eq:testrig_dcmotor_j})
 one gets a second order model for the motor as a transfer function between
 voltage and rotational velocity,
 \begin{equation} \label{eq:testrig_motor_2ndorder}
     \omega = \frac {k_{\phi}} {(sJ + d)(R_A + sL_A) + k_{\phi}^2} U_A.
 \end{equation}
-In order to reduce the model complexity, $L_A$ is assumed to be small enough to
+In order to reduce the model complexity, $L_A$ is assumed to be small enough to not
 have any significant effect on the systems dynamics. With this assumtion,
 Equation (\ref{eq:testrig_motor_2ndorder}) becomes a first order system,
 \begin{equation} \label{eq:testrig_motor_1storder}

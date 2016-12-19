@@ -260,6 +260,7 @@ One of the major problems with the car has been the clutch. Figure (\ref{fig:Dri
     \caption{Illustration of the mechanical components of the drive train, where the red plates can move towards the center plate to engage and disengage the motors to the drive shaft.}
 \end{figure}
 
+<<<<<<< HEAD
 The Problem stated when starting the project was that the clutch actuators were
 oversized and thus giving more force than necessary for the clutch to engage
 properly. When the clutch was engaged with too much force, the clutch plate on
@@ -291,6 +292,15 @@ clutch plate.  After this important insight the drivetrain was disassembled and
 new lever arms were constructed and manufactured. When the drivetrain was
 assembled again the clutch worked like a charm. Figure (\ref{fig:clutch}) is a
 rendered image of one of the new lever arms.
+=======
+The Problem stated when starting the project was that the clutch actuators were oversized and thus giving more force than necessary for the clutch to engage properly. When the clutch was engaged with too much force, the clutch plate on the ICE side stuck very hard to the center plate and could not be disengaged using the actuator.
+
+To solve the mechanical problems it was decided to appoint one team from the machine design department to work solely on the mechanical parts of the clutch. The mechatronics team decided to completely remake the clutch ECU to make it more robust. Despite the new ECU and the work performed by the machine design team, which can be read about in the apended papers, there was still problems with the clutch when it was time to race. The problems was of the same mechanical nature as before the rework, where the clutch plate on the ICE side could not be disengaged from the drivetrain.
+
+To solve this problem, several solutions have been investigated. The clutch mechanism has been controlled by time rather than position. One approach was to use the built in hall sensor in the actuator to control the position. One other idea was to use an external current sensor on the clutch ECU to control the position. A third idea was to continue using time as reference, but increase it so that an end position is always reached, which can be used as a reference position.
+
+When investigating alternative three above using longer time to engage and disengage the clutch a new problem was discovered. It appeared that even though the clutch was not stuck to the center plate it still could not be properly disengaged. This was due to the geometry of the lever arm which pushes the clutch plate.  After this important insight the drivetrain was disassembled and new lever arms were constructed and manufactured. When the drivetrain was assembled again the clutch worked like a charm. Figure (\ref{fig:clutch}) is a rendered image of one of the new lever arms.
+>>>>>>> ebd6b2c7e3bbde550b245785de1526b51db40b88
 
 %%TODO
 \begin{figure}[H]
