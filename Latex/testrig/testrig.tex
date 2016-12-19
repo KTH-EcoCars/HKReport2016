@@ -46,9 +46,9 @@ to simulate a steep downhill where the motor will act as a motor instead of a
 generator, and therefore draw current instead of generating. 
 
 The voltage level on the supercapacitor is monitored by the microcontroller
-that controls what track to input to the motor driver. If the voltage exceeds 47 volt
-the microcontroller will activate a relay between the power resistors and ground,
-and it will remain closed until the supercap has discharged to 45 volt where
+that controls what track to input to the driver. If the voltage exceeds 47 volt
+the microcontroller will close a relay between the power resistors and ground,
+and it will remain closed until the supercapacitor has discharged to 45 volt where
 the microcontroller will open the relay and make the supercapacitor able to
 recharge again. A basic schematic of the setup can be seen in
 Figure~\ref{fig:testrig_schematic}.
@@ -105,17 +105,17 @@ Appendix~\ref{app:rigdata}.
 
 % This section is under construction. Need some reference/experiment on how to 
 % model rolling friction.
-The rolling friction of a car is modeled as a stepfunction, being non-zero at
+The rolling friction of a car is modeled as a step function, being non-zero at
 all velocities that are not zero.
 
 With the air drag, rolling friction and gravity terms known, only two terms of
 Equation (\ref{eq:testrig_cardynamics}) are unknown. To fully model the cars
-dynamics, the inerta term needs to be modeled. Since the weight of the vehicle
+dynamics, the inertia term needs to be modeled. Since the weight of the vehicle
 is known, $\ddot{x}$ needs to be derived for an accurate system model.
 Knowing the radius of the rollers and the cars wheels, the linear acceleration
 can be calculated by measuring the rotational acceleration on the roller. This
 is done by an incremental encoder on the roller shaft. Rotational speed is
-calculated in the microcontroller and rotational acceleration is derivated from
+calculated in the microcontroller and rotational acceleration is derived from
 rotational speed. Using the roller radius, $r_{r}$, the linear acceleration
 is calculated.
 
@@ -138,7 +138,7 @@ In order to let the testrig output the correct linear force to the car, the
 controller for the testrig need to know the dynamics of the testrig itself. This
 is to compensate for internal frictions and inertias. The driveline of the
 testrig has two separate steps, the motor and the roller, connected by a chain
-gear with gear ratio $n_{chain}$. A prinicple schematic of the testrig from
+gear with gear ratio $n_{chain}$. A principle schematic of the testrig from
 motor to roller is displayed in Figure~\ref{fig:testrig_testrigdynamics}.
 \begin{figure}[H]
     \centering\label{fig:testrig_testrigdynamics}
@@ -244,7 +244,7 @@ Figure~\ref{fig:testrig_dcmotor_model}.  This is consistent with most standard
 models of an electric motor (see for example~\cite{beloiu2014},
 \cite{reglerteknik2006} and~\cite{modeling1994}) and the systems dynamics are
 therefore assumed to be well known mathematically. When the mathematical model
-of a dynamic system is known, a parameterisized model based on the real
+of a dynamic system is known, a parametrized model based on the real
 physical parameters of the system can be used in the identification process.
 This is known as a Gray-box model~\cite{modeling1994}. This approach is
 beneficial because the unknown parameters are based upon real physical
@@ -267,7 +267,7 @@ model is accepted.
 
 The requirements are set to match accuracy demands for the testrig. Model fitting
 is done against step responses of different amplitudes. The size of the amplitudes
-are set to capture as much of the dyanmics of the system as possible but are limited
+are set to capture as much of the dynamics of the system as possible but are limited
 by the hardware. At higher voltages (i.e.\ rotational speeds), disturbances from the
 motor causes interruption in the communication between the PC and the testrig
 ECU and data can then not be captured. The upper step amplitude is set to the 
@@ -326,12 +326,12 @@ voltage and rotational velocity,
 \end{equation}
 \subsubsection{Model 1}
 As a first attempt, the model in Equation (\ref{eq:testrig_motor_2ndorder}) is 
-simplified by making the following assumtions:
+simplified by making the following assumptions:
 \begin{enumerate}
     \item Inductance is small enough to be negligable.
     \item Static friction is small enough to be negligable.
 \end{enumerate}
-With these assumtions
+With these assumptions
 Equation (\ref{eq:testrig_motor_2ndorder}) becomes a first order system,
 \begin{equation} \label{eq:testrig_motor_1storder}
     \omega = \frac {k_{\phi}} {sJ + d R_A + k_{\phi}^2} U_A.
