@@ -279,10 +279,10 @@ varying polarity and duty cycle depending on the demanded voltage. This
 validation is done to ensure that the system captures all the essential dynamics
 of the real system. The exact requirements set on the model can be viewed in
 their entirety in Appendix %TODO: Add requirements appenddix 
-but briefly, the model shall have a 5\% accordance in rise time and steady state
+but briefly, the model shall have a  max 5\% error in rise time and steady state
 value with the real system for step inputs of $\pm5$, $\pm10$ and $\pm20$ volts.
 The model shall also capture the dynamics of a sine wave input of amplitude
-$\pm2$, $\pm8$ and $\pm16$ volts. 
+$\pm2$, $\pm8$ and $\pm16$ volts.
 
 \subsection{Gray-box model}
 A general mathematical model for the testrig is produced. This model is then used
@@ -387,7 +387,67 @@ can overcome the initial friction whereas the simplified model does not. In
     \caption{Sine response for first order model with no inductance or static
     friction.}
 \end{figure}
+The full set of step and sine responses for this model are given in Appendix %TODO: Add appendix
 
+\subsubsection{Model 2}
+The previous model showed good correspondance for the time constant but had a
+steady state error when not at the set point. It also did not catch the dynamics
+at the turning of the rig. There is a missing dynamic that is not captured with
+the simple model. The fact that there is a threshold needed for the testrig to
+start turning hints that a static friction is present in the system and that it
+is significant enough to directly affect the dynamics in a noticable way.
+Therefore, the model fitting is reiterated with a model that takes the static
+friction into account and only makes the assumption that the effect of the motor
+inductance is negligable. The new model achieved is then
+\begin{equation} \label{eq:model2}
+    \omega = \frac {k_{\phi}} {(sJ + d R_A + k_{\phi}^2} U_A -
+    \frac {R_A} {(sJ + d R_A + k_{\phi}^2} \mu.
+\end{equation}
+A static friction is a disturbance torque that at its simplest has a constant
+amplitude and changes with the direction of velocity. This representation is not
+suitable for numerical solving because of the discontinuity that occurs when the
+system turns. To counter this, a stick-slip region is added around the origin,
+i.e. the turning point. Withing this stick-slip region, the friction force is
+equal to the internally applied torque from the motor until the static friction
+maximum value is reached. After that, the friction torque is constant. This
+friction model is called the Karnop friction model, see Figure~\ref{fig:karnop}.
+\begin{figure}[H]
+    \label{fig:karnop}
+    \centering
+    \includegraphics[width=\textwidth]{./img/testrig_karnop.png}
+    \caption{Karnop friction as a function of speed.}
+\end{figure}
+Karnop allows numerical solvers to be used on the model but it also introduces 2 new
+parameters to fit. These are the static Coulumb friction $F_C$ and the velocity
+threshold $d_v$.
 
+To successfully fit the parameters of the model, a systematic approach based on
+the physical effects of the parameters is used. The viscous friction and inertia 
+is firstly estimated at the largest input step. At this point, viscous friction
+should be dominant over the static friction, allowing a good estimate of these
+parameters with as little disturbance as possible. After a good model is found,
+the two static friction parameters are fitted by trial and error. Lastly, the
+model is fitted to the largest step again, fine tuning the inertia and viscous
+friction parameters.
 
+The model now follows the real response of the system at all three step sizes,
+with a very small steady state error. Step response for the edge cases are shown
+in Figure~\ref{fig:20vkarnop} and~\ref{fig:5vkarnop}.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[H]{0.48\textwidth}
+    \label{fig:20vkarnop}
+    \includegraphics[width=\textwidth]{./img/testrig_20Vstep_no_i_fric.eps}
+    \caption{20 V step input.}
+    \end{subfigure}
+    \begin{subfigure}[H]{0.48\textwidth}
+    \label{fig:5vkarnop}
+    \includegraphics[width=\textwidth]{./img/testrig_5Vstep_no_i_fric.eps}
+    \caption{5 V step input.}
+    \end{subfigure}
+    \caption{Step responses for the edge case of the first order system with
+    Karnop friction.}
+\end{figure}
+The steady state error has a maximum error of 1.5\% over all three input step
+sizes and the rise time is correct. %TODO: Calculate and add values here
 
