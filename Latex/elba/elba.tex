@@ -1,4 +1,4 @@
-\chapter{Elba The Car}
+﻿\chapter{Elba The Car}
 
 %Introduction
 \section{Introduction}
@@ -118,7 +118,7 @@ Using Model Based Development (MBD), relies on verified systems models on variou
 levels. Elba benefits form a full system model to simulate fuel efficiency and
 each ECU have a corresponding Simulink model from which all code is compiled.
 
-\subsection{Plant Model}
+\subsection{Plant Model}\label{sec:elba_plant_model}
 The Simulink plant model is supposed to be a full system model capable of
 estimating fuel consumption over an entire SEM attempt. When any component,
 which has an effect on propulsion, is changed on the car the plant model must
@@ -197,15 +197,36 @@ RCP2 loggs data can be found at~\cite{RCP2_log}
 
 %Requirements
 \section{Requirements}
-\subsection{Rules}
-At Shell Eco Marathon all vehicles must pass two inspections before the vehicle
-is allowed to enter the track. First a safety inspection evaluating if it's
+All vehicles at Shell Eco Marathon must pass two inspections before the vehicle
+is allowed to enter the track. The first a safety inspection evaluating if it's
 dangerous to have the vehicle on the track, both for the driver and other
-vehicles. And second a technical inspection asserting if the vehicle complies
-with the competition rules.
+vehicles. The second is a technical inspection asserting if the vehicle complies
+with the competition rules and regulations.  These two inspections have been the
+requirements for Elba and a lot of work have been conducted in order to make
+sure that these have been fulfilled. The requirements have been something that
+each respective subgroup have worked with to ensure compliance at all levels.
+The requirements bellow is those that have been relevant for the current project
+to work with. Requirements that have been decided by prior teams have not been
+considered to the same extent since many of the vehicle design requirements
+etc.\ have been considered by prior teams.
 
-Therefore all rules regarding the car where seen as requirements. These requirements where passed on to the respective subgroups to ensure compliance at all levels. 
+\subsection{SEM requirements}
+The requirements can be found in its full length in~\cite{semrules16c1}, where
+the requirements is listed with a header called \textit{Article} with a
+number of sub requirements listed below. The Articles mentioned below is the
+same Articles as in~\cite{semrules16c1} and the letters a, b etc.\ is each
+Articles sub requirement.
 
+hej hej hej
+
+\begin{enumerate}
+    \item Article 25
+    \begin{enumerate}[label= (\alph*), leftmargin=2\parindent]
+        \setcounter{enumi}{4}
+        \item beeen §
+        \item cool
+    \end{enumerate}
+\end{enumerate}
 %Design Decisions
 \section{Design decisions}
 \subsection{Clutch decisions}
@@ -276,7 +297,10 @@ and~\ref{fig:old_clutch} shows both the new and old lever arms.
     \caption{Capacitor voltage and drivemode as a function of time}\label{fig:elba_capvoltage_regen}
 \end{figure}
 
-Figure~\ref{fig:elba_capvoltage_regen} illustrates a sequence from CANoe where the capacitor is charged by changing mode from the small DC motor when the voltage is low and charging to a higher voltage level then changing back to the small DC motor.
+Figure~\ref{fig:elba_capvoltage_regen} illustrates a sequence from CANoe where
+the capacitor is charged by changing mode from the small DC motor when the
+voltage is low and charging to a higher voltage level then changing back to the
+small DC motor.
 
 \subsection{Internal Combustion Engine and ICE ECU}
 One of the requirements from the ICE-department was that the ICE should be run
