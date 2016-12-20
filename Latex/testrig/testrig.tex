@@ -317,7 +317,7 @@ $\omega_a$ is the rotational velocity.
     \includegraphics[width=\textwidth]{./img/testrig_dcmotor_model.png}
     \caption{DC motor schematic diagram.}\label{fig:testrig_dcmotor_model}
 \end{figure}
-Using Kirchoffs loop rule along with 
+Using Kirchhoffs loop rule along with 
 \begin{equation} \label{eq:testrig_kphi_v}
     V_C = k_{\phi} \omega
 \end{equation}
@@ -371,19 +371,17 @@ well around the set point of 20 V. Figure~\ref{fig:1storder_20} shows the step
 response at 20 V. The deviating value in the rise of the is an error induced by
 the revolutional velocity capturing algorithm in the microcontroller.
 \begin{figure}[H]
-    \label{fig:1storder_20}
     \centering
     \includegraphics[width=\textwidth]{./img/testrig_20Vstep_no_i_no_fric.eps}
-    \caption{Step response for a 1st order model at 20 V.}
+    \caption{Step response for a 1st order model at 20 V.}\label{fig:1storder_20}
 \end{figure}
 However, the static error increases the further away from the setpoint the tests
 are run, see for example Figure~\ref{fig:1storder_5}.
 \begin{figure}[H]
-    \label{fig:1storder_5}
     \centering
     \includegraphics[width=\textwidth]{./img/testrig_5Vstep_no_i_no_fric.eps}
     \caption{Step response for a 1st order model at 5 V. Note the steady state
-    error compared to the set point.}
+    error compared to the set point.}\label{fig:1storder_5}
 \end{figure}
 Also, when validating the model using a sine wave at low amplitude, there is a
 significant discrepancy in the model performance compared to the real system at
@@ -392,17 +390,15 @@ can overcome the initial friction whereas the simplified model does not. In
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:1storder_sine2}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_no_fric.eps}
-    \caption{Full response.}
+    \caption{Full response.}\label{fig:1storder_sine2}
     \end{subfigure}
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:1storder_sine2z}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_no_fric_zoom.eps}
     \caption{Magnification on turning point.}
     \end{subfigure}
     \caption{Sine response for first order model with no inductance or static
-    friction.}
+    friction.}\label{fig:1storder_sine2z}
 \end{figure}
 The full set of step and sine responses for this model are given in
 Appendix~\ref{app:identification}.
@@ -457,14 +453,12 @@ in Figure~\ref{fig:20vkarnop} and~\ref{fig:5vkarnop}.
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:20vkarnop}
     \includegraphics[width=\textwidth]{./img/testrig_20Vstep_no_i_fric.eps}
-    \caption{20 V step input.}
+    \caption{20 V step input.}\label{fig:20vkarnop}
     \end{subfigure}
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:5vkarnop}
     \includegraphics[width=\textwidth]{./img/testrig_5Vstep_no_i_fric.eps}
-    \caption{5 V step input.}
+    \caption{5 V step input.}\label{fig:5vkarnop}
     \end{subfigure}
     \caption{Step responses for the edge case of the first order system with
     Karnop friction.}
@@ -483,14 +477,12 @@ are given in Appendix~\ref{app:identification}
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:1storder_f_sine2}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_fric.eps}
-    \caption{Full response.}
+    \caption{Full response.}\label{fig:1storder_f_sine2}
     \end{subfigure}
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:1storder_f_sine2z}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_fric_zoom.eps}
-    \caption{Magnification on turning point.}
+    \caption{Magnification on turning point.}\label{fig:1storder_f_sine2z}
     \end{subfigure}
     \caption{Sine response for first order model with static Karnop friction and 
     no inductance.}
@@ -503,16 +495,16 @@ area at low rotational velocities and a viscous friction outside the stick-slip
 zone. The inertia of the model $J$ is $0.0135 \si{\kilogram\second^{2}}$ and the
 viscous friction $d$ is $0.078 \si{\newton\meter\per\radian\second}$. The
 stick-slip threshold $d_v$ is $0.01 \si{\radian\per\second}$ and the static
-Coulumb friction $F_C$ is $0.02 \si{\newton\meter}$. The value of the inertia is
-considered to be feasable. There are no exact measurements available for the
+Coulomb friction $F_C$ is $0.02 \si{\newton\meter}$. The value of the inertia is
+considered to be feasible. There are no exact measurements available for the
 internal diameter of the roller but an estimation made in Solid Edge gives a
 moment of inertia of $0.022 \si{kilogram\meter^{2}}$. Being a rough estimation,
 it gives an indication on that the inertia estimation is correct. The estimated
 value of $d$ is rather high, considering that there will be roughly 1 Nm of
 viscous friction torque for every 12 rad/s of motor speed. This can be expected
-of the system. Misalignments and the chaindrive most likely adds a significant
+of the system. Misalignments and the chain-drive most likely adds a significant
 amount of viscous friction. Static torque is comparatively small compared to
 other losses in the system which might be because of the magnitude of the
 viscous friction. The static friction does however have an important effect on
-the system and cannot be ignored. The model fulfills the requirements and is
+the system and cannot be ignored. The model fulfils the requirements and is
 considered to be good enough to use in the final system.
