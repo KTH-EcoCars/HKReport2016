@@ -1,3 +1,119 @@
 \chapter{Discussion}
 \section{Discussion}
+
+\subsection{Requirements}
+Having good requirements gives a common goal for everyone to work towards. At
+the start of the project, not much thought was given to setting requirements
+first and then work towards fulfilling them. They where instead treated as
+implicit to the problems to be solved and an estimation of what was acceptable
+end goals where made up as we went along in the project. The lack of real
+requirements led to difficulties when the projects from the other subgroups
+where incorporated into the final design of the car. For example, the clutch
+improvements that were made by the machine design team did not meat the
+expectations of the mechatronics team i.e. our implicit requirements were not
+the same. Had a predefined set of requirements been set up beforehand, the
+consolidation and evalution of the design would have been easiier.
+
+To make result evalutation easier, and to get a clearer definition of done,
+requirements where set before work on the testrig started. There were some
+difficulties with this since we were customer and the supplier, i.e. user and
+developer. To get a clear distinction between the roles, it was decided that as
+many user requirements as possible would be set with the SEM rules as a base.
+Looking back, this was a good decision. We have been able to source many clear
+high-level requirements from the rules, for example the requirement that the
+testrig should be able to simulate the full London track. We could then sit down
+as a design team and reduce the abstract user requirements to technical system
+requirements. This separation of roles has helped us set fair requirements that
+set demands on the system design but still allows us to create feasable
+definitions of done. 
+
+\subsection{Requirements Engineering system}
+When evaluating which software to use to store the requirements, we made
+special requirements for how this software should work. It was important to have
+traceability, both between requirements and to who has made changes, and that
+the system was easy to use. Emphasis was on an easy learning curve. Everyone in
+the team has used IBM Rational Doors for requirements engineering in a previous
+course, but we all found it cumbersome to use and too packed with features for
+what we needed. Since only a core set of features was needed, an alternative
+path was taken. Having only the essential features and being able to add new
+ones as they are needed has been valuable for the team. Even though not everyone
+in the team has experiance with HTML programming, the use of Markdown along with
+a standard template for requirements still allow everyone to write new and edit
+requirements. 
+
+\subsection{Testrig control}
+The desired output of the testrig is the combined external forces that affect
+the car at any given time on a track. By construction, this means that the
+output is the torque on the rollers is the desired output. Because of time
+and hardware constraints, a solution where the current fed to the motor is
+instead controlled. In theory, since the motor torque constant of a DC motor is
+constant, the torque can be calculated by measuring the current fed to the
+motor if lossses in the system are known. In practice, it is difficult to
+predict losses accurately and the convoluted way of calculating the torque adds
+another layer of possible errors. It also puts rather high demands on how well
+the system is modeled; the torque estimation can never be better than the
+accuracy of the model. An optimal solution would of course be to fit a torque
+sensor to the testrig and run the system on a closed loop with current as the
+control variable and torque as the output. However, under the
+circumstances, the group considers the open loop current control approach to be
+the best choice. Firstly, even with a lower output accuracy, it still gives a
+good proof of concept of the testrig and shows that a rolling highway simulation
+on Elba can be done succesfully. Secondly, a good platform for future
+improvement can be built and expanded upon in future projects. It was never
+feasable that a full-featured system could be designed, constructed and
+implemented in such a short time scale, so it was important to build a stable
+expandable platform and we consider that goal accomplished.
+
+\subsection{Testrig identification}
+As discussed in the previous section, the current control approach is not
+optimal and should not be a final design for the testrig. Therefore, it has been
+important to set accuracy requirements that are "good enough". A model with a
+good accuracy is needed for the operation of the current setup. This allows the
+concept to be proven and also lets next years team use the testrig as a tool for
+getting preliminary data at the start of the project. However, spending too much
+time on refining the model would be counterproductive since future versions of
+the system will not be as dependent on a high accuracy model. Therefore, the
+iterative approach used has been a good way of finding the right balance between
+accuracy and time spent. The chosen model has obvious flaws.  Because of the
+hardware setup, reliable data for the sine wave input could not be collected and
+had to be roughly estimated from the settings used in the DC motor driver. This
+means that the sine wave input could not be used for more than a way of
+validating model behaviour instead of taking exact measurements.  It is
+difficult to know weather the steady state error for the sine wave input is
+because of the model or the estimation of the voltage.  It was good however to
+see that the model performed well in the area where the testrig started moving
+from a stand still. 
+
+One large caveat of the parameter estimation is that it did not take measurement
+noise into consideration. A big improvement on the reliability of the data could
+be achived by using the statistical methods in \cite{modeling1994}. Usually,
+measurement noise is modelled as white noise through a suitable filter. The
+iterative process used in the parameter estimation could be continued to include
+measurement noise. This is something that could be incorporated into further
+iterations of the model identification process used, along with taking the
+inductance of the motor into account. Having a flexible process with clear gates
+between each model iteration has been very beneficial for the group and has
+allowed us to make judgements on how much time to put on improving the models
+accuracy.
+
+Little consideration has been taken to quantization errors. The
+encoder has a high resolution, 1024 pulses per revolution, which is assumed to
+be high enough so that it has a small impact on the fidelity of the results.
+Also, the sampling rate was set to 10 Hz. This was the highest that could be
+used by Simulinks external mode to get reliable communication with the
+microcontroller. It does follow the rule of thumb that the sampling rate should
+be 10-30 times faster than the fastest dynamics in the system and the sampled
+input and output was exact enouch so that most dynamics where rather smooth.
+Both the effect of the sampling rate and the quantization of the measurements
+should be investigated mathematically to determine their effect on the data.
+
+It should be noted that having model identification as part of the project has
+been very rewarding for us as students. A mechatronic engineer works in the
+intersection between programming, electronics and control theory and all of
+these have been used in the identification process. Control theory tells us how
+model the system dynamics, we implement the measurements on an embedded system
+and setup the electrical system to get the data. We have also had to use
+knowledge from mechatronics subjects such as Dynamics and Motion control,
+Mechatronics basic course and Embedded systems. It is this synthesis of subjects
+that makes mechatronics what it is and it has been a great experience. 
 \section{Conclusion}
