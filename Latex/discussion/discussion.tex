@@ -46,6 +46,12 @@ in the team has experiance with HTML programming, the use of Markdown along with
 a standard template for requirements still allow everyone to write new and edit
 requirements. 
 
+\subsection{Clutch decisions}
+Figure~\ref{fig:elba_capvoltage_regen} shows how the capacitor voltage behaves in the different drivemodes.
+The time that the clutch moves when engaging and disengaging is around 7 seconds which is very long. This was decided because then an endpoint is always reached when disengaging, and it is possible to know exactly how long is necessary 
+for a good connection when engaging the clutch. It is clear in this figure that this process consumes a substantial 
+amount of energy, and should preferably be kept as short as possible. To improve the performance, one way could be to implement a current sensor and then know that when the current rises to a certain value, then clutch plate is firmly stuck to the drive shaft.
+
 \subsection{Testrig control}
 The desired output of the testrig is the combined external forces that affect
 the car at any given time on a track. By construction, this means that the
@@ -121,4 +127,6 @@ and setup the electrical system to get the data. We have also had to use
 knowledge from mechatronics subjects such as Dynamics and Motion control,
 Mechatronics basic course and Embedded systems. It is this synthesis of subjects
 that makes mechatronics what it is and it has been a great experience. 
+
+
 \section{Conclusion}
