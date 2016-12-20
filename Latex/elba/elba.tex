@@ -199,15 +199,36 @@ RCP2 loggs data can be found at~\cite{RCP2_log}
 
 %Requirements
 \section{Requirements}
-\subsection{Rules}
-At Shell Eco Marathon all vehicles must pass two inspections before the vehicle
-is allowed to enter the track. First a safety inspection evaluating if it's
+All vehicles at Shell Eco Marathon must pass two inspections before the vehicle
+is allowed to enter the track. The first a safety inspection evaluating if it's
 dangerous to have the vehicle on the track, both for the driver and other
-vehicles. And second a technical inspection asserting if the vehicle complies
-with the competition rules.
+vehicles. The second is a technical inspection asserting if the vehicle complies
+with the competition rules and regulations.  These two inspections have been the
+requirements for Elba and a lot of work have been conducted in order to make
+sure that these have been fulfilled. The requirements have been something that
+each respective subgroup have worked with to ensure compliance at all levels.
+The requirements bellow is those that have been relevant for the current project
+to work with. Requirements that have been decided by prior teams have not been
+considered to the same extent since many of the vehicle design requirements
+etc.\ have been considered by prior teams.
 
-Therefore all rules regarding the car where seen as requirements. These requirements where passed on to the respective subgroups to ensure compliance at all levels. 
+\subsection{SEM requirements}
+The requirements can be found in its full length in~\cite{semrules16c1}, where
+the requirements is listed with a header called \textit{Article} with a
+number of sub requirements listed below. The Articles mentioned below is the
+same Articles as in~\cite{semrules16c1} and the letters a, b etc.\ is each
+Articles sub requirement.
 
+hej hej hej
+
+\begin{enumerate}
+    \item Article 25
+    \begin{enumerate}[label= (\alph*), leftmargin=2\parindent]
+        \setcounter{enumi}{4}
+        \item beeen §
+        \item cool
+    \end{enumerate}
+\end{enumerate}
 %Design Decisions
 \section{Design decisions}
 \subsection{Clutch decisions}
@@ -278,7 +299,10 @@ and~\ref{fig:old_clutch} shows both the new and old lever arms.
     \caption{Capacitor voltage and drivemode as a function of time}\label{fig:elba_capvoltage_regen}
 \end{figure}
 
-Figure~\ref{fig:elba_capvoltage_regen} illustrates a sequence from CANoe where the capacitor is charged by changing mode from the small DC motor when the voltage is low and charging to a higher voltage level then changing back to the small DC motor.
+Figure~\ref{fig:elba_capvoltage_regen} illustrates a sequence from CANoe where
+the capacitor is charged by changing mode from the small DC motor when the
+voltage is low and charging to a higher voltage level then changing back to the
+small DC motor.
 
 \subsection{Internal Combustion Engine and ICE ECU}
 One of the requirements from the ICE-department was that the ICE should be run
@@ -291,12 +315,18 @@ previous year.
 
 It had been said that last years ICE where too powerful, when the car regenerated its
 maximum energy at the average track speed the car still wanted to accelerate. 
+<<<<<<< HEAD
+Going faster than required is saves time but is a waste of energy and therefore
+bad at SEM\@.
+A new ICE was puposes with 50 cc compared to earlier 57 cc. Vinkelväxel blä. 
+=======
 Going faster than required is saves time but is a waste of energy and therefore bad at SEM.
 A new ICE was proposed with 50 cc compared to earlier 57 cc. Another major difference 
 was that the new motor had an horizontal output shaft compared a vertical one. 
 This meant that no bevel gear had to be used, which was a major point of failure earlier.
 The ICE had to be shipped relatively fast and a requirement from ICE-group supervisor was that 3 identical engines had to be bought. This limited the choice even further. 
 Which motor that was chosen in the end and why is motivated in greater detail in appended paper \citep{ICE_report}.
+>>>>>>> 981c94933f27e264bf381d73ab438a42118ecbb7
 
 To control the new engine, a new ICE ECU was needed. It was also decided
 that the new ICE ECU would contain more sensor inputs as well as the possibility
