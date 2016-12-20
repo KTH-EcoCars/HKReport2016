@@ -1,4 +1,4 @@
-\chapter{Testrig}
+﻿\chapter{Testrig}
 \section{Introduction}
 When designing a complex system such as a hybrid vehicle, continuously being
 able to test the system is important to validate that the requirements are met
@@ -217,8 +217,6 @@ output, the current is controlled via a closed loop feedback controller and
 torque is calculated from the actual current. With a knowledge about motor
 parameters and the dynamics of the system, the actual torque can be estimated. 
 
-<<<<<<< HEAD
-=======
 \subsection{Motor parameters}
 To acquire the motor parameters, calculations had to be made, since it did not exist any datasheet to the DC motor in use. The parameters needed was the internal resistance, $R_{a}$, and the motor constant, $k_{\phi}$. The motor was run at idle for two different voltage levels and the current and the speed in terms of RPM (revolutions per minutes) where noted for those specific voltage levels. The speed in angle velocity was calculated from RMP, and together with the current for two different instances of voltage level, $R_{a}$ and $k_{\phi}$ was calculated. The equation
 \begin{equation}
@@ -228,7 +226,6 @@ To acquire the motor parameters, calculations had to be made, since it did not e
 found in \cite{elektroteknik2013} was used in an equation system to derive the internal resistance and motor constant. 
 
 
->>>>>>> d3074b5e49436ca262d962d67ae311a4a459a063
 \subsection{Hardware setup}
 The testing is processed in Matlab and Simulink. Input data is gathered from the
 real system and is then fed into the model afterwards for model comparison. This
