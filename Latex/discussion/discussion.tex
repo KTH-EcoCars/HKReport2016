@@ -1,7 +1,7 @@
 \chapter{Discussion}
 The purpose of this section is to give the authors thoughts and considerations
 on how the different design decisions and project as a whole have turned out
-with the benefit of hindsight. Not everything have been clear from the beginning
+with the benefit of hindsight. Not everything has been clear from the beginning
 and a lot of lessons have been learned along the way. The easiest way to
 communicate this is to start with the project as a whole and then move into the
 different parts of the project one by one. 
@@ -11,15 +11,14 @@ different parts of the project one by one.
 Figure~\ref{fig:elba_capvoltage_regen} shows how the capacitor voltage behaves in the different drive modes.
 The time that the clutch moves when engaging and disengaging is around 7 seconds which is very long. This was decided because then an endpoint is always reached when disengaging, and it is possible to know exactly how long is necessary 
 for a good connection when engaging the clutch. It is clear in this figure that this process consumes a substantial 
-amount of energy, and should preferably be kept as short as possible. To improve the performance, one way could be to implement a current sensor and then know that when the current rises to a certain value, then clutch plate is firmly stuck to the drive shaft.
+amount of energy, and should preferably be kept as short as possible. To improve the performance, one way could be to implement a current sensor and then know that when the current rises to a certain value, then clutch plate is firmly stuck to the drive shaft and no more current is needed.
 
 \subsection{ICE and controlling it}
 Getting the new engine to work in the the car took the most time compared to what we estimated. Starting on ethanol has proven to be a challenge and we later learned that we had to choke a lot. But getting rid of the bevel gear was a major improvement and although there are vibrations when running nothing mechanical broke due to the uneven torque applied from the engine. 
 
 After the competition we added the ability to control on the lambda value which also improved the overall operation of the engine, and made it easier to get running. Still there is a risk of making the spark plugs wet when choking. 
 
-The power output of the new ICE is larger than previous years (even though the cylinder
- volume is smaller) and this goes against what the previous team recommended us to do. 
+The power output of the new ICE is larger than previous years (even though the cylinder volume is smaller) and this goes against what the previous team recommended us to do. 
 Our motivation is that this is not as big of a problem if the ICE is used in the hill of the track. There the BLDC can both apply positive or negative torque in the hill which 
 has larger demand on torque from the car than a flat track. 
 
@@ -29,7 +28,7 @@ project started. The group really thought that the optimization problem was of
 real importance due to the new track in London. Even so to the extent that the
 state of the art report that the group wrote during the spring semester was
 dedicated to the optimization problem. Once the report was finished there was a
-lot to work on Elba in order to get the car ready for London. This in
+lot to work to do on Elba in order to get the car ready for London. This in
 combination with the fact that the thesis project was not ready with the lookup
 table until a couple of days before the race made the work with the optimization
 stagnate. There was simply no time to implement the optimization before it was
@@ -37,14 +36,14 @@ time to leave for London. Once we got back from the summer brake the main focus
 was on correcting the errors that were found during the race and to get Elba
 fully functional. There was also an addition to the workload when the project of
 building the Testrig started. There was however work done with getting the
-positioning system to work, when the RCP2 arrived the was a lot of work put into
+positioning system to work, when the RCP2 arrived the was a lot of work was put into
 getting the GPS signal to be sent over CAN\@. Once this was accomplished the
 implementation structure was also developed and the structure of the system is
-completed with all the signals and blocks in the right place.  The blocks
-themselves is only working to some degree and retrieving the GPS signal from the
+completed with all the signals and blocks in the right place. The blocks
+themselves are only working to some degree and retrieving the GPS signal from the
 CAN and transferring this to Simulink is not yet completed. The particle filter
 will also need to be developed were both the encoder and GPS can contribute to
-getting the correct distance traveled on the track. We still believe that the
+getting the correct distance travelled on the track. We still believe that the
 optimization is of great importance and that a working implementation will
 improve the performance in the race. This is also what the simulations is
 showing when comparing the results from Section~\ref{sec:opt_sim_static} to the
@@ -55,7 +54,7 @@ Having good requirements gives a common goal for everyone to work towards. At
 the start of the project, not much thought was given to setting requirements
 first and then work towards fulfilling them. They where instead treated as
 implicit to the problems to be solved and an estimation of what was acceptable
-end goals where made up as we went along in the project. The lack of real
+end goals were made up as we went along in the project. The lack of real
 requirements led to difficulties when the projects from the other subgroups
 where incorporated into the final design of the car. For example, the clutch
 improvements that were made by the machine design team did not meet the
@@ -168,10 +167,10 @@ these have been used in the identification process. Control theory tells us how
 model the system dynamics, we implement the measurements on an embedded system
 and setup the electrical system to get the data. We have also had to use
 knowledge from mechatronics subjects such as Dynamics and Motion control,
-Mechatronics basic course and Embedded systems. It is this synthesis of subjects
+Mechatronics basic course and Embedded systems. It is this synergy of subjects
 that makes mechatronics what it is and it has been a great experience. 
 
 \subsection{Energy dissipation}
-The energy dissipation is working reasonably well considering it was made during the final part of the project. The biggest flaw at the moment is that the microcontroller crashes due to disturbances, and this can eventually be a safety hazard if the supercapacitor is overcharged to dangerous levels. More work to get rid of or handle the disturbances better is needed. Extra safety features could also be included, which prevents the supercapacitor from getting overcharged. 
+The energy dissipation is working very well considering it was made during the final part of the project. The biggest flaw at the moment is that the microcontroller can crash due to disturbances, and this can eventually be a safety hazard if the supercapacitor is overcharged to dangerous levels. More work to get rid of or handle the disturbances better is needed. Extra safety features could also be included, which prevents the supercapacitor from getting overcharged.
 
-The power supply will rarely be used, since the accumulated energy in the  supercapacitor will in most casesbe enough to simulate downhills. Energy in the supercapacitor is also used for powering the the ESCON driver as well as the microcontroller, which is good since the generated energy is used as efficiently as possible. 
+The power supply will rarely be used, since the accumulated energy in the supercapacitor will in most cases be enough to simulate downhills.
