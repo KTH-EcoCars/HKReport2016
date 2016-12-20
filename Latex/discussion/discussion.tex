@@ -5,6 +5,24 @@ with the benefit of hindsight. Not everything have been clear from the beginning
 and a lot of lessons have been learned along the way. The easiest way to
 communicate this is to start with the project as a whole and then move into the
 different parts of the project one by one. 
+
+\section{Elba}
+\subsection{Clutch decisions}
+Figure~\ref{fig:elba_capvoltage_regen} shows how the capacitor voltage behaves in the different drive modes.
+The time that the clutch moves when engaging and disengaging is around 7 seconds which is very long. This was decided because then an endpoint is always reached when disengaging, and it is possible to know exactly how long is necessary 
+for a good connection when engaging the clutch. It is clear in this figure that this process consumes a substantial 
+amount of energy, and should preferably be kept as short as possible. To improve the performance, one way could be to implement a current sensor and then know that when the current rises to a certain value, then clutch plate is firmly stuck to the drive shaft.
+
+\subsection{ICE and controlling it}
+Getting the new engine to work in the the car took the most time compared to what we estimated. Starting on ethanol has proven to be a challenge and we later learned that we had to choke a lot. But getting rid of the bevel gear was a major improvement and although there are vibrations when running nothing mechanical broke due to the uneven torque applied from the engine. 
+
+After the competition we added the ability to control on the lambda value which also improved the overall operation of the engine, and made it easier to get running. Still there is a risk of making the spark plugs wet when choking. 
+
+The power output of the new ICE is larger than previous years (even though the cylinder
+ volume is smaller) and this goes against what the previous team recommended us to do. 
+Our motivation is that this is not as big of a problem if the ICE is used in the hill of the track. There the BLDC can both apply positive or negative torque in the hill which 
+has larger demand on torque from the car than a flat track. 
+
 \section{Optimization}
 The optimization was one of the things we really wanted to focus on when the
 project started. The group really thought that the optimization problem was of
@@ -115,7 +133,7 @@ hardware setup, reliable data for the sine wave input could not be collected and
 had to be roughly estimated from the settings used in the DC motor driver. This
 means that the sine wave input could not be used for more than a way of
 validating model behaviour instead of taking exact measurements.  It is
-difficult to know weather the steady state error for the sine wave input is
+difficult to know whether the steady state error for the sine wave input is
 because of the model or the estimation of the voltage.  It was good however to
 see that the model performed well in the area where the testrig started moving
 from a stand still. 
@@ -139,7 +157,7 @@ Also, the sampling rate was set to 10 Hz. This was the highest that could be
 used by Simulinks external mode to get reliable communication with the
 microcontroller. It does follow the rule of thumb that the sampling rate should
 be 10--30 times faster than the fastest dynamics in the system and the sampled
-input and output was exact enouch so that most dynamics where rather smooth.
+input and output was exact enough so that most dynamics where rather smooth.
 Both the effect of the sampling rate and the quantization of the measurements
 should be investigated mathematically to determine their effect on the data.
 
@@ -152,3 +170,8 @@ and setup the electrical system to get the data. We have also had to use
 knowledge from mechatronics subjects such as Dynamics and Motion control,
 Mechatronics basic course and Embedded systems. It is this synthesis of subjects
 that makes mechatronics what it is and it has been a great experience. 
+
+\subsection{Energy dissipation}
+The energy dissipation is working reasonably well considering it was made during the final part of the project. The biggest flaw at the moment is that the microcontroller crashes due to disturbances, and this can eventually be a safety hazard if the supercapacitor is overcharged to dangerous levels. More work to get rid of or handle the disturbances better is needed. Extra safety features could also be included, which prevents the supercapacitor from getting overcharged. 
+
+The power supply will rarely be used, since the accumulated energy in the  supercapacitor will in most casesbe enough to simulate downhills. Energy in the supercapacitor is also used for powering the the ESCON driver as well as the microcontroller, which is good since the generated energy is used as efficiently as possible. 
