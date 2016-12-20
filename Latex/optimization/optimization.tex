@@ -1,4 +1,6 @@
 \chapter{Optimization}
+
+%Introduction
 \section{Introduction}
 The main goal of the project is to have the car consume the least amount of fuel
 possible.  In the ideal world shall the engines and motors therefore always
@@ -46,13 +48,15 @@ where the GPS signal is taken from it's raw form and reshaped with a
 Lua-script\footnote{Lua is a dynamically typed scripting language, www.lua.org}
 into a CAN-message that is sent on the CAN-bus.
 
+
 \section{Simulink implementation}
 The complete description of the algorithm is found in~\cite{liu2016} and the
 implementation is based on this thesis.
 \begin{figure}[H]
-    \centering\label{fig:optimization_cont}
+    \centering
     \includegraphics[width=\textwidth]{./img/optimization_cont.png}
-    \caption{Simulink implementation for the Hierarchal Optimization Algorithm}
+    \caption{Simulink implementation for the Hierarchal Optimization
+    Algorithm}\label{fig:optimization_cont}
 \end{figure}
 In Figure~\ref{fig:optimization_cont} the function
 \textit{reset\_track\_distance} takes the absolute dead reckoning position
@@ -113,9 +117,10 @@ simulation could be produced. The resulting speed and vehicle height position
 can be seen in Figure~\ref{fig:optimization_optimal_speed}
 
 \begin{figure}[H]
-    \centering\label{fig:optimization_optimal_speed}
+    \centering
     \includegraphics[width=\textwidth]{./img/optimization_optimal_speed.eps}
-    \caption{Plots of vehicle height and speed as a function of time.}
+    \caption{Plots of vehicle height and speed as a function of
+    time.}\label{fig:optimization_optimal_speed}
 \end{figure}
 
 The amount of kilometers travelled per liter fuel $f_{tot}$ was calculated

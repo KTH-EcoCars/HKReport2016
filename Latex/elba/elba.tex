@@ -44,9 +44,10 @@ The car has four electronic control units (ECUs) that are responsible for
 controlling different parts of the car. An overview of the communication between
 the ECUs can be seen in Figure~\ref{fig:communication_overview}
 \begin{figure}[H]
-    \centering\label{fig:communication_overview}
+    \centering
     \includegraphics[width=1\textwidth]{./img/elba_communication_overview}
-    \caption{Overview of the communication system and drivetrain in Elba}
+    \caption{Overview of the communication system and drivetrain in
+    Elba}\label{fig:communication_overview}
 \end{figure}
 The Front ECU is responsible for the human user interface, the buttons where the
 driver is able to decide drive mode and reference speed if the car is in manual
@@ -77,29 +78,29 @@ messages on the CAN-bus can be seen in table~\ref{table:CAN}, counting the
 least significant bit as bit 1. The lower data accounts for bit
 position 1--32 and upper data 33--64.
 \begin{table}[H]
-\label{table:CAN}
-\begin{center}
-\begin{tabular}{lcl}
-\textbf{Data} & \textbf{Id} & \textbf{Bits}\\
-\toprule
-Reference Speed & 170 & 1--16 \\
-Brake & 170 & 17 \\
-Reference Mode & 170 & 20--23 \\
-Auto & 170 & 24 \\
-Current Speed & 169 & 1--16 \\
-Supercapacitor Voltage & 169 & 17--32 \\ 
-Current Mode & 169 & 33--36 \\ 
-BLDC motor current & 169 & 37--48 \\
-Distance & 169 & 49--64 \\
-ICE RPM & 114 & 1--16 \\
-ICE on/off & 113 & 1--2 \\
-Fuel injection time & 114 & 17--32 \\
-GPS longitude & 180 & 1--32 \\ 
-GPS latitude & 180 & 33--64 \\
-\bottomrule
-\end{tabular}
-\end{center}
-\caption{Data position in different CAN messages on the CAN bus.}
+    \caption{Data position in different CAN messages on the CAN
+    bus.}\label{table:CAN}
+    \begin{center}
+        \begin{tabular}{lcl}
+            \textbf{Data} & \textbf{Id} & \textbf{Bits}\\
+            \toprule
+            Reference Speed & 170 & 1--16 \\
+            Brake & 170 & 17 \\
+            Reference Mode & 170 & 20--23 \\
+            Auto & 170 & 24 \\
+            Current Speed & 169 & 1--16 \\
+            Supercapacitor Voltage & 169 & 17--32 \\ 
+            Current Mode & 169 & 33--36 \\ 
+            BLDC motor current & 169 & 37--48 \\
+            Distance & 169 & 49--64 \\
+            ICE RPM & 114 & 1--16 \\
+            ICE on/off & 113 & 1--2 \\
+            Fuel injection time & 114 & 17--32 \\
+            GPS longitude & 180 & 1--32 \\ 
+            GPS latitude & 180 & 33--64 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
 \end{table}
 Another CAN network is used between the Back-ECU and the inMotion driver that
 controls the BLDC motor. This network uses the protocol CANopen that
@@ -113,6 +114,7 @@ When the electrical motors generate energy it can be stored in this
 super-capacitor for later use. The car can only start from standstill using one
 of the electrical motors with energy from the super-capacitor.  
 
+%Software and Simulation
 \section{Software and Simulation Models}
 Using Model Based Development (MDB), relies on verified systems models on various
 levels. Elba benefits form a full system model to simulate fuel efficiency and
@@ -145,6 +147,7 @@ also gives the option of running ``external mode'' a Hardware in the loop type
 compile mode.  This makes it possible to look at values and signals, running on
 the ECU, in real-time.
 
+%Data logging
 \section{Data logging} 
 The need for collecting data a very important aspect when
 it comes to iteration during the development of the car. In order to determine
@@ -220,9 +223,11 @@ Figure~\ref{fig:Drivetrain} illustrates the mechanical components of the
 drivetrain of Elba.
 
 \begin{figure}[H]
-    \centering\label{fig:Drivetrain}
+    \centering
     \includegraphics[width=1\textwidth]{./img/Drivetrain}
-    \caption{Illustration of the mechanical components of the drive train, where the red plates can move towards the center plate to engage and disengage the motors to the drive shaft.}
+    \caption{Illustration of the mechanical components of the drive train, where
+    the red plates can move towards the center plate to engage and disengage the
+    motors to the drive shaft.}\label{fig:Drivetrain}
 \end{figure}
 At the start of the project was the problem that the clutch actuators were
 oversized and thus giving more force than necessary for the clutch to engage
@@ -254,9 +259,9 @@ new lever arms were constructed and manufactured. When the drive train was
 assembled again the clutch worked like expected. Figure (\ref{fig:clutch}) is a
 rendered image of one of the new lever arms.
 \begin{figure}[H]
-    \centering\label{fig:clutch}
+    \centering
     \includegraphics[width=1\textwidth]{./img/clutch}
-    \caption{The new clutch lever arms}
+    \caption{The new clutch lever arms}\label{fig:clutch}
 \end{figure}
 
 \begin{figure}[H]
