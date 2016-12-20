@@ -96,10 +96,10 @@ for a good connection when engaging the clutch. It is clear in this figure that 
 amount of energy, and should preferably be kept as short as possible. To improve the performance, one way could be to implement a current sensor and then know that when the current rises to a certain value, then clutch plate is firmly stuck to the drive shaft.
 
 \subsection{Testrig concept design}\label{sec:discussion_testrig_concept}
-As described in~\ref{testrig_design_concept} it was chosen to use rollers for the testrig instead of attaching a motor directly to the driving wheel. This design had a number of benefits. Firstly it is easy to shift between testing the car on the testrig and on a real track. This is an important feature, especially during the competition. Secondly it can be used on other cars, for example Sleipner. It is however more difficult to control since it is not guaranteed that there is no slip between the wheel of the car and the roller. This property can be modeled better in the future and overall the team feels that the current concept design for the testrig has the highest potential in the long run.
+As described in~\ref{sec:testrig_design_concept} it was chosen to use rollers for the testrig instead of attaching a motor directly to the driving wheel. This design had a number of benefits. Firstly it is easy to shift between testing the car on the testrig and on a real track. This is an important feature, especially during the competition. Secondly it can be used on other cars, for example Sleipner. It is however more difficult to control since it is not guaranteed that there is no slip between the wheel of the car and the roller. This property can be modeled better in the future and overall the team feels that the current concept design for the testrig has the highest potential in the long run.
 
 \subsection{Testrig control}\label{sec:discussion_testrig_control}
-As described in~\ref{testrig_design_control} the variable monitored to control the torque is current applied to the motor. This choice was made because of time
+As described in~\ref{sec:testrig_design_control} the variable monitored to control the torque is current applied to the motor. This choice was made because of time
 and hardware constraints. In theory, since the motor torque constant of a DC motor is
 constant, the torque can be calculated by measuring the current fed to the
 motor if losses in the system are known. In practice, it is difficult to
