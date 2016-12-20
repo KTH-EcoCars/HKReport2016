@@ -18,7 +18,7 @@ a really good fit for the project.
 Shell Eco-Marathon is a yearly competition for students to compete with fuel
 efficient, custom made, vehicles~\cite{SEM_web}. The competition dates back to
 1939 and have been in different locations trough out the years. SEM is split
-into three regional championships, Europe, Americas and Asia with a World Final
+into three regional championships: Europe, Americas and Asia with a World Final
 for the winners in the different classes. There are two main class divisions,
 \textit{Prototype} and \textit{UrbanConcept}. There are also sub classes within
 the main classes based on what fuel/energy type the vehicle uses. Each fuel has
@@ -31,8 +31,8 @@ Vehicle (UCV). The vehicles in this class have an appearance closer to today's
 production type passenger cars. The cars in the class have to be built in
 accordance with the class specific rules that dictates everything from steering
 and controls to propulsion and safety. UCVs must have some common production
-car features as wind shield wiper, turn signals, horn headlights etc. Vehicles
-competing in this group is also required ``stop and go'' each lap, which means
+car features as wind shield wiper, turn signals, horn, headlights etc. Vehicles
+competing in this group are also required to ``stop and go'' each lap, which means
 that once every lap the vehicle needs to do a full stop. This is to further
 increase the resemblance to city driving.
 
@@ -44,31 +44,32 @@ must deliver larger amounts of torque than previous years (this is true for
 Elba). The height profile of the track can be seen in
 Figure~\ref{fig:introduction_londontrack}.
 \begin{figure}[H]
-    \centering\label{fig:introduction_londontrack}
+    \centering
     \includegraphics[width=\textwidth]{./img/introduction_londontrack.png}
     \caption{Height profile of the London track.}
+    \label{fig:introduction_londontrack}
 \end{figure}
 
 \subsection{Inspections}
 Before any vehicle is allowed on the track it must first pass two inspections,
 the safety inspection and the technical inspection. The safety inspection covers
 issues related to the safety of the driver, personnel and surrounding cars. 
-The technical inspection covers how the vehicle compiles to the rules,
+The technical inspection covers how the vehicle complies to the rules,
 specifically energy usage. This ensures that the car does not use power from the
 auxiliary power source to propel the vehicle in any way.
 
-Simply passing these inspections is nothing that many teams take lightly and it
+Simply passing these inspections is not something that teams take lightly and it
 can be the main goal for many of the teams attending SEM\@. This means that
 if the car does not change year-to-year it is often easier to get the car to
 race the next year.
 
 \section{Purpose}
 If one wishes to perform well in Shell Eco-Marathon optimising the speed the car should have on the track could improve performance. 
-This is also something that is interesting for the industry and is not use in current cars when using autimatic speed thingys. This would both save money and the environment due to the reduced fuel consumption.
+This is also something that is interesting for the industry and is not use in current cars when using cruise control. This could both save money and the environment due to the reduced fuel consumption.
 
 One goal the optimisation is to improve result at SEM\@. Therefore a car, in competition shape, has to be maintained. The car has to be updated to comply whit the current SEM-rules and also simply to be cemt in a drivable state. The car is also seen as a platform for students to test ideas and perform research. Various parts of the car have already been developed as bachelors thesis's and the optimisation will be improved as a part of a master thesis. The car enables students to try to solve both complex construction and design tasks, such as the unique clutch or the laminate door, and experiment with different optimisation strategies in a real world case. Appearing and performing well with the car is the main way to get sponsorship deals to support the project, both with parts and with money to cover travel and transportation costs.
 
-But to be able to do all this test has to be carried out with as little overhead (time, track, transportation etc.) as possible. Also the actual competition track is located in London (and it only exists during the event), so there is no option to go there and test. This is the motivation behind the testrig. Other teams competing in SEM uses these machines to test the car while standing still, but KTH EcoCars had no machine like this. The testrig solves several practicalities for KTH EcoCars and is therefore not only beneficial for the car that was worked on, Several problems had to be solved for it to work: is must supply the torque demanded, is must simulate the forces the car is exposed to, and is has to handle supply of energy and regenerated energy created when braking the car.
+But to be able to do all this test has to be carried out with as little overhead (time, track, transportation etc.) as possible. Also the actual competition track is located in London (and it only exists during the event), so there is no option to go there and test. This is the motivation behind the testrig. Other teams competing in SEM uses these machines to test the car while standing still, but KTH EcoCars had no machine like this. The testrig solves several practical issues for KTH EcoCars and is therefore not only beneficial for the car that was worked on. Several problems had to be solved for it to work: it must supply the torque demanded, is must simulate the forces the car is exposed to, and is has to handle supply of energy and regenerated energy created when braking the car.
 
 %Requirements Engineering
 \section{Requirement engineering}
@@ -85,7 +86,7 @@ Requirements can be organized into two categories, User and System requirements.
 These differ in a number of ways, both in their nature and how they are
 procured. A project design often starts with a demand or need from a customer or user.
 These needs can be seen as the goal for the project to fulfil and are of a high
-level, abstract nature. They are captured from the future users of the system
+level, abstract nature. They are captured from the users of the system
 and are expressed in the users language. In essence, the User requirements
 describe the problem that is to be solved by the system~\cite{ibm_req}. 
 
@@ -105,9 +106,10 @@ requirement, it is ensured that all parts needed are in the requirement.
 Rupp~\cite{rupp2014} gives a template on how to formulate a
 requirement, which can be seen in Figure~\ref{fig:req_template}.
 \begin{figure}[H]
-    \centering\label{fig:req_template}
+    \centering
     \includegraphics[width=\textwidth]{./img/introduction_req_template.PNG}
     \caption{Requirement formulation template.}
+    \label{fig:req_template}
 \end{figure}
 It is also important to realize that in a complex system, there are many
 relationships between stakeholders and requirements~\cite{ibm_req}. A change in
@@ -134,7 +136,7 @@ a simple text-based language that is parsed into an HTML document that can be
 viewed either in a browser or as a PDF document. 
 
 To make writing new requirements easier, a simple webpage that can be run
-locally on any computer was written. The webpage has input boxes where entries
+locally on any computer is written. The webpage has input boxes where entries
 such as requirement name and dependencies can be entered. The data from the
 boxes is then parsed with Javascript to create a standardized requirement that
 can be copied and pasted into the requirements document. The layout of the
