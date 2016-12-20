@@ -73,7 +73,7 @@ high-level requirements from the rules, for example the requirement that the
 testrig should be able to simulate the full London track. We could then sit down
 as a design team and reduce the abstract user requirements to technical system
 requirements. This separation of roles has helped us set fair requirements that
-set demands on the system design but still allows us to create feasable
+set demands on the system design but still allows us to create feasible
 definitions of done. 
 
 \subsection{Requirements Engineering system}
@@ -90,12 +90,12 @@ in the team has experience with HTML programming, the use of Markdown along with
 a standard template for requirements still allow everyone to write new and edit
 requirements. 
 
+\subsection{Testrig concept design}
+As described in~\ref{testrig_design_concept} it was chosen to use rollers for the testrig instead of attaching a motor directly to the driving wheel. This design had a number of benefits. Firstly it is easy to shift between testing the car on the testrig and on a real track. This is an important feature, especially during the competition. Secondly it can be used on other cars, for example Sleipner. It is however more difficult to control since it is not guaranteed that there is no slip between the wheel of the car and the roller. This property can be modeled better in the future and overall the team feels that the current concept design for the testrig has the highest potential in the long run.
+
 \subsection{Testrig control}
-The desired output of the testrig is the combined external forces that affect
-the car at any given time on a track. By construction, this means that the
-output is the torque on the rollers is the desired output. Because of time
-and hardware constraints, a solution where the current fed to the motor is
-instead controlled. In theory, since the motor torque constant of a DC motor is
+As described in~\ref{testrig_design_control} the variable monitored to control the torque is current applied to the motor. This choice was made because of time
+and hardware constraints. In theory, since the motor torque constant of a DC motor is
 constant, the torque can be calculated by measuring the current fed to the
 motor if losses in the system are known. In practice, it is difficult to
 predict losses accurately and the convoluted way of calculating the torque adds
@@ -105,18 +105,17 @@ accuracy of the model. An optimal solution would of course be to fit a torque
 sensor to the testrig and run the system on a closed loop with current as the
 control variable and torque as the output. However, under the
 circumstances, the group considers the open loop current control approach to be
-the best choice. Firstly, even with a lower output accuracy, it still gives a
+the best choice. Even with a lower output accuracy, it still gives a
 good proof of concept of the testrig and shows that a rolling highway simulation
-on Elba can be done successfully. Secondly, a good platform for future
-improvement can be built and expanded upon in future projects. It was never
-feasible that a full-featured system could be designed, constructed and
-implemented in such a short time scale, so it was important to build a stable
-expandable platform and we consider that goal accomplished.
+on Elba can be done successfully.
+For future improvement of the testrig, torque control should be considered. It is however not deemed to be of the highest priority. %TODO: omformulera?
+
+%Stryka helt?: Secondly, a good platform for future improvement can be built and expanded upon in future projects. It was never feasible that a full-featured system could be designed, constructed and implemented in such a short time scale, so it was important to build a stable expandable platform and we consider that goal accomplished.
 
 \subsection{Testrig identification}
 As discussed in the previous section, the current control approach is not
-optimal and should not be a final design for the testrig. Therefore, it has been
-important to set accuracy requirements that are good enough. A model with a
+optimal and it should be considered to use another final design for the control of the testrig. Therefore, it has been
+important to set accuracy requirements that are "good enough". A model with a
 good accuracy is needed for the operation of the current setup. This allows the
 concept to be proven and also lets next years team use the testrig as a tool for
 getting preliminary data at the start of the project. However, spending too much
@@ -165,6 +164,3 @@ and setup the electrical system to get the data. We have also had to use
 knowledge from mechatronics subjects such as Dynamics and Motion control,
 Mechatronics basic course and Embedded systems. It is this synthesis of subjects
 that makes mechatronics what it is and it has been a great experience. 
-
-
-\section{Conclusion}
