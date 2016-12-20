@@ -20,7 +20,6 @@ requirements that describe the limitations and demands on the system and its
 subsystems.
 
 \section{Hardware}
-
 %%Add picture of cadmodel testrig?!
 The testrig is composed of two rollers mounted on a metal frame together with a
 DC motor and an encoder to keep track of the speed
@@ -54,10 +53,11 @@ recharge again. A basic schematic of the setup can be seen in
 Figure~\ref{fig:testrig_schematic}.
 
 \begin{figure}[H]
-    \centering\label{fig:testrig_schematic}
+    \centering
     \includegraphics[width=\textwidth]{./img/testrig_schematic.png}
-    \caption{Schematic of testrig wiring.}
+    \caption{Schematic of testrig wiring.}\label{fig:testrig_schematic}
 \end{figure}
+
 
 \section{Car dynamics}\label{sec:cardynamics}
 The calculations in this section are in many ways the same as the calculations
@@ -70,9 +70,9 @@ When simulating a track, one needs to know the force exerted by the environment
 on the car. A graphical representation of the forces that act on the car is
 given in Figure~\ref{fig:testrig_elbadynamics}.
 \begin{figure}[H]
-    \centering\label{fig:testrig_elbadynamics}
+    \centering
     \includegraphics[width=0.5\textwidth]{./img/testrig_elbaforces.png}
-    \caption{Dynamic model of Elba.}
+    \caption{Dynamic model of Elba.}\label{fig:testrig_elbadynamics}
 \end{figure}
 The motion equations on the system are 
 \begin{equation} \label{eq:testrig_cardynamics}
@@ -86,7 +86,7 @@ around an object can be calculated as~\cite{nakayama2002}
     D = C_D A \frac{\rho v^2} {2}
 \end{equation}
 with object velocity $v$, surface area vertical to the movement direction $A$
-and air density $\rho$. Most terms in Equation~(\ref{eq:testrig_cardynamics})
+and air density $\rho$. Most terms in Equation~\ref{eq:testrig_cardynamics}
 are constant throughout a driving instance. Rewriting to
 \begin{equation} \label{eq:testrig_csimple}
     C_{tot} = \frac{C_D A \rho} {2}
@@ -109,7 +109,7 @@ The rolling friction of a car is modeled as a step function, being non-zero at
 all velocities that are not zero.
 
 With the air drag, rolling friction and gravity terms known, only two terms of
-Equation (\ref{eq:testrig_cardynamics}) are unknown. To fully model the cars
+Equation~\ref{eq:testrig_cardynamics} are unknown. To fully model the cars
 dynamics, the inertia term needs to be modeled. Since the weight of the vehicle
 is known, $\ddot{x}$ needs to be derived for an accurate system model.
 Knowing the radius of the rollers and the cars wheels, the linear acceleration
@@ -119,18 +119,21 @@ calculated in the microcontroller and rotational acceleration is derived from
 rotational speed. Using the roller radius, $r_{r}$, the linear acceleration
 is calculated.
 
-Rewriting Equation (\ref{eq:testrig_cardynamics}), (\ref{eq:drag}) and the friction force gives the
+Rewriting Equation~\ref{eq:testrig_cardynamics}, \ref{eq:drag} and the friction force gives the
 desired linear testrig simulation force on the right hand side,
 \begin{equation} \label{eq:simulationforce}
     F_{tr} = m\ddot{x} + mg\sin{\alpha} + C_{tot}\dot{x}^2 + F_{\mu}.
 \end{equation}
 
-Using the height profile of the London track and the plant model of Elba, $F_{tr}$ during an entire lap could be simulated, as shown in Figure (\ref{fig:testrig_negative_forces}).
+Using the height profile of the London track and the plant model of Elba,
+$F_{tr}$ during an entire lap could be simulated, as shown in
+Figure~\ref{fig:testrig_negative_forces}.
 
 \begin{figure}[H]
-    \centering\label{fig:testrig_negative_forces}
+    \centering
     \includegraphics[width=\textwidth]{./img/testrig_negative_forces.eps}
-    \caption{Negative forces acting upon Elba in one lap.}
+    \caption{Negative forces acting upon Elba in one
+    lap.}\label{fig:testrig_negative_forces}
 \end{figure}
 
 \section{Testrig dynamics}
@@ -141,9 +144,10 @@ testrig has two separate steps, the motor and the roller, connected by a chain
 gear with gear ratio $n_{chain}$. A principle schematic of the testrig from
 motor to roller is displayed in Figure~\ref{fig:testrig_testrigdynamics}.
 \begin{figure}[H]
-    \centering\label{fig:testrig_testrigdynamics}
+    \centering
     \includegraphics[width=0.9\textwidth]{./img/testrig_rollerschematic.png}
-    \caption{Principle schematic of the testrig from motor to roller.}
+    \caption{Principle schematic of the testrig from motor to
+    roller.}\label{fig:testrig_testrigdynamics}
 \end{figure}
 The dynamic equations for the rollers are
 \begin{equation} \label{eq:testrig_rollerdynamics}
@@ -156,11 +160,11 @@ of the roller. The frictional terms are the viscous friction $d_r$ and the
 constant friction $\mu_r$ which is modelled by the Karnop model (??).
 
 Connecting the rollers and the motor is a chain gear. It is modelled as a
-generic gear box. The gearbox model has no internal friction. There is always friction in a
-chain gear but it is expected that this friction will be incorporated in the
-total system model and the friction free representation is deemed adequate.
-Using Equation (\ref{eq:testrig_rollerdynamics}) and (motor model) along with
-the gearbox model, the total testrig dynamic model becomes
+generic gear box. The gearbox model has no internal friction. There is always
+friction in a chain gear but it is expected that this friction will be
+incorporated in the total system model and the friction free representation is
+deemed adequate.  Using Equation~\ref{eq:testrig_rollerdynamics} and (motor
+model) along with the gearbox model, the total testrig dynamic model becomes
 
 \begin{equation} \label{eq:testrig_totaldynamics} 
     T_m = \frac{F_{tr} r_r + J_{tot} \dot{\omega}_m + d_{tot} \omega_m + \mu_{tot}}{n},
@@ -191,21 +195,24 @@ The power $P_m$ required for the motor on the testrig was calculated as
 	P_m = T_m \omega_m
 \end{equation}
 
-Using the London track and the plant model of Elba, $P_m$ during one lap could be simulated, as shown in (\ref{fig:testrig_power_required}).
+Using the London track and the plant model of Elba, $P_m$ during one lap could
+be simulated, as shown in (\ref{fig:testrig_power_required}).
 
 \begin{figure}[H]
-    \centering\label{fig:testrig_power_required}
+    \centering
     \includegraphics[width=\textwidth]{./img/testrig_power_required.eps}
-    \caption{Power required for the motor on the testrig.}
+    \caption{Power required for the motor on the
+    testrig.}\label{fig:testrig_power_required}
 \end{figure}
 
-Figure (\ref{fig:testrig_power_required}) shows that the maximum required power from the testrig motor is $1000$ W.
+Figure~\ref{fig:testrig_power_required} shows that the maximum required power
+from the testrig motor is $1000$ W.
 
 \section{Identification}
-Having obtained the dynamic equations of the system in Equation
-(\ref{eq:testrig_totaldynamics}), a system identification is done to determine
-the parameters of the system. The parameters are then used in the open loop
-current/torque controller. The controller is run in open loop for the
+Having obtained the dynamic equations of the system in
+Equation~\ref{eq:testrig_totaldynamics}, a system identification is done to
+determine the parameters of the system. The parameters are then used in the
+open loop current/torque controller. The controller is run in open loop for the
 torque, i.e.\ there is no direct torque feedback. To get the desired torque
 output, the current is controlled via a closed loop feedback controller and
 torque is calculated from the actual current. With a knowledge about motor
@@ -290,7 +297,7 @@ $\pm2$, $\pm8$ and $\pm16$ volts.
 A general mathematical model for the testrig is produced. This model is then used
 as a reference for simplified models used in the identification process.
 To get the complete system model, the dynamic model from
-Equation (\ref{eq:testrig_totaldynamics}) is combined with that of a DC motor. A
+Equation~\ref{eq:testrig_totaldynamics} is combined with that of a DC motor. A
 principle schematic of a DC motor is given in
 Figure~\ref{fig:testrig_dcmotor_model}. $V_A$ is the voltage input, $R_A$ and
 $L_A$ are the internal resistance and inductance respectively, $i_a$ is the
@@ -298,9 +305,9 @@ motor current and $V_C$ is the back-emf. $J$ is the inertia of the motor and
 $\omega_a$ is the rotational velocity.
 \begin{figure}[H]
 	%TODO: Need a better picture!
-    \centering\label{fig:testrig_dcmotor_model}
+    \centering
     \includegraphics[width=\textwidth]{./img/testrig_dcmotor_model.png}
-    \caption{DC motor schematic diagram.}
+    \caption{DC motor schematic diagram.}\label{fig:testrig_dcmotor_model}
 \end{figure}
 Using Kirchoffs loop rule along with 
 \begin{equation} \label{eq:testrig_kphi_v}
@@ -317,7 +324,7 @@ gives the electric dynamics of the motor,
         J \frac{d\omega} {dt} = k_{\phi} i_a - d\omega - \mu. 
     \end{cases}
 \end{equation}
-Performing a Laplace transform and rewriting Equation (\ref{eq:testrig_dcmotor})
+Performing a Laplace transform and rewriting Equation~\ref{eq:testrig_dcmotor}
 one gets a second order model for the motor as a transfer function between
 voltage and rotational velocity,
 \begin{equation} \label{eq:testrig_motor_2ndorder}
@@ -325,25 +332,25 @@ voltage and rotational velocity,
     \frac {sL_A + R_A} {(sJ + d) (R_A + sL_A) + k_{\phi}^2} \mu.
 \end{equation}
 \subsubsection{Model 1}
-As a first attempt, the model in Equation (\ref{eq:testrig_motor_2ndorder}) is 
+As a first attempt, the model in Equation~\ref{eq:testrig_motor_2ndorder} is 
 simplified by making the following assumptions:
 \begin{enumerate}
     \item Inductance is small enough to be negligable.
     \item Static friction is small enough to be negligable.
 \end{enumerate}
 With these assumptions
-Equation (\ref{eq:testrig_motor_2ndorder}) becomes a first order system,
+Equation~\ref{eq:testrig_motor_2ndorder} becomes a first order system,
 \begin{equation} \label{eq:testrig_motor_1storder}
     \omega = \frac {k_{\phi}} {sJ + d R_A + k_{\phi}^2} U_A.
 \end{equation}
-Equation (\ref{eq:testrig_motor_1storder}) can be rearranged to a standard first
+Equation~\ref{eq:testrig_motor_1storder} can be rearranged to a standard first
 order transfer function form, yielding
 \begin{equation} \label{eq:testrig_motor_1storder_rewrite}
     \omega = \frac {K} {s T + 1}
 \end{equation}
 where $K = k(1 + \frac{1} {R d})$ and $T = \frac {J} {\frac{k^2} {R} + d}$.
 Using the final value theorem, setting $s = 0$, $K$ can be seen to be the steady
-state gain of the system and $T$ is the time constant \cite{reglerteknik2006}.
+state gain of the system and $T$ is the time constant~\cite{reglerteknik2006}.
 Seeing how $K$ only depends on one unknown variable, $d$, the model is fit to a
 steady state gain first using the viscous friction variable. The inertia $J$ is
 then fitted using the time constant of the response and $d$ as a known variable.
@@ -356,19 +363,17 @@ well around the set point of 20 V. Figure~\ref{fig:1storder_20} shows the step
 response at 20 V. The deviating value in the rise of the is an error induced by
 the revolutional velocity capuring algorithm in the microcontroller.
 \begin{figure}[H]
-    \label{fig:1storder_20}
     \centering
     \includegraphics[width=\textwidth]{./img/testrig_20Vstep_no_i_no_fric.eps}
-    \caption{Step response for a 1st order model at 20 V.}
+    \caption{Step response for a 1st order model at 20 V.}\label{fig:1storder_20}
 \end{figure}
 However, the static error increases the further away from the setpoint the tests
 are run, see for example Figure~\ref{fig:1storder_5}.
 \begin{figure}[H]
-    \label{fig:1storder_5}
     \centering
     \includegraphics[width=\textwidth]{./img/testrig_5Vstep_no_i_no_fric.eps}
     \caption{Step response for a 1st order model at 5 V. Note the steady state
-    error compared to the set point.}
+    error compared to the set point.}\label{fig:1storder_5}
 \end{figure}
 Also, when validating the model using a sine wave at low amplitude, there is a
 significant discrepancy in the model performance compared to the real system at
@@ -377,14 +382,12 @@ can overcome the initial friction whereas the simplified model does not. In
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:1storder_sine2}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_no_fric.eps}
-    \caption{Full response.}
+    \caption{Full response.}\label{fig:1storder_sine2}
     \end{subfigure}
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:1storder_sine2z}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_no_fric_zoom.eps}
-    \caption{Magnification on turning point.}
+    \caption{Magnification on turning point.}\label{fig:1storder_sine2z}
     \end{subfigure}
     \caption{Sine response for first order model with no inductance or static
     friction.}
@@ -409,15 +412,14 @@ A static friction is a disturbance torque that at its simplest has a constant
 amplitude and changes with the direction of velocity. This representation is not
 suitable for numerical solving because of the discontinuity that occurs when the
 system turns. To counter this, a stick-slip region is added around the origin,
-i.e. the turning point. Withing this stick-slip region, the friction force is
+i.e.\ the turning point. Withing this stick-slip region, the friction force is
 equal to the internally applied torque from the motor until the static friction
 maximum value is reached. After that, the friction torque is constant. This
 friction model is called the Karnop friction model, see Figure~\ref{fig:karnop}.
 \begin{figure}[H]
-    \label{fig:karnop}
     \centering
     \includegraphics[width=\textwidth]{./img/testrig_karnop.png}
-    \caption{Karnop friction as a function of speed.}
+    \caption{Karnop friction as a function of speed.}\label{fig:karnop}
 \end{figure}
 Karnop allows numerical solvers to be used on the model but it also introduces 2 new
 parameters to fit. These are the static Coulumb friction $F_C$ and the velocity
@@ -438,14 +440,12 @@ in Figure~\ref{fig:20vkarnop} and~\ref{fig:5vkarnop}.
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:20vkarnop}
     \includegraphics[width=\textwidth]{./img/testrig_20Vstep_no_i_fric.eps}
-    \caption{20 V step input.}
+    \caption{20 V step input.}\label{fig:20vkarnop}
     \end{subfigure}
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:5vkarnop}
     \includegraphics[width=\textwidth]{./img/testrig_5Vstep_no_i_fric.eps}
-    \caption{5 V step input.}
+    \caption{5 V step input.}\label{fig:5vkarnop}
     \end{subfigure}
     \caption{Step responses for the edge case of the first order system with
     Karnop friction.}
@@ -462,14 +462,12 @@ are given in Appendix %TODO: Add this too
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:1storder_f_sine2}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_fric.eps}
-    \caption{Full response.}
+    \caption{Full response.}\label{fig:1storder_f_sine2}
     \end{subfigure}
     \begin{subfigure}[H]{0.48\textwidth}
-    \label{fig:1storder_f_sine2z}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_fric_zoom.eps}
-    \caption{Magnification on turning point.}
+    \caption{Magnification on turning point.}\label{fig:1storder_f_sine2z}
     \end{subfigure}
     \caption{Sine response for first order model with static Karnop friction and 
     no inductance.}
