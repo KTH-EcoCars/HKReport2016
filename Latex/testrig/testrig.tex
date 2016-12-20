@@ -20,28 +20,32 @@ requirements that describe the limitations and demands on the system and its
 subsystems.
 
 \section{Design decisions}
-\subsection{Roller vs on wheel}
+During the design of the testrig the team faced a few issues with multiple possible solutions. The most impactful and important issues  are briefly explained here.
+
+\subsection{Concept design}\label{testrig_design_concept}
 Two basic concepts for the testrig were incepted. The first concept was to remove the driving wheel and attach a motor that was to apply the proper torque at all times to simulate the forces that would act on Elba in the real world.
 
 The second concept was to construct two rollers that Elba would stand on with its driving wheel and apply a torque to one of the rollers via a DC motor.
 
-The group decided to continue working with the roller concept.
+The team decided to continue working with the roller concept.
 
 \subsection{Regeneration}
-Another problem that needed a solution was the handling of regenerated current. As seen in Figure \ref{fig:testrig_negative_forces} the forces produced by the testrig will at almost all points of the track be opposite to Elbas travelling direction. This means that the DC motor will work as a generator most of the time, since the torque and speed will be in opposite directions. Many different ideas were tossed around, but all with the fundamental idea to have power resistors connected where excess energy could be dissipated. One idea was to manually switch to dissipating energy when needed. The final solution included a supercapacitor to store energy temporarily to be used when simulating a downhill, and a way of automatically burning excess when the supercapacitor was fully charged. The complete setup is explained with greater detail in \ref{sec:testrig_hardware}.
+Another problem that needed a solution was the handling of regenerated current. As seen in Figure \ref{fig:testrig_negative_forces} the forces produced by the testrig will at almost all points of the track be opposite to Elbas travelling direction. This means that the DC motor will work as a generator most of the time, since the torque and speed will be in opposite directions. Many different ideas of ways to solve this problem were tossed around, but all with the fundamental idea to have power resistors connected where excess energy could be dissipated. One idea was to manually switch to dissipating energy when needed. The final solution included a supercapacitor to store energy temporarily to be used when simulating a downhill, and a way of automatically burning excess when the supercapacitor was fully charged. The complete setup is explained with greater detail in \ref{sec:testrig_hardware}.
 
-\subsection{Control}
-Torque sensor, current control
+\subsection{Control}\label{testrig_design_control}
+The desired output of the testrig is the combined external forces that affect the car at any given time on a track. This means that the output to control is the torque on the rollers. The team chose between two ways of doing this. The first was to measure the torque directly using an appropriate sensor. The second idea was to measure the current applied to the motor and calculate the torque from the current. 
+
+The team decided to use current control.
 
 \section{Hardware}\label{sec:testrig_hardware}
 The testrig is composed of two rollers mounted on a metal frame together with a
 DC motor and an encoder to keep track of the speed
 of the motor. The motor is connected to the rollers by sprockets and chain with
-a gearing ratio of two. A model of the system can be seen in Figure \ref{fig:testrig_hardware}
+a gearing ratio of two. A model of the system can be seen in Figure \ref{fig:testrig_hardware}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{./img/testrig_hardware.png}
+    \includegraphics[width=0.75\textwidth]{./img/testrig_hardware.png}
     \caption{CAD model of the testrig without the chainguard for increased visibility.}
     \label{fig:testrig_hardware}
 \end{figure}
