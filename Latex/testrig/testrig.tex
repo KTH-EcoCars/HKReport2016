@@ -402,8 +402,8 @@ Therefore, the model fitting is reiterated with a model that takes the static
 friction into account and only makes the assumption that the effect of the motor
 inductance is negligable. The new model achieved is then
 \begin{equation} \label{eq:model2}
-    \omega = \frac {k_{\phi}} {(sJ + d R_A + k_{\phi}^2} U_A -
-    \frac {R_A} {(sJ + d R_A + k_{\phi}^2} \mu.
+    \omega = \frac {k_{\phi}} {sJ + d R_A + k_{\phi}^2} U_A -
+    \frac {R_A} {sJ + d R_A + k_{\phi}^2} \mu.
 \end{equation}
 A static friction is a disturbance torque that at its simplest has a constant
 amplitude and changes with the direction of velocity. This representation is not
@@ -452,4 +452,26 @@ in Figure~\ref{fig:20vkarnop} and~\ref{fig:5vkarnop}.
 \end{figure}
 The steady state error has a maximum error of 1.5\% over all three input step
 sizes and the rise time is correct. %TODO: Calculate and add values here
+
+In the validation step, the model follows the behaviour of the real system well.
+In Figure~\ref{fig:1storder_f_sine2} and~\ref{fig:1storder_f_sine2z}, it can be
+seen that the model follows the real system well in the turning point. However,
+there is a static following error but this was not part of the requirements. The
+model is therefore accepted as suitable. The full set of step and sine responses
+are given in Appendix %TODO: Add this too
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[H]{0.48\textwidth}
+    \label{fig:1storder_f_sine2}
+    \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_fric.eps}
+    \caption{Full response.}
+    \end{subfigure}
+    \begin{subfigure}[H]{0.48\textwidth}
+    \label{fig:1storder_f_sine2z}
+    \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_fric_zoom.eps}
+    \caption{Magnification on turning point.}
+    \end{subfigure}
+    \caption{Sine response for first order model with static Karnop friction and 
+    no inductance.}
+\end{figure}
 
