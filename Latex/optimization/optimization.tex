@@ -17,6 +17,38 @@ top layer speed reference control. This chapter will cover the decentralized
 hierarchical predictive control that is used to calculate the speed trajectory
 and it's implementation.
 
+\section{Design Decisions}
+The need for an optimization can seem to be obvious in order to lower the fuel
+consumption. However depending on the tracks topography there might be other
+areas that would need much more consideration. In recent years the track of SEM
+have been more or less flat, with only minor deviations in altitude. With this
+track, there considerations for an automated drive mode would more or less only
+consist of making sure that the voltage level of the super capacitor is within
+the boundaries. This means that the ICE needs to be started when the voltage
+level gets too low and regenerate energy into the super capacitor. The reason for
+this is that the efficiency of the electrical motors exceeds that of the ICE,
+and in so it will be more efficient to drive Elba with the electrical motors.
+Once SEM moved to London the conditions became different, on top of the voltage
+level of the super capacitor there is also the room for optimizing the torque
+requests so that the most efficient propulsion constellation is active at all
+times. It is also nessesary to time the accessible energy so that there is
+enough energy in the super capacitor in beginning of an uphill. There is now
+also the possibility to regenerate from driving down hill etc.\ These new levels
+of complexity makes the optimization become more of an factor then previous
+years, and in so there was a collaboration with a master thesis student who used
+Elba as an experiment in the thesis~\cite{liu2016}.\\
+The Simulink lookup table that was produced from~\cite{liu2016} was dependent on
+the current distance traveled on the track so there was a real need to get an
+accurate position reading. There was two options, to get an GPS-positioning
+device and get that to talk with the rest of the car or to use the encoder
+already mounted on the drive shaft. Both had their disadvantages, with the
+encoder reading having the tendency to drift and plain inaccuracy and the GPS
+with its CEP of $\pm2.5\textnormal{m}$. When the RCP2 was bought it came with an
+GPS solution already implemented, this made the choice of having both of them
+easier. The next problem that then arouse was to filer the readings of both the
+GPS and the encoder to have a reliable positioning source. Due to priorities and
+limited amounts of time have the filtering not been completed. 
+
 \section{Constraints}
 The optimization is limited by the constraints of the physical system, meaning that
 the controller is not able to operate outside the limits of the system. These limits
