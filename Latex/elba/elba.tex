@@ -256,30 +256,28 @@ the clutch was not stuck to the center plate it still could not be properly
 disengaged. This was due to the geometry of the lever arm which pushes the
 clutch plate.  After this important insight the drive train was disassembled and
 new lever arms were constructed and manufactured. When the drive train was
-assembled again the clutch worked like expected. Figure (\ref{fig:clutch}) shows both the new and old lever arms.
+assembled again the clutch worked like expected. Figure~\ref{fig:clutch} and \ref{fig:old_clutch} shows both the new and old lever arms.
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.55\textwidth}
-    \label{fig:clutch}
     \includegraphics[width=\textwidth]{./img/clutch}
-    \caption{The new clutch lever arms}
+    \caption{The new clutch lever arms}\label{fig:clutch}
     \end{subfigure}
     \begin{subfigure}[H]{0.44\textwidth}
-    \label{fig:old_clutch}
     \includegraphics[width=\textwidth]{./img/Clutch_old}
-    \caption{The old clutch lever arms}
+    \caption{The old clutch lever arms}\label{fig:old_clutch}
     \end{subfigure}
     \caption{This image shows the difference between the old and the new lever arms that are used to push the clutch plates.}
 \end{figure}
 
 \begin{figure}[H]
-    \centering\label{fig:elba_capvoltage_regen}
+    \centering
     \includegraphics[width=0.75\textwidth]{./img/elba_capvoltage_regen}
-    \caption{Capacitor voltage and drivemode as a function of time}
+    \caption{Capacitor voltage and drivemode as a function of time}\label{fig:elba_capvoltage_regen}
 \end{figure}
 
-Figure (\ref{fig:elba_capvoltage_regen}) illustrates a sequence from CANoe where the capacitor is charged by changing mode from the small DC motor when the voltage is low and charging to a higher voltage level then changing back to the small DC motor.
+Figure~\ref{fig:elba_capvoltage_regen} illustrates a sequence from CANoe where the capacitor is charged by changing mode from the small DC motor when the voltage is low and charging to a higher voltage level then changing back to the small DC motor.
 
 \subsection{Internal Combustion Engine and ICE ECU}
 One of the requirements from the ICE-department was that the ICE should be run
