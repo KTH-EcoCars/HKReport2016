@@ -1,13 +1,13 @@
-\chapter{Elba The Car}
+﻿\chapter{Elba The Car}
 
 %Introduction
 \section{Introduction}
 Elba is the name of one of the two cars of the Eco Cars project housed by
-ITRL\@.  Elba is an UrbanConcept Vehicle and have been a continuous
+ITRL\@.  Elba is an Urban Concept Vehicle (UCV) and have been a continuous
 project ongoing for many years. The design and propulsion system, along with the
 name of the UCV of Eco Cars have changed over the years and Elba is the name of
 the current active car. In difference to a couple of years ago when Elba was
-purely driven by an electric motor, is Elba today propelled by a parallel
+purely driven by an electric motor, Elba is today propelled by a parallel
 electric-ethanol hybrid. The platform has been continuously improved and altered
 to become the complex hybrid that exist today. The goal of Elba is to
 participate in the Shell Eco-marathon.
@@ -32,9 +32,9 @@ output might not have been enough to be efficient on the new track, none of the
 potential drivers would fit in the driver compartment and the horn disturbed the
 entire electrical system.  These issues where, together with the competition
 rules, the primary base for the decisions that where taken and related to the
-car. Some of the work done to correct these problems where a matter of reshape
+car. Some of the work done to correct these problems where a matter of reshaping
 some metal piece and bolting it back in the car so that the driver could reach
-the brakes. While other required an entire team of people to get a new, working,
+the brakes, while other required an entire team of people to get a new, working,
 ethanol engine in the car.
 
 %System Overview
@@ -43,13 +43,16 @@ ethanol engine in the car.
 The car has four electronic control units (ECUs) that are responsible for
 controlling different parts of the car. An overview of the communication between
 the ECUs can be seen in Figure~\ref{fig:communication_overview}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{./img/elba_communication_overview}
     \caption{Overview of the communication system and drivetrain in
     Elba}\label{fig:communication_overview}
 \end{figure}
-The Front ECU is responsible for the human user interface, the buttons where the
+
+\noindent
+The Front ECU is responsible for the human user interface, which is the buttons where the
 driver is able to decide drive mode and reference speed if the car is in manual
 mode. It transmits speed and drive mode on the CAN bus.\\
 The Back ECU controls the two motors via separate motor controllers. It has
@@ -57,21 +60,16 @@ veto over the ICE and Clutch.\\
 The internal combustion engine is controlled by the ICE ECU and this is its sole
 purpose, it does nothing else. It reads the lambda sensor and motor
 temperature sensors to control the fuel injection.\\
-The Clutch ECU controls the clutch. It interfaces to two H-bridges which in turn
+The Clutch ECU controls the clutch, and it interfaces to two H-bridges which in turn
 steers the linear actuators.  
 
 \subsection{Communication}
 The car uses a CAN network to communicate between the distributed
 micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus.
 Each CAN message consists of a CAN id, a 32 bit upper data integer and a 32 bit
-lower data integer. Messages sent from Front ECU are sent with id 170, from
-Back ECU with id 169, and from ICE ECU with id 114. GPS data from the
-data-logger/GPS-unit Race Capture Pro are sent with id 180. Data position in
-the messages on the CAN-bus can be seen in table REF, counting the lowest bit
-as bit 1. The lower data counts for bit position 1--32 and upper data 33--64.
-micro-controllers. Any data that is needed elsewhere is sent on the CAN-bus.
-Each CAN message consists of a CAN id, a 32 bit upper data integer and a 32 bit
-lower data integer. Messages sent from Front ECU are sent with id 170, from Back
+lower data integer. 
+
+Messages sent from Front ECU are sent with id 170, from Back
 ECU with id 169 and 113, and from ICE ECU with id 114. GPS data from the
 data-logger/GPS-unit Race Capture Pro are sent with id 180. Data position in the
 messages on the CAN-bus can be seen in table~\ref{table:CAN}, counting the
@@ -105,7 +103,7 @@ position 1--32 and upper data 33--64.
 Another CAN network is used between the Back-ECU and the inMotion driver that
 controls the BLDC motor. This network uses the protocol CANopen that
 lies on top of the CAN bus. The instrumentation panel communicates via Bluetooth
-with the RCP2.
+with the Race Capture Pro 2 (RCP2).
 
 \subsection{Energy supply}
 All energy used to propel the car forwards (during the competition) comes from
@@ -116,7 +114,7 @@ of the electrical motors with energy from the super-capacitor.
 
 %Software and Simulation
 \section{Software and Simulation Models}
-Using Model Based Development (MDB), relies on verified systems models on various
+Using Model Based Development (MBD), relies on verified systems models on various
 levels. Elba benefits form a full system model to simulate fuel efficiency and
 each ECU have a corresponding Simulink model from which all code is compiled.
 
@@ -136,7 +134,7 @@ reference speed lookup table. The plant model also includes a model of the
 testrig to simulate forces and torques it is required to output.
 
 Since the new ICE couldn't be properly mapped, the plant model uses parameters
-for the old ICE\@. This needs to be considered when interpreting results from
+from the old ICE\@. This needs to be considered when interpreting results from
 simulations on the plant model.
 
 \subsection{ECU software}
@@ -149,10 +147,10 @@ the ECU, in real-time.
 
 %Data logging
 \section{Data logging} 
-The need for collecting data a very important aspect when
+The need for collecting data is a very important aspect when
 it comes to iteration during the development of the car. In order to determine
 if changes make the car perform and handle better there is a real need for
-comparing data.  In Elbas case is logging data from multiple ECU's is a must in
+comparing data. In Elbas case, logging data from multiple ECU's is a must in
 order to have a complete picture of the car. The absolute best way to log all
 the relevant data is to log the CAN-bus. All the information sent on CAN is
 relevant and of highest interest. There was always the possibility of having the
@@ -178,7 +176,7 @@ virtual channels, this allows for customized CAN id's to be logged. There is
 currently three different virtual channels that have been set up lo log messages
 sent from the back, front and ICE ECU\@. These three virtual channels is logging
 messages with ID 114, 169 and 170, and what is sent with these messages can be
-seen in Table~\ref{table:CAN}. The exact characteristics of the \\
+seen in Table~\ref{table:CAN}.
 Besides the logging function, the RCP2 is used to track Elbas position on the
 track. This is done by a GPS-dongle that was provided with the RCP2 and have the
 following specifications,
@@ -191,7 +189,7 @@ Section~\ref{sec:opt_pos_recon}.\\
 The logging file that the RCP2 produces is a Comma Seperated Value file, even
 though the file format is not standardized, there is a wide spread when it
 comes to log-files, database information, serial data streams etc.
-The file format is very convinient for usage with MATLAB, as there is built in
+The file format is very convenient for usage with MATLAB, as there are built in
 functions to load the CSV file and extracting information can be done with
 minimal effort. During the project a MATLAB script have been developed to both
 extract the right information and plot the interesting data. The exact way the
@@ -250,7 +248,7 @@ drivetrain of Elba.
     the red plates can move towards the center plate to engage and disengage the
     motors to the drive shaft.}\label{fig:Drivetrain}
 \end{figure}
-At the start of the project was the problem that the clutch actuators were
+At the start of the project, the problem was that the clutch actuators were
 oversized and thus giving more force than necessary for the clutch to engage
 properly. When the clutch was engaged, there was too much actuator force, and so
 the clutch plate on the ICE side got stuck center plate and could not be
@@ -271,8 +269,8 @@ current sensor on the clutch ECU to control the position. A third idea was to
 continue using time as reference, but increase it so that an end position is
 always reached, which can be used as a reference position.
 
-When investigating alternative three above using longer time to engage and
-disengage the clutch a new problem was discovered. It appeared that even though
+When investigating alternative three, using longer time to engage and
+disengage the clutch, a new problem was discovered. It appeared that even though
 the clutch was not stuck to the center plate it still could not be properly
 disengaged. This was due to the geometry of the lever arm which pushes the
 clutch plate.  After this important insight the drive train was disassembled and
@@ -315,18 +313,12 @@ previous year.
 
 It had been said that last years ICE where too powerful, when the car regenerated its
 maximum energy at the average track speed the car still wanted to accelerate. 
-<<<<<<< HEAD
-Going faster than required is saves time but is a waste of energy and therefore
-bad at SEM\@.
-A new ICE was puposes with 50 cc compared to earlier 57 cc. Vinkelväxel blä. 
-=======
-Going faster than required is saves time but is a waste of energy and therefore bad at SEM.
+Going faster than required saves time but is a waste of energy and therefore bad at SEM.
 A new ICE was proposed with 50 cc compared to earlier 57 cc. Another major difference 
 was that the new motor had an horizontal output shaft compared a vertical one. 
 This meant that no bevel gear had to be used, which was a major point of failure earlier.
 The ICE had to be shipped relatively fast and a requirement from ICE-group supervisor was that 3 identical engines had to be bought. This limited the choice even further. 
 Which motor that was chosen in the end and why is motivated in greater detail in appended paper \citep{ICE_report}.
->>>>>>> 981c94933f27e264bf381d73ab438a42118ecbb7
 
 To control the new engine, a new ICE ECU was needed. It was also decided
 that the new ICE ECU would contain more sensor inputs as well as the possibility
