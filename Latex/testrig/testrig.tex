@@ -20,22 +20,22 @@ requirements that describe the limitations and demands on the system and its
 subsystems.
 
 \section{Design decisions}
-During the design of the testrig the team faced a few issues with multiple possible solutions. The most impactful and important issues  are briefly explained here.
+During the design of the testrig the team faced a few issues with multiple possible solutions. The most impactful and important decisions are briefly explained here.
 
-\subsection{Concept design}\label{testrig_design_concept}
+\subsection{Concept design}\label{sec:testrig_design_concept}
 Two basic concepts for the testrig were incepted. The first concept was to remove the driving wheel and attach a motor that was to apply the proper torque at all times to simulate the forces that would act on Elba in the real world.
 
 The second concept was to construct two rollers that Elba would stand on with its driving wheel and apply a torque to one of the rollers via a DC motor.
 
-The team decided to continue working with the roller concept.
+The team decided to continue working with the roller concept. Reasons for this are explained further in \ref{sec:discussion_testrig_concept}.
 
 \subsection{Regeneration}
 Another problem that needed a solution was the handling of regenerated current. As seen in Figure \ref{fig:testrig_negative_forces} the forces produced by the testrig will at almost all points of the track be opposite to Elbas travelling direction. This means that the DC motor will work as a generator most of the time, since the torque and speed will be in opposite directions. Many different ideas of ways to solve this problem were tossed around, but all with the fundamental idea to have power resistors connected where excess energy could be dissipated. One idea was to manually switch to dissipating energy when needed. The final solution included a supercapacitor to store energy temporarily to be used when simulating a downhill, and a way of automatically burning excess when the supercapacitor was fully charged. The complete setup is explained with greater detail in \ref{sec:testrig_hardware}.
 
-\subsection{Control}\label{testrig_design_control}
+\subsection{Control}\label{sec:testrig_design_control}
 The desired output of the testrig is the combined external forces that affect the car at any given time on a track. This means that the output to control is the torque on the rollers. The team chose between two ways of doing this. The first was to measure the torque directly using an appropriate sensor. The second idea was to measure the current applied to the motor and calculate the torque from the current. 
 
-The team decided to use current control.
+The team decided to use current control. Further explanation as to why this was chosen can be seen in \ref{sec:discussion_testrig_control}.
 
 \section{Hardware}\label{sec:testrig_hardware}
 The testrig is composed of two rollers mounted on a metal frame together with a
@@ -62,9 +62,9 @@ A basic schematic of the setup can be seen in
 Figure~\ref{fig:testrig_schematic}.
 
 \begin{figure}[H]
-    \centering\label{fig:testrig_schematic}
+    \centering
     \includegraphics[width=\textwidth]{./img/testrig_schematic.png}
-    \caption{Schematic of testrig wiring.}
+    \caption{Schematic of testrig wiring to control the voltage supplied to the driver.}\label{fig:testrig_schematic}
 \end{figure}
 
 \section{Car dynamics}\label{sec:cardynamics}
@@ -78,9 +78,9 @@ When simulating a track, one needs to know the force exerted by the environment
 on the car. A graphical representation of the forces that act on the car is
 given in Figure~\ref{fig:testrig_elbadynamics}.
 \begin{figure}[H]
-    \centering\label{fig:testrig_elbadynamics}
+    \centering
     \includegraphics[width=0.5\textwidth]{./img/testrig_elbaforces.png}
-    \caption{Dynamic model of Elba.}
+    \caption{Dynamic model of Elba.}\label{fig:testrig_elbadynamics}
 \end{figure}
 The motion equations on the system are 
 \begin{equation} \label{eq:testrig_cardynamics}
@@ -136,9 +136,9 @@ desired linear testrig simulation force on the right hand side,
 Using the height profile of the London track and the plant model of Elba, $F_{tr}$ during an entire lap could be simulated, as shown in Figure (\ref{fig:testrig_negative_forces}).
 
 \begin{figure}[H]
-    \centering\label{fig:testrig_negative_forces}
+    \centering
     \includegraphics[width=\textwidth]{./img/testrig_negative_forces.eps}
-    \caption{Negative forces acting upon Elba in one lap.}
+    \caption{Negative forces acting upon Elba in one lap.}\label{fig:testrig_negative_forces}
 \end{figure}
 
 \section{Testrig dynamics}\label{sec:rigdynamics}
@@ -149,9 +149,9 @@ testrig has two separate steps, the motor and the roller, connected by a chain
 gear with gear ratio $n_{chain}$. A principle schematic of the testrig from
 motor to roller is displayed in Figure~\ref{fig:testrig_testrigdynamics}.
 \begin{figure}[H]
-    \centering\label{fig:testrig_testrigdynamics}
+    \centering
     \includegraphics[width=0.9\textwidth]{./img/testrig_rollerschematic.png}
-    \caption{Principle schematic of the testrig from motor to roller.}
+    \caption{Principle schematic of the testrig from motor to roller.}\label{fig:testrig_testrigdynamics}
 \end{figure}
 The dynamic equations for the rollers are
 \begin{equation} \label{eq:testrig_rollerdynamics}
@@ -202,14 +202,12 @@ The power $P_m$ required for the motor on the testrig was calculated as
 Using the London track and the plant model of Elba, $P_m$ during one lap could be simulated, as shown in (\ref{fig:testrig_power_required}).
 
 \begin{figure}[H]
-    \centering\label{fig:testrig_power_required}
+    \centering
     \includegraphics[width=\textwidth]{./img/testrig_power_required.eps}
-    \caption{Power required for the motor on the testrig.}
+    \caption{Power required for the motor on the testrig.}\label{fig:testrig_power_required}
 \end{figure}
 
 Figure (\ref{fig:testrig_power_required}) shows that the maximum required power from the testrig motor is 1 kW.
-
-
 
 \section{Identification}
 Having obtained the dynamic equations of the system in Equation
@@ -256,7 +254,7 @@ run in the same Simulink instance. This means that two separate models are run
 simultaneously, one recording the input and one recording the output.
 
 \subsection{Identification process}
-The testrig is a rather simple system in prinicple. It consists of an electric
+The testrig is a rather simple system in principle. It consists of an electric
 motor attached to a load with inertia and friction, see
 Figure~\ref{fig:testrig_dcmotor_model}.  This is consistent with most standard
 models of an electric motor (see for example~\cite{beloiu2014},
@@ -316,9 +314,9 @@ motor current and $V_C$ is the back-emf. $J$ is the inertia of the motor and
 $\omega_a$ is the rotational velocity.
 \begin{figure}[H]
 	%TODO: Need a better picture!
-    \centering\label{fig:testrig_dcmotor_model}
+    \centering
     \includegraphics[width=\textwidth]{./img/testrig_dcmotor_model.png}
-    \caption{DC motor schematic diagram.}
+    \caption{DC motor schematic diagram.}\label{fig:testrig_dcmotor_model}
 \end{figure}
 Using Kirchoffs loop rule along with 
 \begin{equation} \label{eq:testrig_kphi_v}
@@ -346,8 +344,8 @@ voltage and rotational velocity,
 As a first attempt, the model in Equation (\ref{eq:testrig_motor_2ndorder}) is 
 simplified by making the following assumptions:
 \begin{enumerate}
-    \item Inductance is small enough to be negligable.
-    \item Static friction is small enough to be negligable.
+    \item Inductance is small enough to be negligible.
+    \item Static friction is small enough to be negligible.
 \end{enumerate}
 With these assumptions
 Equation (\ref{eq:testrig_motor_2ndorder}) becomes a first order system,
@@ -372,7 +370,7 @@ the highest fidelity model available.
 Evaluating the results, it can be seen that the model fits the real system very
 well around the set point of 20 V. Figure~\ref{fig:1storder_20} shows the step
 response at 20 V. The deviating value in the rise of the is an error induced by
-the revolutional velocity capuring algorithm in the microcontroller.
+the revolutional velocity capturing algorithm in the microcontroller.
 \begin{figure}[H]
     \label{fig:1storder_20}
     \centering
@@ -410,15 +408,15 @@ can overcome the initial friction whereas the simplified model does not. In
 The full set of step and sine responses for this model are given in Appendix %TODO: Add appendix
 
 \subsubsection{Model 2}
-The previous model showed good correspondance for the time constant but had a
+The previous model showed good correspondence for the time constant but had a
 steady state error when not at the set point. It also did not catch the dynamics
 at the turning of the rig. There is a missing dynamic that is not captured with
 the simple model. The fact that there is a threshold needed for the testrig to
 start turning hints that a static friction is present in the system and that it
-is significant enough to directly affect the dynamics in a noticable way.
+is significant enough to directly affect the dynamics in a noticeable way.
 Therefore, the model fitting is reiterated with a model that takes the static
 friction into account and only makes the assumption that the effect of the motor
-inductance is negligable. The new model achieved is then
+inductance is negligible. The new model achieved is then
 \begin{equation} \label{eq:model2}
     \omega = \frac {k_{\phi}} {sJ + d R_A + k_{\phi}^2} U_A -
     \frac {R_A} {sJ + d R_A + k_{\phi}^2} \mu.
@@ -427,7 +425,7 @@ A static friction is a disturbance torque that at its simplest has a constant
 amplitude and changes with the direction of velocity. This representation is not
 suitable for numerical solving because of the discontinuity that occurs when the
 system turns. To counter this, a stick-slip region is added around the origin,
-i.e. the turning point. Withing this stick-slip region, the friction force is
+i.e. the turning point. Within this stick-slip region, the friction force is
 equal to the internally applied torque from the motor until the static friction
 maximum value is reached. After that, the friction torque is constant. This
 friction model is called the Karnop friction model, see Figure~\ref{fig:karnop}.
@@ -438,7 +436,7 @@ friction model is called the Karnop friction model, see Figure~\ref{fig:karnop}.
     \caption{Karnop friction as a function of speed.}
 \end{figure}
 Karnop allows numerical solvers to be used on the model but it also introduces 2 new
-parameters to fit. These are the static Coulumb friction $F_C$ and the velocity
+parameters to fit. These are the static Coulomb friction $F_C$ and the velocity
 threshold $d_v$.
 
 To successfully fit the parameters of the model, a systematic approach based on
