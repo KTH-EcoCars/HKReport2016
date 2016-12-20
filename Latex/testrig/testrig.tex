@@ -20,28 +20,32 @@ requirements that describe the limitations and demands on the system and its
 subsystems.
 
 \section{Design decisions}
-\subsection{Roller vs on wheel}
+During the design of the testrig the team faced a few issues with multiple possible solutions. The most impactful and important issues  are briefly explained here.
+
+\subsection{Concept design}\label{testrig_design_concept}
 Two basic concepts for the testrig were incepted. The first concept was to remove the driving wheel and attach a motor that was to apply the proper torque at all times to simulate the forces that would act on Elba in the real world.
 
 The second concept was to construct two rollers that Elba would stand on with its driving wheel and apply a torque to one of the rollers via a DC motor.
 
-The group decided to continue working with the roller concept.
+The team decided to continue working with the roller concept.
 
 \subsection{Regeneration}
-Another problem that needed a solution was the handling of regenerated current. As seen in Figure \ref{fig:testrig_negative_forces} the forces produced by the testrig will at almost all points of the track be opposite to Elbas travelling direction. This means that the DC motor will work as a generator most of the time, since the torque and speed will be in opposite directions. Many different ideas were tossed around, but all with the fundamental idea to have power resistors connected where excess energy could be dissipated. One idea was to manually switch to dissipating energy when needed. The final solution included a supercapacitor to store energy temporarily to be used when simulating a downhill, and a way of automatically burning excess when the supercapacitor was fully charged. The complete setup is explained with greater detail in \ref{sec:testrig_hardware}.
+Another problem that needed a solution was the handling of regenerated current. As seen in Figure \ref{fig:testrig_negative_forces} the forces produced by the testrig will at almost all points of the track be opposite to Elbas travelling direction. This means that the DC motor will work as a generator most of the time, since the torque and speed will be in opposite directions. Many different ideas of ways to solve this problem were tossed around, but all with the fundamental idea to have power resistors connected where excess energy could be dissipated. One idea was to manually switch to dissipating energy when needed. The final solution included a supercapacitor to store energy temporarily to be used when simulating a downhill, and a way of automatically burning excess when the supercapacitor was fully charged. The complete setup is explained with greater detail in \ref{sec:testrig_hardware}.
 
-\subsection{Control}
-Torque sensor, current control
+\subsection{Control}\label{testrig_design_control}
+The desired output of the testrig is the combined external forces that affect the car at any given time on a track. This means that the output to control is the torque on the rollers. The team chose between two ways of doing this. The first was to measure the torque directly using an appropriate sensor. The second idea was to measure the current applied to the motor and calculate the torque from the current. 
+
+The team decided to use current control.
 
 \section{Hardware}\label{sec:testrig_hardware}
 The testrig is composed of two rollers mounted on a metal frame together with a
 DC motor and an encoder to keep track of the speed
 of the motor. The motor is connected to the rollers by sprockets and chain with
-a gearing ratio of two. A model of the system can be seen in Figure \ref{fig:testrig_hardware}
+a gearing ratio of two. A model of the system can be seen in Figure \ref{fig:testrig_hardware}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{./img/testrig_hardware.png}
+    \includegraphics[width=0.75\textwidth]{./img/testrig_hardware.png}
     \caption{CAD model of the testrig without the chainguard for increased visibility.}
     \label{fig:testrig_hardware}
 \end{figure}
@@ -159,7 +163,7 @@ The dynamic equations for the rollers are
 
 where $J_r$ is the inertia of the rollers and $\omega_r$ is the rotational velocity
 of the roller. The frictional terms are the viscous friction $d_r$ and the
-constant friction $\mu_r$ which is modelled by the Karnop model (??).
+constant friction $\mu_r$ which is modelled by the Karnop model.
 
 Connecting the rollers and the motor is a chain gear. It is modelled as a
 generic gear box. The gearbox model has no internal friction. There is always friction in a
@@ -405,7 +409,8 @@ can overcome the initial friction whereas the simplified model does not. In
     \caption{Sine response for first order model with no inductance or static
     friction.}
 \end{figure}
-The full set of step and sine responses for this model are given in Appendix %TODO: Add appendix
+The full set of step and sine responses for this model are given in
+Appendix~\ref{app:identification}.
 
 \subsubsection{Model 2}
 The previous model showed good correspondance for the time constant but had a
@@ -430,10 +435,13 @@ equal to the internally applied torque from the motor until the static friction
 maximum value is reached. After that, the friction torque is constant. This
 friction model is called the Karnop friction model, see Figure~\ref{fig:karnop}.
 \begin{figure}[H]
-    \label{fig:karnop}
     \centering
-    \includegraphics[width=\textwidth]{./img/testrig_karnop.png}
-    \caption{Karnop friction as a function of speed.}
+    \includegraphics[width=\textwidth]{./img/testrig_karnoplogic.png}
+    \caption{Schematic of Karnop logic. $v$ is velocity, $F_C$ is Karnop
+    friction, $F_a$ is applied force, $d_v$ is velocity threshold and $F_f$ is
+friction force. Image from lecture series in MF2007 Dynamics and motion control
+at KTH, courtesy of Dr Lei Feng.}
+    \label{fig:karnop}
 \end{figure}
 Karnop allows numerical solvers to be used on the model but it also introduces 2 new
 parameters to fit. These are the static Coulumb friction $F_C$ and the velocity
@@ -467,14 +475,16 @@ in Figure~\ref{fig:20vkarnop} and~\ref{fig:5vkarnop}.
     Karnop friction.}
 \end{figure}
 The steady state error has a maximum error of 1.5\% over all three input step
-sizes and the rise time is correct. %TODO: Calculate and add values here
+sizes and the rise time has a maximum deviation of 4.1\%. There is
+an area at low speeds in which the model and the real system do not correlate
+well but the real system and the model converge at the end of the step inputs. 
 
 In the validation step, the model follows the behaviour of the real system well.
 In Figure~\ref{fig:1storder_f_sine2} and~\ref{fig:1storder_f_sine2z}, it can be
 seen that the model follows the real system well in the turning point. However,
 there is a static following error but this was not part of the requirements. The
 model is therefore accepted as suitable. The full set of step and sine responses
-are given in Appendix %TODO: Add this too
+are given in Appendix~\ref{app:identification}
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
@@ -491,3 +501,23 @@ are given in Appendix %TODO: Add this too
     no inductance.}
 \end{figure}
 
+\subsection{Result analysis}
+In summary, a first order model in which the effects of the inductance are
+ignored is used. Friction is modeled using the Karnop model with a stick-slip
+area at low rotational velocities and a viscous friction outside the stick-slip
+zone. The inertia of the model $J$ is $0.0135 \si{\kilogram\second^{2}}$ and the
+viscous friction $d$ is $0.078 \si{\newton\meter\per\radian\second}$. The
+stick-slip threshold $d_v$ is $0.01 \si{\radian\per\second}$ and the static
+Coulumb friction $F_C$ is $0.02 \si{\newton\meter}$. The value of the inertia is
+considered to be feasable. There are no exact measurements available for the
+internal diameter of the roller but an estimation made in Solid Edge gives a
+moment of inertia of $0.022 \si{kilogram\meter^{2}}$. Being a rough estimation,
+it gives an indication on that the inertia estimation is correct. The estimated
+value of $d$ is rather high, considering that there will be roughly 1 Nm of
+viscous friction torque for every 12 rad/s of motor speed. This can be expected
+of the system. Misalignments and the chaindrive most likely adds a significant
+amount of viscous friction. Static torque is comparatively small compared to
+other losses in the system which might be because of the magnitude of the
+viscous friction. The static friction does however have an important effect on
+the system and cannot be ignored. The model fulfills the requirements and is
+considered to be good enough to use in the final system.
