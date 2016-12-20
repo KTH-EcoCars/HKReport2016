@@ -3,16 +3,15 @@
 %Introduction
 \section{Introduction}
 The main goal of the project is to have the car consume the least amount of fuel
-possible.  In the ideal world shall the engines and motors therefore always
-operate within a certain range of their optimal point of operation. The torque
-request from each of the engine/motors should consider this in order to reduce
+possible. Ideally, the engines and motors should always
+operate within a certain range of their optimal point of operation. This should be considered when deciding which mode and what reference speed the car should keep in order to reduce
 fuel consumption. In addition to this goal, there is a number of constraints
 that needs to be considered in addition to the generic fuel consumption
-optimization.  Things like track topography, super-capacitor voltage,
-competitors on the track etc.\ will all weight in on the output request. The
+optimization. Things like track topography, super-capacitor voltage and time and distance until finish will all weight in on the output request. The
 optimization algorithm used in Elbas automatic drive mode was developed as a
 part of a Master Thesis~\cite{liu2016}. The control architecture for this
 optimization consists of two or three layers and the thesis have completed the
+%TODO: two or three?
 top layer speed reference control. This chapter will cover the decentralized
 hierarchical predictive control that is used to calculate the speed trajectory
 and it's implementation.
@@ -20,20 +19,21 @@ and it's implementation.
 \section{Design Decisions}
 The need for an optimization can seem obvious in order to lower fuel
 consumption. However, depending on the tracks topography there might be other
-areas that would need much more consideration and tings like weight, frontal
-area and rolling friction might have a grater impact in some cases. In recent
-years the track of SEM have been more or less flat, with only minor deviations
-in altitude. With this track, the considerations for an automated drive mode
+areas that would need much more consideration and things like weight, frontal
+area and rolling friction might have a greater impact in some cases. In recent
+years the track of SEM has been more or less flat, with only minor deviations
+in altitude. With the previous tracks, the considerations for an automated drive mode
 would more or less only consist of making sure that the voltage level of the
 super capacitor is within it's boundaries. This means that the ICE needs to be
 started when the voltage level gets too low and regenerate energy into the super
-capacitor. The reason for this is that the efficiency of the electrical motors
-exceeds that of the ICE, and in so it will be more efficient to drive Elba with
-the electrical motors.  Once SEM moved to London, where the altitude changes of
+capacitor. %The reason for this is that the efficiency of the electrical motors
+%exceeds that of the ICE, and in so it will be more efficient to drive Elba with
+%the electrical motors.
+Once SEM moved to London, where the altitude changes of
 the track is much more significant, the conditions became different. On top of
 the voltage level of the super capacitor there is also room for optimizing the
 torque requests so that the most efficient propulsion constellation is active at
-all times. It is also nessesary to time the accessible energy so that there is
+all times. It is also necessary to time the accessible energy so that there is
 enough energy in the super capacitor in beginning of an uphill, the possibility
 to regenerate from driving downhill etc.\ all added to the complexity of the
 optimization.  These new levels of complexity makes the optimization become more
@@ -42,18 +42,17 @@ master thesis student who used Elba as an experiment in the
 thesis~\cite{liu2016}.
 
 The Simulink lookup table that was produced from~\cite{liu2016} was dependent on
-the distance traveled on the track and in so there was a real need to get an
-accurate position reading. There was two options, to get an GPS-positioning
+the distance travelled on the track and in so there was a need to get an
+accurate position reading. There were two options, to get a GPS-positioning
 device and get that to talk with the rest of the car, or to use the encoder
 already mounted on the drive shaft. Both had their disadvantages, with the
 encoder reading having the tendency to drift and the inaccuracy of the path
 chosen on the track and the GPS with its CEP of $\pm2.5\textnormal{m}$. When the
 RCP2 was bought it came with an GPS solution already implemented, this made the
 choice of having both of them easier, more can be found in
-Section~\ref{sec:opt_pos_recon}. The next problem arouse was to filer the
+Section~\ref{sec:opt_pos_recon}. The next problem arouse was to filter the
 readings of both the GPS and the encoder to have a reliable positioning source.
-Due to priorities and limited amounts of time, is the filtering currently not
-implemented. 
+Due to priorities and limited amounts of time, the filtering is currently not implemented. 
 
 \section{Constraints}
 The optimization is limited by the constraints of the physical system, meaning that
@@ -78,37 +77,27 @@ track. This yields the need for a position recognition with an accuracy precise
 enough to be able filter it with sufficient results. The track itself, rather
 then time is discretized in order to get a more accurate position in relation to
 the tracks topography. \\
-There is two ways of finding Elba's position on the track. The first way is a dead
+There are two ways of finding Elba's position on the track. The first way is a dead
 reckoning system based on the shaft encoder~\cite[p.~49]{elba2015},
-which calculates the position based on the rotational speed of the shaft. The
+which calculates the position based on the amount of rotations of the shaft. The
 second way is based on the GPS system implemented in the race capture pro 2,
 where the GPS signal is taken from it's raw form and reshaped with a
 Lua-script\footnote{Lua is a dynamically typed scripting language, www.lua.org}
 into a CAN-message that is sent on the CAN-bus.
 
-
 \section{Simulink implementation}
 The complete description of the algorithm is found in~\cite{liu2016} and the
-implementation is based on this thesis.  There is a function for calculating the
-distance traveled from the encoder, this takes the absolute dead reckoning
-position calculated from the shaft encoder and an indicator for a new lap, as
-input. When the indicator for a new lap is pressed, the dead reckoning position
-is zeroed in the function block and the position is calculated and delivered as
-the output. The position should then be sent to a Particle Filter block where
-both the dead reckoning and the GPS position is inputed.  However, the Particle
+implementation is based on this thesis. The position calculated from the encoder readings should be filtered in a Particle Filter block together with GPS readings. However, the Particle
 Filter itself is not implemented at the moment and is considered to be something
 future groups need to work on. These two positioning systems is supposed to be
-used to get the estimation of the distance Elba have traveled on the track.
+used to get the estimation of the distance Elba have travelled on the track.
 
-There are three inputs into the three dimensional optimization lookup-table, the
-first one is time. This input is used to synchronize the different time scales
-in the table and Simulink. The speed input is read from the CAN-bus and is the
-current speed of Elba. The track position is the calculated distance traveled
-on the track from the filter. The output of the block is an acceleration
-reference which needs to be converted to an reference speed since Elba is
+There are three inputs into the three dimensional optimization lookup-table, total time elapsed since the race started, speed of Elba and distance travelled by Elba.%the first one is time. This input is used to synchronize the different time scales in the table and Simulink. The speed input is read from the CAN-bus and is the current speed of Elba. The track position is the calculated distance traveled on the track from the filter. 
+The output of the block is an acceleration reference which needs to be converted to an reference speed since Elba is
 currently controlled with speed request. 
 
 \section{Simulation}
+A race can be simulated with the plant model described in \ref{sec:elba_plant_model} and \cite{elba2015}. This was done for the case with a static reference speed and the optimal speed as calculated by \cite{liu2016}.
 
 \subsection{Static reference speed}\label{sec:opt_sim_static}
 One lap around the track was simulated using the plant model with a constant reference speed of 7 m/s (the slowest allowed speed to be able to complete the race in time). %The resulting speed and vehicle height position can be seen in Figure \ref{fig:optimization_static_speed} 
