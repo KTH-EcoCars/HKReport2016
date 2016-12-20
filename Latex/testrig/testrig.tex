@@ -157,7 +157,7 @@ The dynamic equations for the rollers are
 
 where $J_r$ is the inertia of the rollers and $\omega_r$ is the rotational velocity
 of the roller. The frictional terms are the viscous friction $d_r$ and the
-constant friction $\mu_r$ which is modelled by the Karnop model (??).
+constant friction $\mu_r$ which is modelled by the Karnop model.
 
 Connecting the rollers and the motor is a chain gear. It is modelled as a
 generic gear box. The gearbox model has no internal friction. There is always friction in a
@@ -403,7 +403,8 @@ can overcome the initial friction whereas the simplified model does not. In
     \caption{Sine response for first order model with no inductance or static
     friction.}
 \end{figure}
-The full set of step and sine responses for this model are given in Appendix %TODO: Add appendix
+The full set of step and sine responses for this model are given in
+Appendix~\ref{app:identification}.
 
 \subsubsection{Model 2}
 The previous model showed good correspondance for the time constant but had a
@@ -428,10 +429,13 @@ equal to the internally applied torque from the motor until the static friction
 maximum value is reached. After that, the friction torque is constant. This
 friction model is called the Karnop friction model, see Figure~\ref{fig:karnop}.
 \begin{figure}[H]
-    \label{fig:karnop}
     \centering
-    \includegraphics[width=\textwidth]{./img/testrig_karnop.png}
-    \caption{Karnop friction as a function of speed.}
+    \includegraphics[width=\textwidth]{./img/testrig_karnoplogic.png}
+    \caption{Schematic of Karnop logic. $v$ is velocity, $F_C$ is Karnop
+    friction, $F_a$ is applied force, $d_v$ is velocity threshold and $F_f$ is
+friction force. Image from lecture series in MF2007 Dynamics and motion control
+at KTH, courtesy of Dr Lei Feng.}
+    \label{fig:karnop}
 \end{figure}
 Karnop allows numerical solvers to be used on the model but it also introduces 2 new
 parameters to fit. These are the static Coulumb friction $F_C$ and the velocity
@@ -465,14 +469,16 @@ in Figure~\ref{fig:20vkarnop} and~\ref{fig:5vkarnop}.
     Karnop friction.}
 \end{figure}
 The steady state error has a maximum error of 1.5\% over all three input step
-sizes and the rise time is correct. %TODO: Calculate and add values here
+sizes and the rise time has a maximum deviation of 4.1\%. There is
+an area at low speeds in which the model and the real system do not correlate
+well but the real system and the model converge at the end of the step inputs. 
 
 In the validation step, the model follows the behaviour of the real system well.
 In Figure~\ref{fig:1storder_f_sine2} and~\ref{fig:1storder_f_sine2z}, it can be
 seen that the model follows the real system well in the turning point. However,
 there is a static following error but this was not part of the requirements. The
 model is therefore accepted as suitable. The full set of step and sine responses
-are given in Appendix %TODO: Add this too
+are given in Appendix~\ref{app:identification}
 \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
@@ -489,3 +495,8 @@ are given in Appendix %TODO: Add this too
     no inductance.}
 \end{figure}
 
+\subsection{Result analysis}
+In summary, a first order model in which the effects of the inductance are
+ignored is used. Friction is modeled using the Karnop model with a stick-slip
+area at low rotational velocities and a viscous friction outside the stick-slip
+zone.

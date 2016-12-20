@@ -25,12 +25,12 @@ Using geometrical methods, the area of Elba is estimated to $1\si{m^2}$.
 Using these values in Equation (\ref{eq:testrig_csimple}), the combined air
 resistance term of Elba is calculated to be $C_{tot} = 0.18$.
 
-\chapter{Testrig software}
+\chapter{Testrig software} 
 This section will contain information about the (new) software in the rig.
 
 TODO\@:Encoder software (TLC)
 
-\chapter{Test rig identification results}
+\chapter{Test rig identification results} \label{app:identification}
 In this appendix the full results from the system identification are presented
 in a concise form. Positive direction is defined as the direction the rollers go
 when the car is simulated to travel forward. All step responses are normalized
@@ -112,8 +112,8 @@ The parameters for ths system
 \toprule
 Motor constant & $k_{\phi}$ & 0.127 \si{\radian\per\second} \\
 Motor resistance & $R_A$ & 1.9 \si{\ohm} \\
-Viscous friction & $d$ & 0.86 \si{\newton\meter\per\radian\second} \\
-Total inertia & $J_{tot}$ & 0.15 \si{\kilogram\meter^{2}} \\
+Viscous friction & $d$ & 0.079 \si{\newton\meter\per\radian\second} \\
+Total inertia & $J_{tot}$ & 0.015 \si{\kilogram\meter^{2}} \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -218,12 +218,12 @@ The model evaluation requirement results are shown in Table~\ref{table:evaluatio
 \begin{tabular}{lccl}
 \textbf{Parameter name} & \textbf{Step size} & \textbf{Permissable value} & \textbf{Actual value}\\
 \toprule
-Steady state error & 5 V & $\pm5\si{\percent}$ & $1.5\si{\percent}$\\
-Steady state error & 10 V & $\pm5\si{\percent}$ & $1.1\si{\percent}$\\
-Steady state error & 20 V & $\pm5\si{\percent}$ & $1.1\si{\percent}$\\
-Rise time & 5V & $\pm5\si{\percent}$ & $3.8\si{\percent}$ \\
-Rise time & 10V & $\pm5\si{\percent}$ & $4.1\si{\percent}$ \\
-Rise time & 20V & $\pm5\si{\percent}$ & $2.5\si{\percent}$ \\
+Steady state error & 5 V & $\pm5\si{\percent}$ & $0.91\si{\percent}$\\
+Steady state error & 10 V & $\pm5\si{\percent}$ & $0.81\si{\percent}$\\
+Steady state error & 20 V & $\pm5\si{\percent}$ & $1.0\si{\percent}$\\
+Rise time & 5V & $\pm5\si{\percent}$ & $3.4\si{\percent}$ \\
+Rise time & 10V & $\pm5\si{\percent}$ & $2.1\si{\percent}$ \\
+Rise time & 20V & $\pm5\si{\percent}$ & $2.1\si{\percent}$ \\
 \bottomrule
 \end{tabular}
 \end{center}
