@@ -5,6 +5,24 @@ with the benefit of hindsight. Not everything have been clear from the beginning
 and a lot of lessons have been learned along the way. The easiest way to
 communicate this is to start with the project as a whole and then move into the
 different parts of the project one by one. 
+
+\section{Elba}
+\subsection{Clutch decisions}
+Figure~\ref{fig:elba_capvoltage_regen} shows how the capacitor voltage behaves in the different drive modes.
+The time that the clutch moves when engaging and disengaging is around 7 seconds which is very long. This was decided because then an endpoint is always reached when disengaging, and it is possible to know exactly how long is necessary 
+for a good connection when engaging the clutch. It is clear in this figure that this process consumes a substantial 
+amount of energy, and should preferably be kept as short as possible. To improve the performance, one way could be to implement a current sensor and then know that when the current rises to a certain value, then clutch plate is firmly stuck to the drive shaft.
+
+\subsection{ICE and controlling it}
+Getting the new engine to work in the the car took the most time compared to what we estimated. Starting on ethanol has proven to be a challenge and we later learned that we had to choke a lot. But getting rid of the bevel gear was a major improvement and although there are vibrations when running nothing mechanical broke due to the uneven torque applied from the engine. 
+
+After the competition we added the ability to control on the lambda value which also improved the overall operation of the engine, and made it easier to get running. Still there is a risk of making the spark plugs wet when choking. 
+
+The power output of the new ICE is larger than previous years (even though the cylinder
+ volume is smaller) and this goes against what the previous team recommended us to do. 
+Our motivation is that this is not as big of a problem if the ICE is used in the hill of the track. There the BLDC can both apply positive or negative torque in the hill which 
+has larger demand on torque from the car than a flat track. 
+
 \section{Optimization}
 The optimization was one of the things we really wanted to focus on when the
 project started. The group really thought that the optimization problem was of
@@ -55,7 +73,7 @@ high-level requirements from the rules, for example the requirement that the
 testrig should be able to simulate the full London track. We could then sit down
 as a design team and reduce the abstract user requirements to technical system
 requirements. This separation of roles has helped us set fair requirements that
-set demands on the system design but still allows us to create feasable
+set demands on the system design but still allows us to create feasible
 definitions of done. 
 
 \subsection{Requirements Engineering system}
@@ -78,12 +96,12 @@ The time that the clutch moves when engaging and disengaging is around 7 seconds
 for a good connection when engaging the clutch. It is clear in this figure that this process consumes a substantial 
 amount of energy, and should preferably be kept as short as possible. To improve the performance, one way could be to implement a current sensor and then know that when the current rises to a certain value, then clutch plate is firmly stuck to the drive shaft.
 
-\subsection{Testrig control}
-The desired output of the testrig is the combined external forces that affect
-the car at any given time on a track. By construction, this means that the
-output is the torque on the rollers is the desired output. Because of time
-and hardware constraints, a solution where the current fed to the motor is
-instead controlled. In theory, since the motor torque constant of a DC motor is
+\subsection{Testrig concept design}\label{sec:discussion_testrig_concept}
+As described in~\ref{testrig_design_concept} it was chosen to use rollers for the testrig instead of attaching a motor directly to the driving wheel. This design had a number of benefits. Firstly it is easy to shift between testing the car on the testrig and on a real track. This is an important feature, especially during the competition. Secondly it can be used on other cars, for example Sleipner. It is however more difficult to control since it is not guaranteed that there is no slip between the wheel of the car and the roller. This property can be modeled better in the future and overall the team feels that the current concept design for the testrig has the highest potential in the long run.
+
+\subsection{Testrig control}\label{sec:discussion_testrig_control}
+As described in~\ref{testrig_design_control} the variable monitored to control the torque is current applied to the motor. This choice was made because of time
+and hardware constraints. In theory, since the motor torque constant of a DC motor is
 constant, the torque can be calculated by measuring the current fed to the
 motor if losses in the system are known. In practice, it is difficult to
 predict losses accurately and the convoluted way of calculating the torque adds
@@ -93,18 +111,17 @@ accuracy of the model. An optimal solution would of course be to fit a torque
 sensor to the testrig and run the system on a closed loop with current as the
 control variable and torque as the output. However, under the
 circumstances, the group considers the open loop current control approach to be
-the best choice. Firstly, even with a lower output accuracy, it still gives a
+the best choice. Even with a lower output accuracy, it still gives a
 good proof of concept of the testrig and shows that a rolling highway simulation
-on Elba can be done successfully. Secondly, a good platform for future
-improvement can be built and expanded upon in future projects. It was never
-feasible that a full-featured system could be designed, constructed and
-implemented in such a short time scale, so it was important to build a stable
-expandable platform and we consider that goal accomplished.
+on Elba can be done successfully.
+For future improvement of the testrig, torque control should be considered. It is however not deemed to be of the highest priority. %TODO: omformulera?
+
+%Stryka helt?: Secondly, a good platform for future improvement can be built and expanded upon in future projects. It was never feasible that a full-featured system could be designed, constructed and implemented in such a short time scale, so it was important to build a stable expandable platform and we consider that goal accomplished.
 
 \subsection{Testrig identification}
 As discussed in the previous section, the current control approach is not
-optimal and should not be a final design for the testrig. Therefore, it has been
-important to set accuracy requirements that are good enough. A model with a
+optimal and it should be considered to use another final design for the control of the testrig. Therefore, it has been
+important to set accuracy requirements that are "good enough". A model with a
 good accuracy is needed for the operation of the current setup. This allows the
 concept to be proven and also lets next years team use the testrig as a tool for
 getting preliminary data at the start of the project. However, spending too much
@@ -116,7 +133,7 @@ hardware setup, reliable data for the sine wave input could not be collected and
 had to be roughly estimated from the settings used in the DC motor driver. This
 means that the sine wave input could not be used for more than a way of
 validating model behaviour instead of taking exact measurements.  It is
-difficult to know weather the steady state error for the sine wave input is
+difficult to know whether the steady state error for the sine wave input is
 because of the model or the estimation of the voltage.  It was good however to
 see that the model performed well in the area where the testrig started moving
 from a stand still. 
@@ -140,7 +157,7 @@ Also, the sampling rate was set to 10 Hz. This was the highest that could be
 used by Simulinks external mode to get reliable communication with the
 microcontroller. It does follow the rule of thumb that the sampling rate should
 be 10--30 times faster than the fastest dynamics in the system and the sampled
-input and output was exact enouch so that most dynamics where rather smooth.
+input and output was exact enough so that most dynamics where rather smooth.
 Both the effect of the sampling rate and the quantization of the measurements
 should be investigated mathematically to determine their effect on the data.
 
@@ -154,5 +171,7 @@ knowledge from mechatronics subjects such as Dynamics and Motion control,
 Mechatronics basic course and Embedded systems. It is this synthesis of subjects
 that makes mechatronics what it is and it has been a great experience. 
 
+\subsection{Energy dissipation}
+The energy dissipation is working reasonably well considering it was made during the final part of the project. The biggest flaw at the moment is that the microcontroller crashes due to disturbances, and this can eventually be a safety hazard if the supercapacitor is overcharged to dangerous levels. More work to get rid of or handle the disturbances better is needed. Extra safety features could also be included, which prevents the supercapacitor from getting overcharged. 
 
-\section{Conclusion}
+The power supply will rarely be used, since the accumulated energy in the  supercapacitor will in most casesbe enough to simulate downhills. Energy in the supercapacitor is also used for powering the the ESCON driver as well as the microcontroller, which is good since the generated energy is used as efficiently as possible. 
