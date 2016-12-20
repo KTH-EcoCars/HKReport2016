@@ -1,5 +1,17 @@
 \chapter{Testrig}
 \section{Introduction}
+<<<<<<< HEAD
+When designing a complex system such as a hybrid vehicle, continuously being able to test
+the system is important in order to validate that the requirements are met and to verify
+the models. To be able to do a full system test, the car has to be physically run on a
+track. This can be cumbersome, or in the case of the London track, impossible at times.
+Therefore, there was a decision to design and build a testrig.  During the design process
+have the V-model approach been used with a set of live requirements and continuous unit
+and integration testing. The overall goal is to not only be able to do a faithful
+simulation of the EcoCar track in London, but to be able to simulate any track (with
+certain limitations on power and speed demands) to the test rig and simulations on the
+car.
+=======
 When designing a complex system such as a hybrid vehicle, continuously being
 able to test the system is important to validate that the requirements are met
 and to verify the models. To be able to do a full system test, the car has to be
@@ -7,45 +19,94 @@ physically run on a track. This can be cumbersome, or in the case of the London
 track, impossible at times. Therefore, a test rig is designed and built. The
 design process uses the V-model approach with a set of live requirements and
 continuous unit and integration testing. The overall goal is to not only be able to do a faithful simulation of the SEM-track in London, but to be able to supply any track (with certain limitations on power and speed demands) to the test rig.
+>>>>>>> 1eb69ac2f21f48ab8c06d8515384016804024178
 
 \section{Requirements}
-The requirements on the test rig are designed to capture the essential demands
-on the system. Firstly, the high level User requirements are set. These are set
-to capture the problem and to describe the goal of designing the
-system~\cite{ibm_req}. The User requirements are then developed into the System
-requirements that describe the limitations and demands on the system and its
-subsystems.
+The requirements on the test rig are designed to capture the essential demands on the
+system. Firstly, the high level user requirements are set. These are set to capture the
+problem and to describe the goal of designing the system~\cite{ibm_req}. The User
+requirements are then used to develop the System requirements that describes the
+limitations and demands on the system and its subsystems.
 
 \section{Design decisions}
-During the design of the testrig the team faced a few issues with multiple possible solutions. The most impactful and important decisions are briefly explained here.
+When designing the testrig, there were a number of issues, each with multiple solutions.
+The ones with the most impact and highest importance are explained in this section.
 
 \subsection{Concept design}\label{sec:testrig_design_concept}
-Two basic concepts for the testrig were incepted. The first concept was to remove the driving wheel and attach a motor that was to apply the proper torque at all times to simulate the forces that would act on Elba in the real world.
-
-The second concept was to construct two rollers that Elba would stand on with its driving wheel and apply a torque to one of the rollers via a DC motor.
-
-The team decided to continue working with the roller concept. Reasons for this are explained further in \ref{sec:discussion_testrig_concept}.
+There were two basic concepts that were discussed, the first concept was to connect the
+testrig to the car by removing the wheel and bult it on to the drive shaft of Elba.
+The second concept was to construct some sort of rollers that Elbas driving wheel would be
+placed on and apply a torque via a DC motor to the rollers. The second concept was chosen
+and the work continued with the roller concept. Reasons for this are explained further in
+Section~\ref{sec:discussion_testrig_concept}.
 
 \subsection{Regeneration}
-Another problem that needed a solution was the handling of regenerated current. As seen in Figure \ref{fig:testrig_negative_forces} the forces produced by the testrig will at almost all points of the track be opposite to Elbas travelling direction. This means that the DC motor will work as a generator most of the time, since the torque and speed will be in opposite directions. Many different ideas of ways to solve this problem were tossed around, but all with the fundamental idea to have power resistors connected where excess energy could be dissipated. One idea was to manually switch to dissipating energy when needed. The final solution included a supercapacitor to store energy temporarily to be used when simulating a downhill, and a way of automatically burning excess when the supercapacitor was fully charged. The complete setup is explained with greater detail in \ref{sec:testrig_hardware}.
+Another problem that needed a solution was the handling of regenerated current. As seen in
+Figure~\ref{fig:testrig_negative_forces} the forces produced by the testrig will at almost
+all points of the track need to be opposite to that of Elbas rolling direction. This means
+that the DC motor will work as a generator most of the time, since the torque from Elba
+and the Testrig be in opposite directions. Many different ideas of ways to solve this
+problem of how to dissipate the energy, all with the fundamental idea to use power
+resistors in order to transfer the excess energy into heat were discussed. Both where a
+manual switch could be used to lead the transfer the energy when needed. The final
+solution included a super capacitor to store energy temporarily to be used when simulating
+a downhill, and a way of automatically burning excess when the super capacitor was fully
+charged. The complete setup is explained with greater detail in
+Section~\ref{sec:testrig_hardware}.
 
 \subsection{Control}\label{sec:testrig_design_control}
-The desired output of the testrig is the combined external forces that affect the car at any given time on a track. This means that the output to control is the torque on the rollers. The team chose between two ways of doing this. The first was to measure the torque directly using an appropriate sensor. The second idea was to measure the current applied to the motor and calculate the torque from the current. 
-
-The team decided to use current control. Further explanation as to why this was chosen can be seen in \ref{sec:discussion_testrig_control}.
+The desired output of the testrig is the combined external forces that affect the car at
+any given time on a track. This means that the output to control is the torque on the
+rollers. The team chose between two ways of doing this. The first was to measure the
+torque directly using an appropriate sensor. The second idea was to measure the current
+applied to the motor and calculate the torque from the current. 
+The team decided to use current control. Further explanation as to why this was chosen can
+be seen in Section~\ref{sec:discussion_testrig_control}.
 
 \section{Hardware}\label{sec:testrig_hardware}
-The testrig is composed of two rollers mounted on a metal frame together with a
-DC motor and an encoder to keep track of the speed
-of the motor. The motor is connected to the rollers by sprockets and chain with
-a gearing ratio of two. A model of the system can be seen in Figure \ref{fig:testrig_hardware}.
-
+The testrig is composed of two rollers mounted on a metal frame together with a DC motor
+and an encoder to keep track of the speed of the motor. The motor is connected to the
+rollers by sprockets and chain with a gearing ratio of two. A model of the system can be
+seen in Figure~\ref{fig:testrig_hardware}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{./img/testrig_hardware.png}
-    \caption{CAD model of the testrig without the chainguard for increased visibility.}
+    \caption{CAD model of the testrig without the chain guard for increased visibility.}
     \label{fig:testrig_hardware}
 \end{figure}
+<<<<<<< HEAD
+To control the DC motor an Arduino Mega 2560 microcontroller calculates the current that
+should be applied to the motor (explained further in Section~\ref{sec:cardynamics} and
+Section~\ref{sec:rigdynamics}), this reference signal is used by the ESCON driver to control the
+current in a local feedback loop.
+
+The current generated by the DC motor is stored in a supercapacitor, connected in parallel
+with motor driver. The microcontroller monitors this voltage via a voltage divider since
+the input voltage to an Arduino Mega 2560 can be max $5\textnormal{V}$. If more energy is
+generated than the supercapacitor can handle, the microcontroller will close a relay and
+the current will go between six parallel power resistors and ground, and it will remain
+closed until the supercapacitor has discharged to a lower limit. Then will the
+microcontroller open the relay and make the supercapacitor able to recharge again.
+
+A problem that exists with the Arduino microcontroller is that it is exposed to
+disturbances from the motors and ICE\@. These disturbances have at times made the
+microcontroller crash and restart, which of course affects its abilities to control the
+energy dissipation from the supercapacitor. To ensure that the supercapacitor does not
+exceed the maximum rated voltage of 48 volt the voltage is monitored by a person with an
+externally applied voltmeter. If the voltage rises above 48 volt due to a crashed
+microcontroller an emergency stop button is pressed which inhibits the testrig motor
+driver from generating energy. 
+
+The upper level of the voltage in the supercapacitor, where the microcontroller should
+close the relay, was decided by the specifications of supercapacitor to be no more than
+$48\textnormal{V}$. To have some margin of error the upper limit was set to 47 V. The
+lower limit of the voltage should not be too low since the motor will have different
+dynamics depending on voltage applied. Also it shouldn't be too close to the upper limit
+in order to avoid the relay to constantly be turned on and off. It was decided to set the
+lower limit to $45\textnormal{V}$. The system is connected to a $45\textnormal{V}$
+voltage supply via a rectifier to avoid generated current to flow into the power supply.
+A basic schematic of the setup can be seen in Figure~\ref{fig:testrig_schematic}.
+=======
 
 To control the DC motor an Arduino Mega 2560 microcontroller
 calculates what current should be applied to the motor (explained further in section \ref{sec:cardynamics} and \ref{sec:rigdynamics}), this reference signal
@@ -60,12 +121,12 @@ The upper level when the microcontroller should close the relay was decided by t
 A basic schematic of the setup can be seen in
 Figure~\ref{fig:testrig_schematic}.
 
+>>>>>>> 1eb69ac2f21f48ab8c06d8515384016804024178
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./img/testrig_schematic.png}
     \caption{Schematic of testrig wiring to control the voltage supplied to the driver.}\label{fig:testrig_schematic}
 \end{figure}
-
 \section{Car dynamics}\label{sec:cardynamics}
 The calculations in this section are in many ways the same as the calculations
 given in the previous teams report in~\cite{elba2015}. Though some
@@ -126,7 +187,7 @@ calculated in the microcontroller and rotational acceleration is derived from
 rotational speed. Using the roller radius, $r_{r}$, the linear acceleration
 is calculated.
 
-Rewriting Equation~\ref{eq:testrig_cardynamics}, \ref{eq:drag} and the friction force gives the
+Rewriting Equation~\ref{eq:testrig_cardynamics} and~\ref{eq:drag} and the friction force gives the
 desired linear testrig simulation force on the right hand side,
 \begin{equation} \label{eq:simulationforce}
     F_{tr} = m\ddot{x} + mg\sin{\alpha} + C_{tot}\dot{x}^2 + F_{\mu}.
@@ -166,7 +227,7 @@ Connecting the rollers and the motor is a chain gear. It is modelled as a
 generic gear box. The gearbox model has no internal friction. There is always friction in a
 chain gear but it is expected that this friction will be incorporated in the
 total system model and the friction free representation is deemed adequate.
-Using Equation (\ref{eq:testrig_rollerdynamics}) and (motor model) along with
+Using Equation~\ref{eq:testrig_rollerdynamics} and (motor model) along with
 the gearbox model, the total testrig dynamic model becomes
 
 \begin{equation} \label{eq:testrig_totaldynamics} 
@@ -395,7 +456,7 @@ can overcome the initial friction whereas the simplified model does not. In
     \end{subfigure}
     \begin{subfigure}[H]{0.48\textwidth}
     \includegraphics[width=\textwidth]{./img/testrig_2Vsine_no_i_no_fric_zoom.eps}
-    \caption{Magnification on turning point.}
+    \caption{Magnification on turning point.}\label{fig:1storder_sine2z}
     \end{subfigure}
     \caption{Sine response for first order model with no inductance or static
     friction.}\label{fig:1storder_sine2z}
@@ -428,11 +489,10 @@ friction model is called the Karnop friction model, see Figure~\ref{fig:karnop}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./img/testrig_karnoplogic.png}
-    \caption{Schematic of Karnop logic. $v$ is velocity, $F_C$ is Karnop
-    friction, $F_a$ is applied force, $d_v$ is velocity threshold and $F_f$ is
-friction force. Image from lecture series in MF2007 Dynamics and motion control
-at KTH, courtesy of Dr Lei Feng.}
-    \label{fig:karnop}
+    \caption{Schematic of Karnop logic. $v$ is velocity, $F_C$ is Karnop friction, $F_a$
+    is applied force, $d_v$ is velocity threshold and $F_f$ is friction force. Image from
+lecture series in MF2007 Dynamics and motion control at KTH, courtesy of Dr Lei
+Feng.}\label{fig:karnop}
 \end{figure}
 Karnop allows numerical solvers to be used on the model but it also introduces 2 new
 parameters to fit. These are the static Coulomb friction $F_C$ and the velocity
