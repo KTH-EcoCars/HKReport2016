@@ -5,7 +5,33 @@ with the benefit of hindsight. Not everything have been clear from the beginning
 and a lot of lessons have been learned along the way. The easiest way to
 communicate this is to start with the project as a whole and then move into the
 different parts of the project one by one. 
-
+\section{Optimization}
+The optimization was one of the things we really wanted to focus on when the
+project started. The group really thought that the optimization problem was of
+real importance due to the new track in London. Even so to the extent that the
+state of the art report that the group wrote during the spring semester was
+dedicated to the optimization problem. Once the report was finished there was a
+lot to work on Elba in order to get the car ready for London. This in
+combination with the fact that the thesis project was not ready with the lookup
+table until a couple of days before the race made the work with the optimization
+stagnate. There was simply no time to implement the optimization before it was
+time to leave for London. Once we got back from the summer brake the main focus
+was on correcting the errors that were found during the race and to get Elba
+fully functional. There was also an addition to the workload when the project of
+building the Testrig started. There was however work done with getting the
+positioning system to work, when the RCP2 arrived the was a lot of work put into
+getting the GPS signal to be sent over CAN\@. Once this was accomplished the
+implementation structure was also developed and the structure of the system is
+completed with all the signals and blocks in the right place.  The blocks
+themselves is only working to some degree and retrieving the GPS signal from the
+CAN and transferring this to Simulink is not yet completed. The particle filter
+will also need to be developed were both the encoder and GPS can contribute to
+getting the correct distance traveled on the track. We still believe that the
+optimization is of great importance and that a working implementation will
+improve the performance in the race. This is also what the simulations is
+showing when comparing the results from Section~\ref{sec:opt_sim_static} to the
+results in Section~\ref{sec:opt_sim_static}.
+\section{Testrig}
 \subsection{Requirements}
 Having good requirements gives a common goal for everyone to work towards. At
 the start of the project, not much thought was given to setting requirements
@@ -78,7 +104,7 @@ expandable platform and we consider that goal accomplished.
 \subsection{Testrig identification}
 As discussed in the previous section, the current control approach is not
 optimal and should not be a final design for the testrig. Therefore, it has been
-important to set accuracy requirements that are "good enough". A model with a
+important to set accuracy requirements that are good enough. A model with a
 good accuracy is needed for the operation of the current setup. This allows the
 concept to be proven and also lets next years team use the testrig as a tool for
 getting preliminary data at the start of the project. However, spending too much
