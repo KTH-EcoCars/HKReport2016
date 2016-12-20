@@ -20,6 +20,6 @@
 # To avoid merge crashes
 *.pdf
 
-#ignoring ignoring appendixes ;)
+#ignoring ignoring appendixces ;)
 !Latex/appendices/*.pdf
 
