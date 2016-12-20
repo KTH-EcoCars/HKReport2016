@@ -209,6 +209,28 @@ The responses to sine wave inputs are presented in Figures~\ref{fig:sin22}-\ref{
     \end{subfigure}
     \caption{System response to a sine wave with amplitude 16 V.}
 \end{figure}
+
+The model evaluation requirement results are shown in Table~\ref{table:evaluationreqs}.
+\begin{table}[H]
+\caption{Evaluation of results for the testrig model.}
+\label{table:evaluationreqs}
+\begin{center}
+\begin{tabular}{lccl}
+\textbf{Parameter name} & \textbf{Step size} & \textbf{Permissable value} & \textbf{Actual value}\\
+\toprule
+Steady state error & 5 V & $\pm5\si{\percent}$ & $1.5\si{\percent}$\\
+Steady state error & 10 V & $\pm5\si{\percent}$ & $1.1\si{\percent}$\\
+Steady state error & 20 V & $\pm5\si{\percent}$ & $1.1\si{\percent}$\\
+Rise time & 5V & $\pm5\si{\percent}$ & $3.8\si{\percent}$ \\
+Rise time & 10V & $\pm5\si{\percent}$ & $4.1\si{\percent}$ \\
+Rise time & 20V & $\pm5\si{\percent}$ & $2.5\si{\percent}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
 The parameters for this system are presented in Table~\ref{table:model2table}.
 \begin{table}[H]
 \caption{Parameters for motor model with no inductance and friction.}

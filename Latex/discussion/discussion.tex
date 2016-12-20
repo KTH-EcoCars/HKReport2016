@@ -1,7 +1,7 @@
 \chapter{Discussion}
 The purpose of this section is to give the authors thoughts and considerations
 on how the different design decisions and project as a whole have turned out
-with the benefit of hindsight. Not everything have been clear from the begining
+with the benefit of hindsight. Not everything have been clear from the beginning
 and a lot of lessons have been learned along the way. The easiest way to
 communicate this is to start with the project as a whole and then move into the
 different parts of the project one by one. 
@@ -40,12 +40,12 @@ implicit to the problems to be solved and an estimation of what was acceptable
 end goals where made up as we went along in the project. The lack of real
 requirements led to difficulties when the projects from the other subgroups
 where incorporated into the final design of the car. For example, the clutch
-improvements that were made by the machine design team did not meat the
+improvements that were made by the machine design team did not meet the
 expectations of the mechatronics team i.e.\ our implicit requirements were not
 the same. Had a predefined set of requirements been set up beforehand, the
-consolidation and evalution of the design would have been easiier.
+consolidation and evaluation of the design would have been easier.
 
-To make result evalutation easier, and to get a clearer definition of done,
+To make result evaluation easier, and to get a clearer definition of done,
 requirements where set before work on the testrig started. There were some
 difficulties with this since we were customer and the supplier, i.e.\ user and
 developer. To get a clear distinction between the roles, it was decided that as
@@ -68,9 +68,15 @@ course, but we all found it cumbersome to use and too packed with features for
 what we needed. Since only a core set of features was needed, an alternative
 path was taken. Having only the essential features and being able to add new
 ones as they are needed has been valuable for the team. Even though not everyone
-in the team has experiance with HTML programming, the use of Markdown along with
+in the team has experience with HTML programming, the use of Markdown along with
 a standard template for requirements still allow everyone to write new and edit
 requirements. 
+
+\subsection{Clutch decisions}
+Figure~\ref{fig:elba_capvoltage_regen} shows how the capacitor voltage behaves in the different drive modes.
+The time that the clutch moves when engaging and disengaging is around 7 seconds which is very long. This was decided because then an endpoint is always reached when disengaging, and it is possible to know exactly how long is necessary 
+for a good connection when engaging the clutch. It is clear in this figure that this process consumes a substantial 
+amount of energy, and should preferably be kept as short as possible. To improve the performance, one way could be to implement a current sensor and then know that when the current rises to a certain value, then clutch plate is firmly stuck to the drive shaft.
 
 \subsection{Testrig control}
 The desired output of the testrig is the combined external forces that affect
@@ -79,19 +85,19 @@ output is the torque on the rollers is the desired output. Because of time
 and hardware constraints, a solution where the current fed to the motor is
 instead controlled. In theory, since the motor torque constant of a DC motor is
 constant, the torque can be calculated by measuring the current fed to the
-motor if lossses in the system are known. In practice, it is difficult to
+motor if losses in the system are known. In practice, it is difficult to
 predict losses accurately and the convoluted way of calculating the torque adds
 another layer of possible errors. It also puts rather high demands on how well
-the system is modeled; the torque estimation can never be better than the
+the system is modelled; the torque estimation can never be better than the
 accuracy of the model. An optimal solution would of course be to fit a torque
 sensor to the testrig and run the system on a closed loop with current as the
 control variable and torque as the output. However, under the
 circumstances, the group considers the open loop current control approach to be
 the best choice. Firstly, even with a lower output accuracy, it still gives a
 good proof of concept of the testrig and shows that a rolling highway simulation
-on Elba can be done succesfully. Secondly, a good platform for future
+on Elba can be done successfully. Secondly, a good platform for future
 improvement can be built and expanded upon in future projects. It was never
-feasable that a full-featured system could be designed, constructed and
+feasible that a full-featured system could be designed, constructed and
 implemented in such a short time scale, so it was important to build a stable
 expandable platform and we consider that goal accomplished.
 
@@ -147,4 +153,6 @@ and setup the electrical system to get the data. We have also had to use
 knowledge from mechatronics subjects such as Dynamics and Motion control,
 Mechatronics basic course and Embedded systems. It is this synthesis of subjects
 that makes mechatronics what it is and it has been a great experience. 
+
+
 \section{Conclusion}
