@@ -503,4 +503,19 @@ are given in Appendix~\ref{app:identification}
 In summary, a first order model in which the effects of the inductance are
 ignored is used. Friction is modeled using the Karnop model with a stick-slip
 area at low rotational velocities and a viscous friction outside the stick-slip
-zone.
+zone. The inertia of the model $J$ is $0.0135 \si{\kilogram\second^{2}}$ and the
+viscous friction $d$ is $0.078 \si{\newton\meter\per\radian\second}$. The
+stick-slip threshold $d_v$ is $0.01 \si{\radian\per\second}$ and the static
+Coulumb friction $F_C$ is $0.02 \si{\newton\meter}$. The value of the inertia is
+considered to be feasable. There are no exact measurements available for the
+internal diameter of the roller but an estimation made in Solid Edge gives a
+moment of inertia of $0.022 \si{kilogram\meter^{2}}$. Being a rough estimation,
+it gives an indication on that the inertia estimation is correct. The estimated
+value of $d$ is rather high, considering that there will be roughly 1 Nm of
+viscous friction torque for every 12 rad/s of motor speed. This can be expected
+of the system. Misalignments and the chaindrive most likely adds a significant
+amount of viscous friction. Static torque is comparatively small compared to
+other losses in the system which might be because of the magnitude of the
+viscous friction. The static friction does however have an important effect on
+the system and cannot be ignored. The model fulfills the requirements and is
+considered to be good enough to use in the final system.
