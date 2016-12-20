@@ -115,9 +115,46 @@ one requirement may affect several other requirements. Therefore, it is
 important to have a requirement software that makes it easy to track the
 dependencies between the different requirements.
 
-% More info on requirement system
+\subsection{Requirements Engineering system}
+When evaluating which software to use to store the requirements,
+special requirements are made for how this software should work. It is
+important to have traceability, both between requirements and to who has made
+changes, and  it is also important that the system is easy to use. 
+Everyone in the team has used IBM Rational Doors for requirements
+engineering in a previous course, but have all found it cumbersome to use and too
+packed with features for what is needed for the project. Since only a core set
+of features is
+needed, an alternative path is taken. A language such as Hyper Text Markup
+Language, or HTML, has document layout built in and also allows for easy linking
+within the document (or webpage). An HTML document therefore allows making
+requirement documents with
+traceability. To make the syntax of writing new requirements easier, a Markdown
+parser is used. Markdown \url{http://daringfireball.net/projects/markdown/} is
+a simple text-based language that is parsed into an HTML document that can be
+viewed either in a browser or as a PDF document. 
 
-% Draft on design desitions
+To make writing new requirements easier, a simple webpage that can be run
+locally on any computer was written. The webpage has input boxes where entries
+such as requirement name and dependencies can be entered. The data from the
+boxes is then parsed with Javascript to create a standardized requirement that
+can be copied and pasted into the requirements document. The layout of the
+requirement generator webpage is displayed in Figure~\ref{fig:reqgenerator}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./img/reqgenerator.png}
+    \caption{Requirement generator webpage.}
+    \label{fig:reqgenerator}
+\end{figure}
+
+Having a standardized way of writing the requirements reduces the risk for
+syntax errors and the added abstraction allows the user to focus on the content.
+Some automation is also built in to the system, such as automatically adding
+creation date and having a drop-down menu with team member names. Basing the
+requirements system on HTML also allows all features of HTML to be added as
+needed, creating an extensible platform that can be built upon. Should there be
+a need, Javascript could be added to the requirement document, adding dynamic
+features such as buttons, automatic dependency detection and much more.
+
 \section{Design Decisions}
 When developing a product there might be multiple solutions to a problem, 
 where the solutions might (or might not) fulfil relevant requirements. 
